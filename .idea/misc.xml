@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/SimpleAntlrMavenProject/array-example/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/domain-search-inventory/inventory/v2/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/catalog/v3/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/catalog/v3/biz/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/catalog/v3/common/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/catalog/v3/datamodel/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/catalog/v3/impl/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/catalog/v3/intf/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/catalog/v3/tests/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/catalog/v3/war/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/domain-search-inventory/inventory/v2/common/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/domain-search-inventory/inventory/v2/datamodel/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/domain-search-inventory/inventory/v2/impl/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/domain-search-inventory/inventory/v2/intf/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-catalog/domain-search-catalog/domain-search-inventory/inventory/v2/war/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-inventory/domain-search-inventory/inventory/v2/common/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-inventory/domain-search-inventory/inventory/v2/datamodel/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-inventory/domain-search-inventory/inventory/v2/impl/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-inventory/domain-search-inventory/inventory/v2/intf/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-inventory/domain-search-inventory/inventory/v2/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-inventory/domain-search-inventory/inventory/v2/tests/pom.xml" />
+        <option value="E:/work/stubhub/domain-search-inventory/domain-search-inventory/inventory/v2/war/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

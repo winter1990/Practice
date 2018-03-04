@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="antlrfun" target="1.7" />
+      <module name="array-init" target="1.7" />
+      <module name="com.stubhub.domain.search.catalog.v3" target="1.5" />
+      <module name="com.stubhub.domain.search.catalog.v3.biz" target="1.5" />
+      <module name="com.stubhub.domain.search.catalog.v3.common" target="1.5" />
+      <module name="com.stubhub.domain.search.catalog.v3.datamodel" target="1.5" />
+      <module name="com.stubhub.domain.search.catalog.v3.impl" target="1.5" />
+      <module name="com.stubhub.domain.search.catalog.v3.intf" target="1.5" />
+      <module name="com.stubhub.domain.search.catalog.v3.tests" target="1.5" />
+      <module name="com.stubhub.domain.search.catalog.v3.war" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2 (1)" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.common" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.common (1)" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.datamodel" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.datamodel (1)" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.impl" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.impl (1)" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.intf" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.intf (1)" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.tests" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.war" target="1.5" />
+      <module name="com.stubhub.domain.search.inventory.v2.war (1)" target="1.5" />
+      <module name="personable" target="1.5" />
+      <module name="TheoryOfComputation" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
