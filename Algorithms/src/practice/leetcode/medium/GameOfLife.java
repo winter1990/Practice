@@ -1,4 +1,4 @@
-package practice.leetcode;
+package practice.leetcode.medium;
 
 /*
 [2nd bit, 1st bit] = [next state, current state]
