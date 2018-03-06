@@ -1,7 +1,5 @@
 package practice.algorithmAndOOD.AlgoAndDS;
 
-import practice.algorithmAndOOD.OOD.Employee;
-
 import java.util.Arrays;
 
 public class ComparableExmaple {
