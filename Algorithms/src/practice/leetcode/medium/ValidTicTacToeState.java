@@ -20,7 +20,7 @@ public class ValidTicTacToeState {
         int countX = 0;
         int countO = 0;
         for (int i = 0; i < 3; i++) {
-            
+
         }
     }
 }
