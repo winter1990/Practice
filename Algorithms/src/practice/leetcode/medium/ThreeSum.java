@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public class ThreeSum {
+    // time O(n^2) space O(1)
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new LinkedList<>();
         if (nums == null || nums.length < 3) {
@@ -25,10 +26,11 @@ public class ThreeSum {
             while (j < k) {
                 if (nums[i] + nums[j] + nums[k] == 0) {
                     List<Integer> list = new LinkedList<>();
-                    list.add(nums[i]);
-                    list.add(nums[j]);
-                    list.add(nums[k]);
-                    res.add(list);
+//                    list.add(nums[i]);
+//                    list.add(nums[j]);
+//                    list.add(nums[k]);
+//                    res.add(list);
+                    res.add(Arrays.asList(nums[i], nums[j], nums[k]));
                     j++;
                     k--;
                     while (j < k && nums[j] == nums[j - 1]) j++;
@@ -48,7 +50,8 @@ public class ThreeSum {
      * set i and j, binary search k in sub array [j+1,len-1]
      * how to handle the duplicate numbers:
      * - compare num[i-1] and num[i] -> no duplicate i and j
-     * -
+     *
+     * O(n^2 * logn)
      */
     public List<List<Integer>> threeSum1(int[] nums) {
         List<List<Integer>> res = new LinkedList<>();
@@ -85,5 +88,19 @@ public class ThreeSum {
         } else {
             return binarySearch(nums, mid + 1, right, target);
         }
+    }
+
+    private int bs(int[] nums, int left, int right, int target) {
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return -1;
     }
 }

@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 /**
  * sort the array
- * i [0,n-3]
- * j,k start and end
- * update res
+ * the range of i: [0,n-2)
+ * j=i+1,k=len-1 start and end index
+ * sum up the 3 numbers and compare with target, calculate absolute value
  *
  * initial value of res
  * if res=MAX, res-target>MAX easy to get overflow.
@@ -20,20 +20,22 @@ public class ThreeSumClosest {
         }
         Arrays.sort(nums);
         int len = nums.length;
-        int res = Integer.MAX_VALUE / 2;
+        int res = nums[0] + nums[1] + nums[len - 1];
         for (int i = 0; i < len - 2; i++) {
             int j = i + 1;
             int k = len - 1;
             while (j < k) {
-                int val = nums[i] + nums[j] + nums[k];
-                if (val == target) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == target) {
                     return target;
-                } else if (val > target) {
+                } else if (sum > target) {
                     k--;
+                    while (j < k && nums[k] == nums[k + 1]) k--;
                 } else {
                     j++;
+                    while (j < k && nums[j] == nums[j - 1]) j++;
                 }
-                res = Math.abs(val - target) < Math.abs(res - target) ? val : res;
+                res = Math.abs(sum - target) < Math.abs(res - target) ? sum : res;
             }
         }
         return res;

@@ -4,11 +4,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * what is valid format:
- * ((())) ()) as long as left parenthesis is more than right
- * use one counter, ( c++ ) c--, so c>0 is valid
- * what ds:
- *
+ * n=3, ()()() (()()) (())() ((()))
+ * valid format of parentheses: number of left >= number of right parentheses
+ * recursively build the string:
+ * - base case: right > left, no more left can be added
+ * - helper(left, right, string, result set), (n,0,"",res)
+ * - if left>0, (n-1,right+1,s+(,res)
+ * - if right>0, (n,right-1,s+), res)
  */
 public class GenerateParentheses {
     public List<String> generateParenthesis(int n) {

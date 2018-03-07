@@ -26,12 +26,7 @@ public class FourSum {
                 while (m < n) {
                     int sum = nums[i] + nums[j] + nums[m] + nums[n];
                     if (sum == target) {
-                        List<Integer> list = new LinkedList<>();
-                        list.add(nums[i]);
-                        list.add(nums[j]);
-                        list.add(nums[m]);
-                        list.add(nums[n]);
-                        res.add(list);
+                        res.add(Arrays.asList(nums[i], nums[j], nums[m], nums[n]));
                         m++;
                         n--;
                         while (m < n && nums[m] == nums[m - 1]) m++;
