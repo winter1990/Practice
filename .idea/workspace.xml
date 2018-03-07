@@ -5,32 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e53b3763-d738-4d03-9ce0-c9e3a3d8327f" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Algorithms/src/practice/leetcode/ez/RotatedDigits.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Algorithms/src/practice/leetcode/medium/CustomSortString.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Algorithms/src/practice/leetcode/medium/DesignTicTacToe.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Algorithms/src/practice/leetcode/medium/EliminationGame.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Algorithms/src/practice/leetcode/medium/FlattenNestedListIterator.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Algorithms/src/practice/leetcode/medium/IsSubsequence.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Algorithms/src/practice/leetcode/medium/NumberOfMatchingSubsequences.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Algorithms/src/practice/leetcode/medium/ValidTicTacToeState.java" afterPath="$PROJECT_DIR$/Algorithms/src/practice/leetcode/medium/ValidTicTacToeState.java" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/Test.class" afterPath="$PROJECT_DIR$/out/production/Test/Test.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/algorithmAndOOD/AlgoAndDS/Graph.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/algorithmAndOOD/AlgoAndDS/Graph.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/algorithmAndOOD/AlgoAndDS/KMP.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/algorithmAndOOD/AlgoAndDS/KMP.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/algorithmAndOOD/OOD/main.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/algorithmAndOOD/OOD/main.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/algorithmAndOOD/threadingAndMemory/ConcurrencyLockExample.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/algorithmAndOOD/threadingAndMemory/ConcurrencyLockExample.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/algorithmAndOOD/threadingAndMemory/FutureTaskExample.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/algorithmAndOOD/threadingAndMemory/FutureTaskExample.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/interview/TestIndices.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/interview/TestIndices.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/interview/WilliamsSonomaCodingChallenge.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/interview/WilliamsSonomaCodingChallenge.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/leetcode/ez/CountAndSay.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/leetcode/ez/CountAndSay.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/leetcode/ez/GameOfLife.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/leetcode/ez/GameOfLife.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/leetcode/ez/LongestCommonPrefix.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/leetcode/ez/LongestCommonPrefix.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/leetcode/ez/PaintFence.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/leetcode/ez/PaintFence.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/leetcode/ez/PalindromeLinkedList.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/leetcode/ez/PalindromeLinkedList.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/leetcode/medium/CourseSchedule_II.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/leetcode/medium/CourseSchedule_II.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/leetcode/medium/WordDictionary.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/leetcode/medium/WordDictionary.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/practice/leetcode/medium/WordDistance.class" afterPath="$PROJECT_DIR$/out/production/Test/practice/leetcode/medium/WordDistance.class" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/SimpleAntlrMavenProject/array-example/target/" />
@@ -76,7 +51,7 @@
       <file leaf-file-name="DesignTicTacToe.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Algorithms/src/practice/leetcode/medium/DesignTicTacToe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
+            <state relative-caret-position="484">
               <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
               <folding />
             </state>
@@ -593,7 +568,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="711" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -603,9 +577,9 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33809" sideWeight="0.50208336" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2078125" sideWeight="0.49342105" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29264477" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29264477" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2974753" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2973396" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22578125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1460,7 +1434,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Algorithms/src/practice/leetcode/medium/DesignTicTacToe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
+        <state relative-caret-position="484">
           <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
           <folding />
         </state>
