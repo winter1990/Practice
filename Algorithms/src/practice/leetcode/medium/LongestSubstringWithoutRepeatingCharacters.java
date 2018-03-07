@@ -1,10 +1,16 @@
 package practice.leetcode.medium;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class LongestSubstringWithoutRepeatingCharacters {
-    public static int lengthOfLongestSubstring(String s) {
+    // use set to store visited chars
+    // iterate string, if contains remove the char and all before it
+    // two indices needed, start position and current position
+    // time O(2n), space O(n)
+    public int lengthOfLongestSubstring(String s) {
         if (s == null || s.length() == 0) {
             return 0;
         }
@@ -29,8 +35,30 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return max;
     }
 
+    // hash map to track the index last occurrence, <Character,Integer>
+    // need second index to track the start position, start from 0
+    // if not contain,put<>
+    // if contains, update start pos, abcbdce, max(index,map.get(char)+1)
+    // update max
+    public int lengthOfLongestSubstring1(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        Map<Character, Integer> map = new HashMap<>();
+        int max = 0;
+        for (int i = 0, j = 0; i < s.length(); i++) {
+            if (map.containsKey(s.charAt(i))) {
+                j = Math.max(j, map.get(s.charAt(i)) + 1);
+            }
+            map.put(s.charAt(i), i);
+            max = Math.max(max, i - j + 1);
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
-        String s = "abcabcbb";
-        System.out.print(lengthOfLongestSubstring(s));
+        LongestSubstringWithoutRepeatingCharacters ls = new LongestSubstringWithoutRepeatingCharacters();
+        String s = "daaabcd";
+        System.out.print(ls.lengthOfLongestSubstring1(s));
     }
 }

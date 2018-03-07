@@ -1,10 +1,12 @@
 package practice.leetcode.medium;
 
 /**
- * palindrome - can be even or odd
- * pivot - 1 to n-1
+ * palindrome: substring can be even or odd
+ * choose pivot: s.charAt(i) or (i & i+1)
  * and span to two directions
+ * getPalinLength(s,i,j), return s.substring(i+1,j)
  *
+ * abbac->(a)(ab),(b)(bb),(b)(ba),...
  */
 public class LongestPalindromicSubstring {
     public String longestPalindrome(String s) {

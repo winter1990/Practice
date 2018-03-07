@@ -45,7 +45,10 @@ public class ThreeSum {
     }
 
     /**
-     * when set i and j, binary search k
+     * set i and j, binary search k in sub array [j+1,len-1]
+     * how to handle the duplicate numbers:
+     * - compare num[i-1] and num[i] -> no duplicate i and j
+     * -
      */
     public List<List<Integer>> threeSum1(int[] nums) {
         List<List<Integer>> res = new LinkedList<>();
