@@ -2,23 +2,29 @@ package practice.leetcode.hard;
 
 import java.util.Arrays;
 
+/**
+ * Given "bcabc"
+ * Return "abc"
+ * Given "cbacdcbc"
+ * Return "acdb"
+ *
+ */
 public class RemoveDuplicateLetters {
-    /**
-     * O(n), O(n)
-     */
     public String removeDuplicateLetters(String s) {
-        if (s == null || s.length() == 0) {
-            return "";
+        int[] cnt = new int[26];
+        for (int i = 0; i < s.length(); i++) { // count all the frequency of chars
+            cnt[s.charAt(i) - 'a']++;
         }
-        char[] cs = s.toCharArray();
-        Arrays.sort(cs);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < cs.length; i++) {
-            if (i == cs.length - 1 || cs[i] != cs[i + 1]) {
-                sb.append(cs[i]);
+        int pos = 0; // the position for the smallest s[i]
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) < s.charAt(pos)) {
+                pos = i;
+            }
+            if (--cnt[s.charAt(i) - 'a'] == 0) {
+                break;
             }
         }
-        return sb.toString();
+        return s.length() == 0 ? "" : s.charAt(pos) + removeDuplicateLetters(s.substring(pos + 1).replaceAll("" + s.charAt(pos), ""));
     }
 
     public static void main(String[] args) {
