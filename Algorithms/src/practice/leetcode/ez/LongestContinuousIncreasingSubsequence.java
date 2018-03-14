@@ -1,5 +1,8 @@
 package practice.leetcode.ez;
 
+/**
+ *
+ */
 public class LongestContinuousIncreasingSubsequence {
     public int findLengthOfLCIS(int[] nums) {
         if (nums == null) {
