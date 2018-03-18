@@ -22,14 +22,21 @@ public class MinimumMovesToEqualArrayElements_II {
 
     // quick select O(n)
     // linear search O(n)
+    // if we increase or decrease the numbers to median, we can get the optimal solution/moves
+    // the median can be found using quick select
     public int minMoves21(int[] A) {
-        int sum = 0, median = quickselect(A, A.length / 2 + 1, 0, A.length - 1);
-        for (int i = 0; i < A.length; i++) sum += Math.abs(A[i] - median);
+        int sum = 0;
+        int median = quickselect(A, A.length / 2 + 1, 0, A.length - 1);
+        for (int i = 0; i < A.length; i++) {
+            sum += Math.abs(A[i] - median);
+        }
         return sum;
     }
 
     public int quickselect(int[] A, int k, int start, int end) {
-        int l = start, r = end, pivot = A[(l + r) / 2];
+        int l = start;
+        int r = end;
+        int pivot = A[(l + r) / 2];
         while (l <= r) {
             while (A[l] < pivot) l++;
             while (A[r] > pivot) r--;
