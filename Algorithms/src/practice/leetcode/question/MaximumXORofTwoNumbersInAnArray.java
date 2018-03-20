@@ -1,9 +1,6 @@
-package practice.leetcode.medium;
-
-import practice.algorithmAndOOD.threadingAndMemory.HashCodeDemo;
+package practice.leetcode.question;
 
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Input: [3, 10, 5, 25, 2, 8]

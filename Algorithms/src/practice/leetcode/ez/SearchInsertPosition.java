@@ -3,8 +3,12 @@ package practice.leetcode.ez;
 /**
  * Given a sorted array and a target value, return the index if the target is found.
  * If not, return the index where it would be if it were inserted in order.
+ * assume no duplicates in the array
  *
  * binary search
+ * different scenarios:
+ * - target exists in the arr, normal BS
+ * - target not exists: 0, len, (0,len)
  *
  */
 public class SearchInsertPosition {

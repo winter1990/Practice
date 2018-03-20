@@ -1,103 +1,56 @@
 package practice.interview;
 
-import java.util.*;
+import org.junit.Assert;
 
 public class Solution {
-    public static void main(String args[] ) throws Exception {
-        /* Enter your code here. Read input from STDIN. Print output to STDOUT */
-        Scanner in = new Scanner(System.in);
-        ArrayList<String> words = new ArrayList<String>();
+    public static void main(String[] args) {
+        User u1 = new User("user1", "u1@abc.com", "123", "a1","b1");
+        User u2 = new User("user2", "u2@abc.com", "234", "a2","b2");
+        User duplicateUser = new User("user1", "u1@abc.com", "456", "a1","b1");
+        User emptyUser = new User("", "u3@abc.com", "345", "a3","b3");
+        User u3 = new User("user3", "u3@abc.com", "456", "a1","b1");
+        User u4 = new User("user4", "u4@abc.com", "567", "a4","b4");
 
-        while (true) {
-            String word = in.nextLine();
-            if (!word.equals("")) words.add(word);
-            if (word.isEmpty()) break;
-        }
+        UserImpl app = new UserImpl();
 
-        List<String> target = new ArrayList<>();
+        // user creation, positive cases
+        app.createUser(u1);
+        Assert.assertEquals(true, app.userCollection.containsKey("user1"));
+        Assert.assertEquals(true, app.emailSet.contains("u1@abc.com"));
+        app.createUser(u2);
+        Assert.assertEquals(2, app.userCollection.size());
 
-        while (in.hasNextLine()) {
-            String word = in.nextLine();
-            if (!word.equals("")) target.add(word);
-            if (word.isEmpty()) break;
-        }
+        // create user with duplicate email
+        app.createUser(duplicateUser);
+        Assert.assertEquals(2, app.userCollection.size());
 
-        char[][] cs = new char[words.size()][words.get(0).length()];
-        int m = words.size();
-        int n = words.get(0).length();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                cs[i][j] = words.get(i).charAt(j);
-            }
-        }
+        // user creation, negative cases
+        app.createUser(emptyUser);
+        Assert.assertEquals(2, app.userCollection.size());
+        Assert.assertEquals(true, app.userCollection.containsKey("user1"));
+        Assert.assertEquals(true, app.emailSet.contains("u1@abc.com"));
+        Assert.assertEquals(true, app.userCollection.containsKey("user2"));
+        Assert.assertEquals(true, app.emailSet.contains("u2@abc.com"));
 
-        Map<String, int[]> res = new HashMap<>();
-        boolean[][] checker = new boolean[m][n];
-        for (String word : target) {
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (word.charAt(0) == cs[i][j] && findWord(cs, word, 0, i, j, checker)) {
-                        int[] index = new int[2];
-                        index[0] = i;
-                        index[1] = j;
-                        if (!res.containsKey(word)) res.put(word, index);
-                        for (int k = 0; k < m; k++) {
-                            Arrays.fill(checker[k], false);
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-        printResult(res, target);
+        // find user
+        Assert.assertEquals(null, app.findUser("sdafdsafasdf"));
+        Assert.assertEquals(null, app.findUser(""));
+        Assert.assertEquals(u1, app.findUser("user1"));
+        Assert.assertEquals(u2, app.findUser("user2"));
 
-    }
+        // search by different criteria
+        app.createUser(u3); // the user 3 has the same last and first name with user 1 but different username and email
+        Assert.assertEquals(1, app.searchUsers("user2").size());
+        Assert.assertEquals(2, app.searchUsers("a1").size());
+        Assert.assertEquals(2, app.searchUsers("b1").size());
+        Assert.assertEquals(1, app.searchUsers("u3@abc.com").size());
 
-    private static void printResult(Map<String, int[]> res, List<String> target) {
-        for (String s : target) {
-            if (res.containsKey(s)) {
-                System.out.println(s + " " + res.get(s)[0] + " " + res.get(s)[1]);
-            } else {
-                System.out.println(s + " " + -1 + " " + -1);
-            }
-        }
-    }
-
-    private static boolean findWord(char[][] board, String word, int index, int i, int j, boolean[][] checker) {
-        if (index == word.length()) {
-            return true;
-        } else if (i < 0 || i >= board.length || j < 0 || j >= board[0].length) {
-            return false;
-        } else if (checker[i][j]) {
-            return false;
-        } else if (word.charAt(index) != board[i][j]) {
-            return false;
-        }
-        checker[i][j] = true;
-        if (
-                   findWord(board, word, index + 1, i - 1, j, checker)
-                || findWord(board, word, index + 1, i + 1, j, checker)
-                || findWord(board, word, index + 1, i, j - 1, checker)
-                || findWord(board, word, index + 1, i, j + 1, checker)
-                || findWord(board, word, index + 1, i - 1, j + 1, checker)
-                || findWord(board, word, index + 1, i - 1, j - 1, checker)
-                || findWord(board, word, index + 1, i + 1, j + 1, checker)
-                || findWord(board, word, index + 1, i + 1, j - 1, checker)) {
-            return true;
-        }
-        checker[i][j] = false;
-        return false;
+        // delete user
+        app.createUser(u4);
+        Assert.assertEquals(true, app.userCollection.containsKey("user4"));
+        Assert.assertEquals(true, app.emailSet.contains("u4@abc.com"));
+        app.deleteUser("user4");
+        Assert.assertEquals(false, app.userCollection.containsKey("user4"));
+        Assert.assertEquals(false, app.emailSet.contains("u4@abc.com"));
     }
 }
-
-/*
-ABCD
-PRAT
-KITA
-ANDY
-
-ANDY
-CAT
-DOG
-
- */
