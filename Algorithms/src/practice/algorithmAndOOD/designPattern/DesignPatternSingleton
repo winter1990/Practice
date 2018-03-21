@@ -1,0 +1,36 @@
+https://dzone.com/
+
+Singleton
+
+static vs. singleton
+- advantage of singleton: implements interface, extends classes
+  static class can extend class, but does not inherit their instance members
+  static means belong to class and not to any instance, so it cannot be a top level class
+- static class will have all its member as static only
+- Singleton can be lazily loaded whereas static will be initialized whenever it is first loaded
+- Singleton object stores in Heap but, static object stores in stack
+- We can clone the object of Singleton but, we can not clone the static class object
+
+multiple singleton using clone()
+- need to prevent creating another instance
+- throw exception in clone()
+
+other pattern that works with singleton
+- Factory
+- builder
+- prototype
+
+which classes in jdk use singleton
+- java.lang.Runtime there is only one Runtime instance
+- getRuntime() = getInstance()
+- Runtime class is used to interact with java runtime environment
+- RUntime provides methods to execute a process, invoke GC, get total and free memory
+
+usages
+- Logger: log file generation from multiple client applications
+- configuration file: creates a single instance of the configuration file which can be accessed
+  by multiple calls concurrently as it will provide static config data loaded into in-memory objects
+  The application only reads from the configuration file at the first time and there after from second
+  call onwards the client applications read the data from in-memory objects
+- cache: it can have a global point of reference and for all future calls to the cache object the
+  client application will use the in-memory object

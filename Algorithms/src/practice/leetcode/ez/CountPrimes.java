@@ -5,6 +5,20 @@ package practice.leetcode.ez;
  */
 
 public class CountPrimes {
+    public int countPrimes1(int n) {
+        boolean[] notPrime = new boolean[n];
+        int count = 0;
+        for (int i = 2; i < n; i++) {
+            if (notPrime[i] == false) {
+                count++;
+                for (int j = 2; i * j < n; j++) {
+                    notPrime[i * j] = true;
+                }
+            }
+        }
+        return count;
+    }
+
     public int countPrimes(int n) {
         if (n < 3) {
             return 0;

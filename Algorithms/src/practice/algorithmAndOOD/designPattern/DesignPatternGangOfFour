@@ -1,0 +1,3 @@
+Decorator Pattern
+when the functionality of one particular product is expected to be built from a base product
+and various other related sub-products or fixtures, we can rely on the Decorator

@@ -1,11 +1,11 @@
-package practice.algorithmAndOOD.designPattern;
+package practice.algorithmAndOOD.designPattern.SingletonExample;
 
 // https://dzone.com/articles/singleton-design-pattern-%E2%80%93
 
 public class SingletonExample {
 
     // Static member holds only one instance of the SingletonExample class
-    private static SingletonExample singletonInstance;
+    private static SingletonExample singletonInstance = null;
 
     // SingletonExample prevents any other class from instantiating
     private SingletonExample() {
