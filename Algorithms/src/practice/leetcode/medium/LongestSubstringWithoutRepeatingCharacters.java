@@ -35,7 +35,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return max;
     }
 
-    // hash map to track the index last occurrence, <Character,Integer>
+    // hash map to track the index of last occurrence
     // need second index to track the start position, start from 0
     // if not contain,put<>
     // if contains, update start pos, abcbdce, max(index,map.get(char)+1)
@@ -58,7 +58,8 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
     public static void main(String[] args) {
         LongestSubstringWithoutRepeatingCharacters ls = new LongestSubstringWithoutRepeatingCharacters();
-        String s = "daaabcd";
+        String s = "abba";
+                //"daaabcd";
         System.out.print(ls.lengthOfLongestSubstring1(s));
     }
 }
