@@ -5,24 +5,21 @@ import java.util.List;
 
 /**
  * Given a set of distinct integers, nums, return all possible subsets (the power set).
- *
- * n! subset total
- * 1 2 3
- * .
- *   .
- *     .
- * . .
- * .   .
- *   . .
- * . . .
  */
 public class Subsets {
+    /*
+     * for each number in the input, we have two options, select it, or not
+     * so, consider about all the different combinations of the elements in input array
+     * we have 2^len subsets
+     * 0, 1, 2,...,len-1
+     * if we use bit manipulation, from 0 to len-1, it contains all different combinations
+     */
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new LinkedList<>();
         if (nums == null || nums.length == 0) {
             return res;
         }
-        double n = Math.pow(2, nums.length);
+        long n = (long) Math.pow(2, nums.length);
         for (int i = 0; i < n; i++) {
             List<Integer> list = new LinkedList<>();
             for (int j = 0; j < nums.length; j++) {

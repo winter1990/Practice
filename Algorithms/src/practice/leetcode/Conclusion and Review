@@ -1,0 +1,11 @@
+Sliding Window problems
+- Sliding Window Maximum
+
+Before implementation
+- what values need to be tracked (max/min value, index...)
+- what is the affect when moving the window
+- select proper data structure (queue, stack, depeue) if need to update/compare remove from head/tail
+
+
+Tree Problems
+- Split BST
