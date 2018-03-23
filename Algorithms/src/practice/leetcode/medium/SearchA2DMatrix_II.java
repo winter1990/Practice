@@ -41,10 +41,4 @@ public class SearchA2DMatrix_II {
         }
         return false;
     }
-
-    public static void main(String[] args) {
-        SearchA2DMatrix_II s = new SearchA2DMatrix_II();
-        int[][] in = new int[][]{{1,4},{2,5}};
-        System.out.println(s.searchMatrix(in,2));
-    }
 }
