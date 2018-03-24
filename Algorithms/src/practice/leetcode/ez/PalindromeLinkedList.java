@@ -2,8 +2,8 @@ package practice.leetcode.ez;
 
 /**
  * 1->2->3->2->1
- * reverse and compare
- *
+ * reverse half and compare with the other half
+ * slow and fast runner
  */
 public class PalindromeLinkedList {
     public boolean isPalindrome(ListNode head) {
@@ -14,7 +14,7 @@ public class PalindromeLinkedList {
             fast = fast.next.next;
         }
 
-        if (fast != null) {
+        if (fast != null) { // odd number of nodes, make sure right half is shorter
             slow = slow.next;
         }
         slow = reverse(slow);

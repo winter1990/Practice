@@ -15,31 +15,31 @@ public class SerializeAndDeserializeBST {
          4
        2   5
      1  3   6
-     level order: [4] [2 5] [1 3 # 6] [# # # # # #], more space, straightforward
-     pre 4#2#1#3#5#6
+     pre-order:
+     # as null and , separates the ndoes
+     4,2,1,#,#,3,#,#,5,#,6
  */
 class Codec3 {
-
     // Encodes a tree to a single string.
+    final String N = "#";
+    final String separator = ",";
     public String serialize(TreeNode root) {
         if (root == null) {
             return null;
         }
         StringBuilder sb = new StringBuilder();
-        Stack<TreeNode> stack = new Stack<>();
-        stack.push(root);
-        while (!stack.isEmpty()) {
-            TreeNode cur = stack.pop();
-            sb.append(cur.val);
-            sb.append('#');
-            if (cur.right != null) {
-                stack.push(cur.right);
-            }
-            if (cur.left != null) {
-                stack.push(cur.left);
-            }
-        }
+        buildTree(root, sb);
         return sb.toString();
+    }
+
+    private void buildTree(TreeNode root, StringBuilder sb) {
+        if (root == null) {
+            sb.append(N).append(separator);
+            return;
+        }
+        sb.append(root.val).append(separator);
+        buildTree(root.left, sb);
+        buildTree(root.right, sb);
     }
 
     // Decodes your encoded data to tree.
@@ -47,25 +47,22 @@ class Codec3 {
         if (data == null) {
             return null;
         }
-        String[] nodes = data.split("#");
-        Queue<Integer> q = new LinkedList<>();
-        for (String n : nodes) {
-            q.offer(Integer.valueOf(n));
+        String[] nodes = data.split(separator);
+        Queue<String> q = new LinkedList<>();
+        for (String s : nodes) {
+            q.offer(s);
         }
         return helper(q);
     }
 
-    private TreeNode helper(Queue<Integer> q) {
-        if (q.isEmpty()) {
+    private TreeNode helper(Queue<String> q) {
+        String val = q.poll();
+        if (val.equals(N)) {
             return null;
         }
-        TreeNode root = new TreeNode(q.poll());
-        Queue<Integer> left = new LinkedList<>();
-        while (!q.isEmpty() && q.peek() < root.val) {
-            left.offer(q.poll());
-        }
-        root.left = helper(left);
-        root.right = helper(q);
-        return root;
+        TreeNode node = new TreeNode(Integer.valueOf(val));
+        node.left = helper(q);
+        node.right = helper(q);
+        return node;
     }
 }

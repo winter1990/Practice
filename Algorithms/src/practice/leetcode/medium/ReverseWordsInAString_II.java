@@ -24,7 +24,7 @@ public class ReverseWordsInAString_II {
             }
             reverse(str, s, e - 1);
             s = e + 1;
-            e = s;
+            e = s + 1;
         }
     }
 
@@ -37,8 +37,6 @@ public class ReverseWordsInAString_II {
             j--;
         }
     }
-
-
 
     public static void main(String[] args) {
         char[] cs = {'t','h','e',' ','s','k','y',' ','i','s',' ','b','l','u','e'};
