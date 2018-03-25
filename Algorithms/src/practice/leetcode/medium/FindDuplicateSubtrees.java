@@ -1,7 +1,5 @@
 package practice.leetcode.medium;
 
-import practice.util.TreeBuilder;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,13 +39,5 @@ public class FindDuplicateSubtrees {
         }
         map.put(serial, map.getOrDefault(serial, 0) + 1);
         return serial;
-    }
-
-    public static void main(String[] args) {
-        TreeBuilder tb = new TreeBuilder();
-        int[] ar = {1,2,1};
-        TreeNode root = tb.buildTree(ar);
-        FindDuplicateSubtrees f = new FindDuplicateSubtrees();
-        System.out.println(f.findDuplicateSubtrees(root));
     }
 }

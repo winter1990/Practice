@@ -24,7 +24,21 @@ public class Test {
     }
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        System.out.println(1 + 1 + "" + (1 + 1));
+        System.out.println(Integer.valueOf("-1"));
+
+//        String s1 = "abc";
+//        String s2 = "abc";
+//        String s3 = new String("abc");
+//        String s4 = new String("abc");
+//        Set<String> set = new HashSet<>();
+//        System.out.println(set.add(s1));
+//        System.out.println(set.add(s2));
+//        System.out.println(set.add(s3));
+//        System.out.println(set.add(s4));
+//
+//        System.out.println(s1 == s2);
+//        System.out.println(s3 == s4);
+//        System.out.println(1 + 1 + "" + (1 + 1));
 //        System.out.println('z'- 'a');
 //        Long l = new Long(1234);
 //        Long l1 = l;

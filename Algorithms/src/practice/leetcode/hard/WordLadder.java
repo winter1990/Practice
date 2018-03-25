@@ -17,37 +17,35 @@ import java.util.*;
  */
 public class WordLadder {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        if (!wordList.contains(endWord)) {
+            return 0;
+        }
+        Set<String> dict = new HashSet<>(wordList);
         Set<String> beginSet = new HashSet<>();
         Set<String> endSet = new HashSet<>();
         beginSet.add(beginWord);
         endSet.add(endWord);
 
-        int len = 1;
-        int strLen = beginWord.length();
-        HashSet<String> visited = new HashSet<String>();
-
+        int step = 1;
+        Set<String> visited = new HashSet<>();
         while (!beginSet.isEmpty() && !endSet.isEmpty()) {
             if (beginSet.size() > endSet.size()) {
                 Set<String> set = beginSet;
                 beginSet = endSet;
                 endSet = set;
             }
-
-            Set<String> temp = new HashSet<String>();
+            Set<String> temp = new HashSet<>();
             for (String word : beginSet) {
                 char[] chs = word.toCharArray();
-
                 for (int i = 0; i < chs.length; i++) {
                     for (char c = 'a'; c <= 'z'; c++) {
                         char old = chs[i];
                         chs[i] = c;
                         String target = String.valueOf(chs);
-
                         if (endSet.contains(target)) {
-                            return len + 1;
+                            return step + 1;
                         }
-
-                        if (!visited.contains(target) && wordList.contains(target)) {
+                        if (!visited.contains(target) && dict.contains(target)) {
                             temp.add(target);
                             visited.add(target);
                         }
@@ -55,16 +53,14 @@ public class WordLadder {
                     }
                 }
             }
-
             beginSet = temp;
-            len++;
+            step++;
         }
-
         return 0;
     }
 
     /**
-     * multiple paths might be, find shortest
+     * there might have multiple paths, find the shortest
      * 1. each step, need to track multiple words and steps - two queues
      * 2. how to find the difference - compare with each in list
      * O(m*n*26)
@@ -75,29 +71,47 @@ public class WordLadder {
         if (wordList.size() == 0) {
             return 0;
         }
-        Queue<String> q1 = new LinkedList<>();
-        Queue<Integer> q2 = new LinkedList<>();
-        q1.offer(beginWord);
-        q2.offer(1);
-        while (!q1.isEmpty()) {
-            String s = q1.poll();
-            int step = q2.poll();
-            if (s.equals(endWord)) {
-                return step;
+        Queue<String> q = new LinkedList<>();
+        q.offer(beginWord);
+        wordList.remove(beginWord);
+        int step = 1;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                String cur = q.poll();
+                if (cur.equals(endWord)) {
+                    return step;
+                }
+                for (String s : helper(cur,  wordList)) {
+                    q.offer(s);
+                }
             }
-            for (int i = 0; i < s.length(); i++) {
-                char[] cs = s.toCharArray();
-                for (char c = 'a'; c <= 'z'; c++) {
-                    cs[i] = c;
-                    String ss = new String(cs);
-                    if (wordList.contains(ss)) {
-                        q1.offer(ss);
-                        q2.offer(step + 1);
-                        wordList.remove(ss);
-                    }
+            step++;
+        }
+        return 0;
+    }
+
+    private List<String> helper(String s, List<String> wordList) {
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            char[] cs = s.toCharArray();
+            for (char c = 'a'; c <= 'z'; c++) {
+                cs[i] = c;
+                String word = new String(cs);
+                if (wordList.contains(word)) {
+                    wordList.remove(word);
+                    res.add(word);
                 }
             }
         }
-        return 0;
+        return res;
+    }
+
+    public static void main(String[] args) {
+        WordLadder wl = new WordLadder();
+        String s = "hit"; // hit hot dot dog cog
+        String e = "cog";
+        List<String> dict = Arrays.asList("hot","dot","dog","lot","log");
+        System.out.println(wl.ladderLength(s, e, dict));
     }
 }
