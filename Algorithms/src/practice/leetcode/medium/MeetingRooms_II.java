@@ -43,7 +43,7 @@ public class MeetingRooms_II {
                 return a.start - b.start;
             }
         });
-        PriorityQueue<Integer> ends = new PriorityQueue<Integer>();
+        PriorityQueue<Integer> ends = new PriorityQueue<>();
         ends.offer(intervals[0].end);
         for (int i = 1; i < intervals.length; i++) {
             if (intervals[i].start >= ends.peek()) { // no overlap, then should update smallest end.

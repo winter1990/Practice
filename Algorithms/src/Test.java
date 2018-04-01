@@ -24,7 +24,14 @@ public class Test {
     }
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        System.out.println(Integer.valueOf("-1"));
+        System.out.println(Integer.MAX_VALUE);
+
+//        System.out.println("Aa".hashCode());
+//        System.out.println("A".hashCode());
+//        System.out.println("a".hashCode());
+//        System.out.println(7 * 31 + "A".hashCode());
+
+//        System.out.println(Integer.valueOf("-1"));
 
 //        String s1 = "abc";
 //        String s2 = "abc";

@@ -30,6 +30,11 @@ public class WordBreak {
     }
 
 
+    /**
+     * recursively check substring
+     * this will fail if the string is to long
+     * aaaaaaaaaaaaaaaaaaaaaaaaaa...,[a,aa,aa,aaa]
+     */
     public boolean wordBreak1(String s, List<String> wordDict) {
         if (s == null || s.length() == 0) {
             return true;

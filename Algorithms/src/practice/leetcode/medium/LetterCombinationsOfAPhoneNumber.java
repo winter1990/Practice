@@ -23,9 +23,7 @@ public class LetterCombinationsOfAPhoneNumber {
         map.put('7', new char[]{'p', 'q', 'r', 's'});
         map.put('8', new char[]{'t', 'u', 'v'});
         map.put('9', new char[]{'w', 'x', 'y', 'z'});
-
         helper(digits, map, 0, new StringBuilder(), res);
-
         return res;
     }
 
