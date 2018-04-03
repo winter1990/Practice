@@ -1,10 +1,13 @@
 package practice.leetcode.medium;
 
 /**
- * dfs
- * search in one direction
+ * @array
+ * @search
+ *
+ * dfs - search in one direction
  * the input is valid
  * if X,check left and up cells first and search right or down
+ * Could you do it in one-pass, using only O(1) extra memory and without modifying the value of the board
  */
 public class BattleshipsInABoard {
     public int countBattleships(char[][] board) {
@@ -17,28 +20,8 @@ public class BattleshipsInABoard {
                 if (i > 0 && board[i - 1][j] == 'X') continue;
                 if (j > 0 && board[i][j - 1] == 'X') continue;
                 count++;
-                /* works but redundant
-                if (i == 0 || j == 0) {
-                    if (board[i][j] == 'X') {
-                        if (i != 0 && board[i - 1][j] == 'X') continue;
-                        if (j != 0 && board[i][j - 1] == 'X') continue;
-                        count++;
-                    }
-                } else {
-                    if (board[i][j] == 'X') {
-                        if (board[i - 1][j] == 'X' || board[i][j - 1] == 'X') continue;
-                        count++;
-                    }
-
-                }
-                */
             }
         }
         return count;
-    }
-
-    public static void main(String[] args) {
-        BattleshipsInABoard bs = new BattleshipsInABoard();
-        System.out.println(bs.countBattleships(new char[][]{{'X','X','X'},{'.','.','.'},{'X','X','X'}}));
     }
 }

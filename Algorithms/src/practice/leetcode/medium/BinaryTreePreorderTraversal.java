@@ -5,25 +5,11 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- *
+ * @tree
+ * @stack
  */
 public class BinaryTreePreorderTraversal {
-    public List<Integer> preorderTraversal1(TreeNode root) {
-        List<Integer> res = new LinkedList<>();
-        helper(root, res);
-        return res;
-    }
-
-    private void helper(TreeNode root, List<Integer> res) {
-        if (root == null) {
-            return;
-        }
-        res.add(root.val);
-        helper(root.left, res);
-        helper(root.right, res);
-    }
-
-    public List<Integer> preorderTraversal2(TreeNode root) {
+    public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> res = new LinkedList<>();
         if (root == null) {
             return res;
@@ -41,5 +27,21 @@ public class BinaryTreePreorderTraversal {
             }
         }
         return res;
+    }
+
+
+    public List<Integer> preorderTraversal1(TreeNode root) {
+        List<Integer> res = new LinkedList<>();
+        inOrderTraversal(root, res);
+        return res;
+    }
+
+    private void inOrderTraversal(TreeNode root, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+        res.add(root.val);
+        inOrderTraversal(root.left, res);
+        inOrderTraversal(root.right, res);
     }
 }

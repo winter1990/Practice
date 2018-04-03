@@ -5,16 +5,19 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * in-order:
- * left-root-right
+ * @tree
+ * @stack
  *
+ * in-order: left-root-right
  * recursive:
- * left
- * add
- * right
+ * left -> add -> right
  *
  * iterative:
- * use some ds to keep track of the parent nodes - store
+ * keep traversing to leftmost node
+ * when going down, put root to stack
+ * if null, pop stack, put in result, go to right
+ * when reaching the root, stack is empty and cur = root.right
+ * so when checking stack, also check cur for each iteration
  *
  */
 public class BinaryTreeInorderTraversal {

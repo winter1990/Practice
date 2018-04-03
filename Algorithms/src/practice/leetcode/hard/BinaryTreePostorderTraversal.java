@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Stack;
 
 /**
+ * @tree
+ * @stack
+ *
  * post order: left-right-root
  * leftmost
  * when we pop() something, it's for adding to result

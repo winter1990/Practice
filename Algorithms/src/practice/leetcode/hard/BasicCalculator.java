@@ -1,17 +1,19 @@
-package practice.leetcode.medium;
+package practice.leetcode.hard;
 
 import java.util.Stack;
 
 /**
- * The expression string may contain open ( and closing parentheses ),
- * the plus + or minus sign -, non-negative integers and empty spaces
+ * @stack
+ * @math
  *
+ * The expression string may contain ( and ), + or -, non-negative integers and empty spaces
+ * "(1+(4+5+2)-3)+(6+8)" = 23
  * 5 cases:
  * digit, calculate (123)
- * +, number part is finished, add to result
+ * +, number part is finished, add to result, update sign
  * -, same
- * (, need to calculate new result, so push pre result and sign to stack
- * ), pop is the sign, pop again to get result before ()
+ * (, need to calculate new result, so push pre result and sign to stack, reset the sign
+ * ), pop the sign, pop again to get result before ()
  */
 public class BasicCalculator {
     public int calculate(String s) {
@@ -48,7 +50,7 @@ public class BasicCalculator {
             }
         }
         if (n != 0) {
-            res += sign *n;
+            res += sign * n;
         }
         return res;
     }

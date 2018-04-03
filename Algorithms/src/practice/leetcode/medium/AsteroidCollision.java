@@ -5,17 +5,19 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * asteroids = [5, 10, -5]
- * Output: [5, 10]
- * asteroids = [10, 2, -5]
- * Output: [10]
- * asteroids = [-2, -1, 1, 2]
- * Output: [-2, -1, 1, 2]
+ * @array
+ * @stack
  *
- * keep the neg on left and pos on right
+ * asteroids = [5, 10, -5] -> [5, 10]
+ * asteroids = [10, 2, -5] -> [10]
+ * asteroids = [-2, -1, 1, 2] -> [-2, -1, 1, 2]
+ *
+ * 4 scenarios: ++ -- +- -+
+ * when collision happens: +-
+ * 3 cases when collision happens: prev exploded, current exploded, both exploded
+ * keep the negative nums on left and positive on right
  * keep the abs(largest value) in the middle - WRONG [5,10,-5]
- * need to trace back, so stack
- *
+ * need to trace back to previous nums, so stack
  */
 public class AsteroidCollision {
     public int[] asteroidCollision(int[] asteroids) {
