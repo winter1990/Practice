@@ -1,8 +1,15 @@
 package practice.leetcode.ez;
 
 /**
- * 1111
- *  101 => 10100
+ * @string
+ * @math
+ *
+ * start from last char, when one number = 0, keep moving index
+ * always compare the index value with length
+ * at last, check carry
+ *  1111
+ * + 101
+ * 10100
  *
  */
 public class AddBinary {
@@ -24,12 +31,5 @@ public class AddBinary {
             res = 1 + res;
         }
         return res;
-    }
-
-    public static void main(String[] args) {
-        AddBinary addBinary = new AddBinary();
-        String a = "1111";
-        String b = "101";
-        System.out.println(addBinary.addBinary(a, b));
     }
 }

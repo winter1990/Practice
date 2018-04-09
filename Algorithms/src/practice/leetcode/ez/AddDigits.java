@@ -1,6 +1,8 @@
 package practice.leetcode.ez;
 
 /**
+ * @math
+ *
  * 38 3+8=11 1+1=2
  */
 public class AddDigits {

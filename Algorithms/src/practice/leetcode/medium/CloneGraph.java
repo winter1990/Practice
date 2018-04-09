@@ -3,6 +3,8 @@ package practice.leetcode.medium;
 import java.util.*;
 
 /**
+ * @graph
+ *
  * Nodes are labeled uniquely
  * deep clone
  * it has label and neighbors

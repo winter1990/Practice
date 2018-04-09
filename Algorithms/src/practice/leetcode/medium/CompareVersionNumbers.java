@@ -1,5 +1,14 @@
 package practice.leetcode.medium;
 
+/**
+ * @String
+ *
+ * compare version:
+ * 12.34.567
+ * 12.333.789
+ * 13.1
+ * 13.1.1
+ */
 public class CompareVersionNumbers {
     public int compareVersion(String version1, String version2) {
         String[] v1 = version1.split("\\.");

@@ -1,15 +1,17 @@
 tags list:
 - array
+- string
 - tree
 - sliding window
 - Knapsack
 - tree
 - graph
-- searching
-- sorting
+- search
+- sort
 - linkedlist
 - dp
 - recursion
+- bitwise
 
 
 

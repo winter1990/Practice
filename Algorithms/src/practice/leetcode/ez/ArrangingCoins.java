@@ -1,6 +1,10 @@
 package practice.leetcode.ez;
 
 /**
+ * @math
+ * @search
+ * linear is straightforward
+ *
  * (1+x)x/2 <= n
  * find the largest x
  *
@@ -35,7 +39,6 @@ public class ArrangingCoins {
     public static void main(String[] args) {
         ArrangingCoins ac = new ArrangingCoins();
         System.out.println(ac.arrangeCoins(1804289383));
-
 //        System.out.println(ac.arrangeCoins(1));
 //        System.out.println(ac.arrangeCoins(2));
 //        System.out.println(ac.arrangeCoins(3));

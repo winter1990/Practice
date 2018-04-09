@@ -4,12 +4,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @recursion
+ *
  * n=4 k=2, 12 13 14 23 24 34
  *
  * recursion:
  * base sublist size=k
  * need index to set the lower bound
- *
  */
 public class Combinations {
     public List<List<Integer>> combine(int n, int k) {

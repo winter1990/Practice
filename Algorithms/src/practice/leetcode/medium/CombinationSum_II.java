@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @recursion
+ *
  * Each number in C may only be used once in the combination
  * there might have duplicate numbers
- *
- * sort the array first
  */
 public class CombinationSum_II {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
@@ -26,9 +26,14 @@ public class CombinationSum_II {
             res.add(new LinkedList<>(list));
             return;
         }
+
         for (int i = index; i < candidates.length; i++) {
-            if (candidates[i] > target) return;
-            if (i != index && candidates[i] == candidates[i - 1]) continue;
+            if (candidates[i] > target) {
+                return;
+            }
+            if (i != index && candidates[i] == candidates[i - 1]) {
+                continue;
+            }
             list.add(candidates[i]);
             helper(candidates, i + 1, list, target - candidates[i], res);
             list.remove(list.size() - 1);

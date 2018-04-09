@@ -5,6 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * @tree
+ *
+ * level order traversal
+ * reverse the odd number sublists
+ */
 public class BinaryTreeZigzagLevelOrderTraversal {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> res = new LinkedList<>();

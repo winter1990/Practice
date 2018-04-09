@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * level order traversal, queue
- * for each level, the first in q is always the left most
- * always check and put right child in q first, then check left
- * keep traversing each level
+ * @tree
+ *
+ * level order traversal
+ * for each level, go to right first (might be empty), then left
+ * total levels = size of result
+ * determine the level, pass into recursive call and compare with the size of list
+ * add to result if level = result.size()
+ * base: null, return
  */
 public class BinaryTreeRightSideView {
 
