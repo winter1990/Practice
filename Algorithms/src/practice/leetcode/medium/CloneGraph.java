@@ -39,8 +39,4 @@ public class CloneGraph {
         return newHead;
     }
 
-    public static void main(String[] args) {
-        CloneGraph cg = new CloneGraph();
-
-    }
 }

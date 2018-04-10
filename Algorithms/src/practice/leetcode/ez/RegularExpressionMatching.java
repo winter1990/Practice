@@ -1,6 +1,12 @@
 package practice.leetcode.ez;
 
 /**
+ * @string
+ * @recursion
+ *
+ * '.' Matches any single character
+ * '*' Matches zero or more of the preceding element
+ *
  * backtracking mechanism is needed to when matching fails
  * return to last successful matching state
  * because of * recursion is needed

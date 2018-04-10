@@ -8,8 +8,6 @@ import java.util.Map;
  * assume that the array is non-empty and the majority element always exist in the array.
  *
  * use map to store the number and freq, O(n), O(n)
- *
-
  */
 
 public class MajorityElement {

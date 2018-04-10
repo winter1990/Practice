@@ -10,6 +10,27 @@ import java.util.*;
  * Input: "19:34", Output: "19:39"
  */
 public class NextClosestTime {
+    static int[] mins = { 600, 60, 10, 1 };
+    public String nextClosestTime3(String time) {
+        int colon = time.indexOf(':');
+        // get the total minutes of the current time
+        int curTime = Integer.valueOf(time.substring(0, colon)) * 60 + Integer.valueOf(time.substring(colon + 1));
+        char[] next = new char[4];
+        // i means add i minutes to current time
+        //
+        for (int i = 1, digit = 0; i <= 1440 && digit < 4; i++) {
+            int minutes = (curTime + i) % 1440;
+            for (digit = 0; digit < 4; digit++) {
+                next[digit] = (char)('0' + minutes / mins[digit]);
+                minutes %= mins[digit];
+                if (time.indexOf(next[digit]) == -1) {
+                    break;
+                }
+            }
+        }
+        return new String(next, 0, 2) + ':' + new String(next, 2, 2);
+    }
+
     public String nextClosestTime1(String time) {
         String[] val = time.split(":");
         Set<Integer> set = new HashSet<>();
