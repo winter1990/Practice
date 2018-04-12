@@ -8,6 +8,11 @@ import java.util.Queue;
 [[5],[12009],[1965],[-940],[-8516],[-16446],[7870],[25545],[-21028],[18430],[-23464]]
 [null,12009.0, 6987.0, 4344.66667, 1129.5, -2385.6, -3213.4, (1502.6), -2515.0, 2874.2, 1470.6]
  */
+
+/**
+ * @queue
+ * @design
+ */
 public class MovingAverageFromDataStream {
     public static void main(String[] args) {
         MovingAverage ma = new MovingAverage(5);

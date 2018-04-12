@@ -22,7 +22,7 @@ public class LongestSubstringWithSameHeadTail {
     }
 
     public static void main(String[] args) {
-        String s = "abdcbe";
+        String s = "abdcbae";
         LongestSubstringWithSameHeadTail l = new LongestSubstringWithSameHeadTail();
         System.out.println(l.findMaxLength(s));
     }

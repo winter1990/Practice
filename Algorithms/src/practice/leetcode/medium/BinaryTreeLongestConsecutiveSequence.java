@@ -2,6 +2,7 @@ package practice.leetcode.medium;
 
 /**
  * @tree
+ * @recursion
  *
  * along the parent-child connections
  *    1
@@ -15,7 +16,7 @@ package practice.leetcode.medium;
  * need to compare the current with pre
  *
  * recursively traverse the tree
- * for each call, pass parent's value, node and current length
+ * each call - parent node, current node and current length
  * base case: node == null
  * cur.val==p.val+1 len+=1, update max value
  * cur.val!=p.val+1 len=1

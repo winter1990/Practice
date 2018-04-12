@@ -6,28 +6,31 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * @string
+ * @map
+ *
  * eceba->ece,3
  * ecebbaa->bbaa,4
  * abaaaccc->aaaccc,6
  * need to keep track of the two chars
  * and also the last index of consequential chars
- * map
  */
 public class LongestSubstringWithAtMostTwoDistinctCharacters {
     public int lengthOfLongestSubstringTwoDistinct(String s) {
         if (s == null || s.length() == 0) {
             return 0;
         }
-        Map<Character, Integer> lastSeen = new HashMap<>();
+        // track the index of character that occurs last
+        Map<Character, Integer> map = new HashMap<>();
         int low = 0, max = 0;
         for (int i = 0; i < s.length(); i++) {
-            lastSeen.put(s.charAt(i), i);
-            if (lastSeen.size() > 2) {
+            map.put(s.charAt(i), i);
+            if (map.size() > 2) {
                 int toRemoveLastSeen = i;
-                for (Integer val : lastSeen.values()) {
+                for (Integer val : map.values()) {
                     toRemoveLastSeen = Math.min(val, toRemoveLastSeen);
                 }
-                lastSeen.remove(s.charAt(toRemoveLastSeen));
+                map.remove(s.charAt(toRemoveLastSeen));
                 low = toRemoveLastSeen + 1;
             }
             max = Math.max(max, i - low + 1);

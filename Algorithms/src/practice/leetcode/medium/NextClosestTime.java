@@ -4,22 +4,23 @@ import java.util.*;
 
 /**
  * @string
+ * @math
  *
  * Given a time represented in the format "HH:MM", form the next closest time by reusing the current digits
  *
  * Input: "19:34", Output: "19:39"
  */
 public class NextClosestTime {
-    static int[] mins = { 600, 60, 10, 1 };
     public String nextClosestTime3(String time) {
+        int[] mins = {600, 60, 10, 1};
         int colon = time.indexOf(':');
         // get the total minutes of the current time
-        int curTime = Integer.valueOf(time.substring(0, colon)) * 60 + Integer.valueOf(time.substring(colon + 1));
+        int oldTime = Integer.valueOf(time.substring(0, colon)) * 60 + Integer.valueOf(time.substring(colon + 1));
         char[] next = new char[4];
         // i means add i minutes to current time
-        //
-        for (int i = 1, digit = 0; i <= 1440 && digit < 4; i++) {
-            int minutes = (curTime + i) % 1440;
+        int digit = 0;
+        for (int i = 1; i <= 1440 && digit < 4; i++) {
+            int minutes = (oldTime + i) % 1440;
             for (digit = 0; digit < 4; digit++) {
                 next[digit] = (char)('0' + minutes / mins[digit]);
                 minutes %= mins[digit];

@@ -1,7 +1,9 @@
 package practice.leetcode.hard;
 
 /**
+ * @array
  * @SlidingWindow
+ *
  * output in which day there exists two flowers in the status of blooming,
  * and also the number of flowers between them is k and these flowers are not blooming
  * If there isn't such day, output -1.
@@ -19,10 +21,12 @@ package practice.leetcode.hard;
 public class KEmptySlots {
     public int kEmptySlots(int[] flowers, int k) {
         int n = flowers.length;
+        // days[i] means at the i+1 day, the flower at the index days[i]-1 will bloom
         int[] days = new int[n];
         for (int i = 0; i < n; i++) {
             days[flowers[i] - 1] = i + 1;
         }
+        // boundary of sliding window
         int left = 0;
         int right = k + 1;
         int res = Integer.MAX_VALUE;

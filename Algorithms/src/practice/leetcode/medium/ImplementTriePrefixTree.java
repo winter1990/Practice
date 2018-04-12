@@ -1,6 +1,10 @@
 package practice.leetcode.medium;
 
-public class Trie {
+public class ImplementTriePrefixTree {
+
+}
+
+class Trie {
     private TrieNode root;
     public Trie() {
         root = new TrieNode();
@@ -10,7 +14,7 @@ public class Trie {
     public void insert(String word) {
         TrieNode node = root;
         for (int i = 0; i < word.length(); i++) {
-            char c= word.charAt(i);
+            char c = word.charAt(i);
             if (node.children[c - 'a'] == null) {
                 node.children[c - 'a'] = new TrieNode();
             }

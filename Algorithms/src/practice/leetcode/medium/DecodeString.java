@@ -9,6 +9,9 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
  */
 
 /**
+ * @string
+ * @stack
+ *
  * scan through the string
  * digit [ ] character
  * digit - keep scanning because it can multiple multiple characters

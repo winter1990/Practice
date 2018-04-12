@@ -5,6 +5,7 @@ import java.util.*;
 /**
  * @String
  * @array
+ * @map
  *
  * similarity relation is transitive [a b][b c][c d][d e] => [a e]
  * Similarity is also symmetric
@@ -16,6 +17,16 @@ import java.util.*;
  *
  * [a,c][b,c][c,d]
  * [a,c][c,a b d][b,c][d c]
+ *
+ *
+ * example: [a b] [b c] [b d] [d e] [f b], the map becomes:
+ * i=0 [a a] [b b] => [a b] [b b]
+ * i=1 [a b] [b b] [c c] => [a b] [b c] [c c]
+ * i=2 [a b] [b c] [c c] => [a b] [b c] [c d] (although input is [b d], but here we update the entry where the key is c) [d d]
+ * …
+ * eventually, the may is like a chain: a->b->c->d->e->f
+ * when we search word a and d for example, it keeps search until reaching the f (for both of them),
+ * which means these two words are in the same “chain”
  */
 public class SentenceSimilarity_II {
     public boolean areSentencesSimilarTwo(String[] words1, String[] words2, String[][] pairs) {

@@ -7,7 +7,15 @@ public class EncodeAndDecodeStrings {
 }
 
 /**
- * we dont know the
+ * @string
+ * @design
+ *
+ * The string may contain any possible characters out of 256 valid ascii characters
+ * not use class member/global/static variables to store states
+ * not rely on any library method such as eval or serialize methods
+ *
+ * string may contain special char/separator
+ * separator + length
  */
 class Codec {
     // Encodes a list of strings to a single string.
