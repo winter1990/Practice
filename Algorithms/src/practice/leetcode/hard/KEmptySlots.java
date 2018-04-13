@@ -2,7 +2,7 @@ package practice.leetcode.hard;
 
 /**
  * @array
- * @SlidingWindow
+ * @slidingWindow
  *
  * output in which day there exists two flowers in the status of blooming,
  * and also the number of flowers between them is k and these flowers are not blooming
