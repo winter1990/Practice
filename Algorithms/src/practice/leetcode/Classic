@@ -16,6 +16,7 @@ tags list:
 - stack
 - queue
 - design
+- backtracking
 
 tree and graph:
 - LowestCommonAncestorOfABinarySearchTree

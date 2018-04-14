@@ -1,4 +1,4 @@
-package practice.leetcode.medium;
+package practice.leetcode.question;
 
 import java.util.*;
 
