@@ -24,10 +24,12 @@ public class Test {
     }
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-
-        String[] strs = {"a", "b", "c"};
-        String joinString = String.join("#", strs) + " ";
-        System.out.println(joinString);
+        String a = "abc";
+//        System.out.println(a.substring(2));
+        System.out.println(a.substring(4));
+//        String[] strs = {"a", "b", "c"};
+//        String joinString = String.join("#", strs) + " ";
+//        System.out.println(joinString);
 
 //        System.out.println(Integer.MAX_VALUE);
 
