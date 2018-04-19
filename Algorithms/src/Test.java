@@ -24,9 +24,20 @@ public class Test {
     }
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+        PriorityQueue<String> pq = new PriorityQueue<>();
         String a = "abc";
+        String b = "acc";
+        String c = "c";
+        pq.offer(c);
+        pq.offer(a);
+        pq.offer(b);
+        System.out.println(pq.poll());
+        System.out.println(pq.poll());
+        System.out.println(pq.poll());
+
+//        String a = "abc";
 //        System.out.println(a.substring(2));
-        System.out.println(a.substring(4));
+//        System.out.println(a.substring(4));
 //        String[] strs = {"a", "b", "c"};
 //        String joinString = String.join("#", strs) + " ";
 //        System.out.println(joinString);

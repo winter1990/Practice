@@ -15,7 +15,7 @@ import java.util.PriorityQueue;
  * - start from the outer most layer (initialize and put in queue)
  * - where to start? smallest value determines (priority queue)
  * - need to define the cell, with row, col, height
- * - compare the value, 
+ * - compare the value,
  */
 public class TrappingRainWater_II {
     public int trapRainWater(int[][] heightMap) {

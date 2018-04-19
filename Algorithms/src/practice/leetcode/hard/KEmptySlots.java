@@ -30,15 +30,17 @@ public class KEmptySlots {
         int left = 0;
         int right = k + 1;
         int res = Integer.MAX_VALUE;
-        for (int i = 1; right < n; i++) {
-            if (days[i] > days[left] && days[i] > days[right]) {
-                continue;
+        int i = 1;
+        while (right < n) {
+            while (i < right && days[i] > days[left] && days[i] > days[right]) {
+                i++;
             }
             if (i == right) {
                 res = Math.min(res, Math.max(days[left], days[right]));
             }
             left = i;
             right = i + k + 1;
+            i++;
         }
         return res == Integer.MAX_VALUE ? -1 : res;
     }
