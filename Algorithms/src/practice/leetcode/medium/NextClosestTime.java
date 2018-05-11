@@ -12,6 +12,7 @@ import java.util.*;
  */
 public class NextClosestTime {
     public String nextClosestTime3(String time) {
+        // represents 4 digits
         int[] mins = {600, 60, 10, 1};
         int colon = time.indexOf(':');
         // get the total minutes of the current time

@@ -17,6 +17,7 @@ public class SentenceScreenFitting {
         String s = String.join(" ", sentence) + " ";
         int len = s.length();
         int index = 0;
+        // track HOW we are going to move the index
         int[] map = new int[len];
         for (int i = 1; i < len; ++i) {
             map[i] = s.charAt(i) == ' ' ? 1 : map[i - 1] - 1;
@@ -27,6 +28,7 @@ public class SentenceScreenFitting {
         }
         return index / len;
     }
+
     //TLE
     public int wordsTyping1(String[] sentence, int rows, int cols) {
         if (sentence == null || sentence.length == 0) {
@@ -59,6 +61,6 @@ public class SentenceScreenFitting {
         int row = 6;
         int col = 5;
         SentenceScreenFitting s = new SentenceScreenFitting();
-        System.out.println(s.wordsTyping1(str, row, col));
+        System.out.println(s.wordsTyping(str, row, col));
     }
 }
