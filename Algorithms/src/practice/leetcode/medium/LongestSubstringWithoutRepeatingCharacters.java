@@ -6,10 +6,16 @@ import java.util.Map;
 import java.util.Set;
 
 public class LongestSubstringWithoutRepeatingCharacters {
-    // use set to store visited chars
-    // iterate string, if contains remove the char and all before it
-    // two indices needed, start position and current position
-    // time O(2n), space O(n)
+    /**
+     * @string
+     *
+     * aabcdecfghjk
+     * one index to track the last index
+     * need to track the chars visited -> set
+     * traverse the string, if
+     * - set contains char, move the last index until ch(i)=char(j)
+     * - set not contains char, put and continue
+     */
     public int lengthOfLongestSubstring(String s) {
         if (s == null || s.length() == 0) {
             return 0;

@@ -1,6 +1,9 @@
 package practice.leetcode.medium;
 
 /**
+ * @array
+ * @two pointers
+ *
  * find two lines
  * the area - Math.min(a[i],a[j]) *(j-i)
  *
@@ -12,7 +15,7 @@ public class ContainerWithMostWater {
         int start = 0;
         int end = height.length - 1;
         int max = 0;
-        int area = 0;
+        int area;
         while (start < end) {
             area = (end - start) * Math.min(height[start], height[end]);
             max = Math.max(max, area);

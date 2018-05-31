@@ -1,7 +1,16 @@
 package practice.leetcode.ez;
 
-/*
- * always think about overflow issue for number related problem
+/**
+ * @math
+ *
+ * integer - negative, 0, positive, overflow
+ *
+ * 123
+ * - mod 10 to get 3, add to result*10, 123/10
+ * - when x = 0, stop
+ * - if result > MAX/10
+ * - negative can be handled properly -1%10=-1
+ * - use abs to check overflow problem
  */
 
 public class ReverseInteger {
