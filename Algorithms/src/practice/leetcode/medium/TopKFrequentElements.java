@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @sort
+ *
  * bucket sort
  * get freq for each element
  * put into bucket (size? n+1) 11223/12345,2

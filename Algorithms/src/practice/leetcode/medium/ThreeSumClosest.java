@@ -3,6 +3,10 @@ package practice.leetcode.medium;
 import java.util.Arrays;
 
 /**
+ * @array
+ *
+ * assume that each input would have exactly one solution
+ *
  * sort the array
  * the range of i: [0,n-2)
  * j=i+1,k=len-1 start and end index

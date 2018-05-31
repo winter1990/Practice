@@ -12,6 +12,10 @@ import java.util.Set;
  * pattern = "abab", str = "redblueredblue", true
  * a->r b->e a->d false
  * b->ed ...
+ *
+ * use a map to store the char->string/substring
+ * two index, for original and pattern
+ *
  */
 public class WordPattern_II {
     public boolean wordPatternMatch(String pattern, String str) {

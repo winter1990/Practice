@@ -1,6 +1,9 @@
 package practice.leetcode.ez;
 
 public class LongestCommonPrefix {
+    /**
+     * @string
+     */
     public static String longestCommonPrefix1(String[] strs) {
         if (strs == null || strs.length == 0) {
             return "";
