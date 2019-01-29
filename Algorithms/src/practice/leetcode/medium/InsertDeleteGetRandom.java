@@ -8,6 +8,14 @@ import java.util.Set;
 public class InsertDeleteGetRandom {
 }
 
+/**
+ * @design
+ *
+ * Design a data structure that supports all following operations in average O(1) time.
+ *
+ * insert & remove - use operations in set
+ * get random element -
+ */
 
 class RandomizedSet {
 
@@ -40,11 +48,11 @@ class RandomizedSet {
     /** Get a random element from the set. */
     public int getRandom() {
         Random rand = new Random();
-        int n = rand.nextInt(set.size()) + 1;
+        int n = rand.nextInt(set.size());
 
         Iterator<Integer> integerIterator = set.iterator();
         int res = 0;
-        while (n-- > 0) {
+        while (n-- >= 0) {
             res = integerIterator.next();
         }
         return res;

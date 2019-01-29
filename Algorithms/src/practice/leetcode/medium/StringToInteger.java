@@ -1,6 +1,9 @@
 package practice.leetcode.medium;
 
 /**
+ * @string
+ * @math
+ *
  * all the possible input:
  * 1234
  * 0123

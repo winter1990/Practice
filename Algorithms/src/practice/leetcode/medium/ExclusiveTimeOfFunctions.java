@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Stack;
 
 /**
+ * @string
+ * @stack
+ *
  * order: thread id - start/end - time
  * need to track back - stack
  * stack is used to store the thread id

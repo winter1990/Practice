@@ -7,6 +7,8 @@ import java.util.Set;
 /**
  * split the sentence
  *
+=======
+ * @string
  */
 public class ReplaceWords {
     public String replaceWords(List<String> dict, String sentence) {

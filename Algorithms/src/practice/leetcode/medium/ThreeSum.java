@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @array
+ *
  * the array may contain multiple duplicates
  * [-4,-3,-2,1,1,1,1,1,2,2,2]
  */
@@ -26,10 +28,6 @@ public class ThreeSum {
             while (j < k) {
                 if (nums[i] + nums[j] + nums[k] == 0) {
                     List<Integer> list = new LinkedList<>();
-//                    list.add(nums[i]);
-//                    list.add(nums[j]);
-//                    list.add(nums[k]);
-//                    res.add(list);
                     res.add(Arrays.asList(nums[i], nums[j], nums[k]));
                     j++;
                     k--;

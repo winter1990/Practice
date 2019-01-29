@@ -3,6 +3,8 @@ package practice.leetcode.medium;
 import java.util.*;
 
 /**
+ * @recursion
+ *
  * use a map to build up the dict <int,char[]>
  * recursively add each char to each string in result set
  */
