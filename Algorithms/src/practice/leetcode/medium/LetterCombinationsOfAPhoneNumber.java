@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * @recursion
+ * @string
  *
  * use a map to build up the dict <int,char[]>
  * recursively add each char to each string in result set

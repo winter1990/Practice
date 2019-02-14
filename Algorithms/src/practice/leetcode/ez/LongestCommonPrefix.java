@@ -2,9 +2,11 @@ package practice.leetcode.ez;
 
 public class LongestCommonPrefix {
     /**
-     * @string
+     * @string two ways:
+     * 1. get the substrings of first string with length 1,2,... compare with all others
+     * 2. get the longest common prefix for first two strings, and compare with 3rd,4th,...
      */
-    public static String longestCommonPrefix1(String[] strs) {
+    public String longestCommonPrefix1(String[] strs) {
         if (strs == null || strs.length == 0) {
             return "";
         }
@@ -27,7 +29,7 @@ public class LongestCommonPrefix {
         return pre;
     }
 
-    public static String longestCommonPrefix2(String[] strs) {
+    public String longestCommonPrefix2(String[] strs) {
         if (strs == null || strs.length == 0) {
             return "";
         }
@@ -42,28 +44,31 @@ public class LongestCommonPrefix {
         return strs[0];
     }
 
-    // divide and conquer
+    /**
+     * more solutions:
+     * - divide and conquer
+     * - binary search
+     */
     public String longestCommonPrefix3(String[] strs) {
         if (strs == null || strs.length == 0) return "";
-        return longestCommonPrefix(strs, 0 , strs.length - 1);
+        return longestCommonPrefix(strs, 0, strs.length - 1);
     }
 
     private String longestCommonPrefix(String[] strs, int l, int r) {
         if (l == r) {
             return strs[l];
-        }
-        else {
-            int mid = (l + r)/2;
-            String lcpLeft =   longestCommonPrefix(strs, l , mid);
-            String lcpRight =  longestCommonPrefix(strs, mid + 1,r);
+        } else {
+            int mid = (l + r) / 2;
+            String lcpLeft = longestCommonPrefix(strs, l, mid);
+            String lcpRight = longestCommonPrefix(strs, mid + 1, r);
             return commonPrefix(lcpLeft, lcpRight);
         }
     }
 
-    String commonPrefix(String left,String right) {
+    String commonPrefix(String left, String right) {
         int min = Math.min(left.length(), right.length());
         for (int i = 0; i < min; i++) {
-            if ( left.charAt(i) != right.charAt(i) )
+            if (left.charAt(i) != right.charAt(i))
                 return left.substring(0, i);
         }
         return left.substring(0, min);
@@ -88,19 +93,11 @@ public class LongestCommonPrefix {
         return strs[0].substring(0, (low + high) / 2);
     }
 
-    private boolean isCommonPrefix(String[] strs, int len){
-        String str1 = strs[0].substring(0,len);
+    private boolean isCommonPrefix(String[] strs, int len) {
+        String str1 = strs[0].substring(0, len);
         for (int i = 1; i < strs.length; i++)
             if (!strs[i].startsWith(str1))
                 return false;
         return true;
-    }
-
-    public static void main(String[] args) {
-        String[] strs1 = {"abcdef", "abcdzzz", "abceee"};
-        String[] strs2 = {"aa", "a"};
-        System.out.println(longestCommonPrefix1(strs1));
-        System.out.println(longestCommonPrefix1(strs2));
-
     }
 }

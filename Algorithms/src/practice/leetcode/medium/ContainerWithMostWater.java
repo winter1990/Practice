@@ -4,11 +4,10 @@ package practice.leetcode.medium;
  * @array
  * @two pointers
  *
- * find two lines
- * the area - Math.min(a[i],a[j]) *(j-i)
- *
+ * two pointers
+ * calculate the area - Math.min(a[i],a[j]) *(j-i)
  * the shorter one is the limit
- * two pointers from start and end
+ * if same height? need to prove it does not matter which one to move
  */
 public class ContainerWithMostWater {
     public int maxArea(int[] height) {

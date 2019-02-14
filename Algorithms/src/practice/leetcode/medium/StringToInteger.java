@@ -5,45 +5,13 @@ package practice.leetcode.medium;
  * @math
  *
  * all the possible input:
- * 1234
- * 0123
- * 1000
- * long string, over Integer.MAX
- * 000
- * +-
- *      123
+ * Input: "   -42" Output: -42
+ * Input: "4193 with words" Output: 4193
+ * Input: "words and 987" Output: 0
+ * Input: "-91283472332" Output: -2147483648
  */
 public class StringToInteger {
     public int myAtoi(String str) {
-        if (str == null || str.length() == 0) {
-            return 0;
-        }
-        str = str.trim();
-        int i = 0;
-        int flag = 1;
-        if (str.charAt(i) == '+') {
-            i++;
-        } else if (str.charAt(i) == '-') {
-            flag = -1;
-            i++;
-        }
-        double res = 0;
-
-        while (i < str.length() && str.charAt(i) - '0' <= 9 && str.charAt(i) - '0' >= 0) {
-            res *= 10;
-            res += str.charAt(i) - '0';
-            i++;
-        }
-        if (res > Integer.MAX_VALUE) {
-            return Integer.MAX_VALUE;
-        } else if (res < Integer.MIN_VALUE) {
-            return Integer.MIN_VALUE;
-        }
-        res *= flag;
-        return (int)res;
-    }
-
-    public int myAtoi2(String str) {
         if (str == null || str.length() == 0) {
             return 0;
         }
@@ -64,11 +32,5 @@ public class StringToInteger {
             i++;
         }
         return res * sign;
-    }
-
-    public static void main(String[] args) {
-        String s = "1";
-        StringToInteger sti = new StringToInteger();
-        System.out.println(sti.myAtoi2(s));
     }
 }

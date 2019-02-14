@@ -3,14 +3,15 @@ package practice.leetcode.ez;
 /**
  * @math
  *
- * reverse the number (unnecessary, and may also have overflow issue)
- * => reverse half of the number
+ * reverse the number (unnecessary, and may also have overflow issue) => reverse half of the number
+ * when stop? while (x > num)
+ * for integer, + - 0 min max
+ * palindrome: even / odd digit?
  *
- * even/odd digit?
  * 12321 => 12 123
  * 123321 => 123 123
  *
- * when stop? while (x > num)
+ * 100 reverse 001 = 1, not palindrome
  */
 
 public class PalindromeNumber {

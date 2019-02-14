@@ -5,7 +5,6 @@ package practice.leetcode.ez;
  *
  * integer - negative, 0, positive, overflow
  *
- * 123
  * - mod 10 to get 3, add to result*10, 123/10
  * - when x = 0, stop
  * - if result > MAX/10
@@ -31,5 +30,6 @@ public class ReverseInteger {
         int i = -2147483412;
         ReverseInteger ri = new ReverseInteger();
         System.out.println(ri.reverse(i));
+        System.out.println(-11 % 10);
     }
 }

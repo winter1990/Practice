@@ -34,20 +34,18 @@ public class ThreeSumClosest {
                     return target;
                 } else if (sum > target) {
                     k--;
-                    while (j < k && nums[k] == nums[k + 1]) k--;
+                    while (j < k && nums[k] == nums[k + 1]) {
+                        k--;
+                    }
                 } else {
                     j++;
-                    while (j < k && nums[j] == nums[j - 1]) j++;
+                    while (j < k && nums[j] == nums[j - 1]) {
+                        j++;
+                    }
                 }
                 res = Math.abs(sum - target) < Math.abs(res - target) ? sum : res;
             }
         }
         return res;
-    }
-
-    public static void main(String[] args) {
-        int[] in = {-3, -2, -5, 3, -4};
-        ThreeSumClosest ts = new ThreeSumClosest();
-        System.out.println(ts.threeSumClosest(in, -1));
     }
 }

@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @array
+ *
  * similar to 3sum
  * i=0,j=i+1
  * left & right

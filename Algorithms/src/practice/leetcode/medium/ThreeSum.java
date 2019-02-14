@@ -7,7 +7,8 @@ import java.util.List;
 /**
  * @array
  *
- * the array may contain multiple duplicates
+ * sort array first
+ * the array may contain multiple duplicates. but [-1 -1 -1 0 1 2], we may still need to use duplicate numbers
  * [-4,-3,-2,1,1,1,1,1,2,2,2]
  */
 
@@ -27,12 +28,15 @@ public class ThreeSum {
             int k = nums.length - 1;
             while (j < k) {
                 if (nums[i] + nums[j] + nums[k] == 0) {
-                    List<Integer> list = new LinkedList<>();
                     res.add(Arrays.asList(nums[i], nums[j], nums[k]));
                     j++;
                     k--;
-                    while (j < k && nums[j] == nums[j - 1]) j++;
-                    while (k > j && nums[k] == nums[k + 1]) k--;
+                    while (j < k && nums[j] == nums[j - 1]) {
+                        j++;
+                    }
+                    while (k > j && nums[k] == nums[k + 1]) {
+                        k--;
+                    }
                 } else if (nums[i] + nums[j] + nums[k] > 0) {
                     k--;
                 } else {

@@ -29,9 +29,4 @@ public class IntegerToRoman {
         }
         return res.toString();
     }
-
-    public static void main(String[] args) {
-        IntegerToRoman ir = new IntegerToRoman();
-        System.out.println(ir.intToRoman(3999));
-    }
 }

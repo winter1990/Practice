@@ -1,6 +1,8 @@
 package practice.leetcode.medium;
 
 /**
+ * @linkedlist
+ *
  * get len, move and delete
  *
  * optimized:

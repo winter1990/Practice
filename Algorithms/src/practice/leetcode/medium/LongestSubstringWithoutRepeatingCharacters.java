@@ -21,22 +21,19 @@ public class LongestSubstringWithoutRepeatingCharacters {
             return 0;
         }
         Set<Character> set = new HashSet<>();
-        int i = 0;
-        int j = 0;
-        int max = 0;
+        int i = 0, j = 0, max = 0;
         while (j < s.length()) {
             if (!set.contains(s.charAt(j))) {
                 set.add(s.charAt(j));
-                max = Math.max(j - i + 1, max);
-                j++;
+                max = Math.max(max, j - i + 1);
             } else {
                 while (s.charAt(i) != s.charAt(j)) {
                     set.remove(s.charAt(i));
                     i++;
                 }
-                i += 1;
-                j++;
+                i++;
             }
+            j++;
         }
         return max;
     }
@@ -46,7 +43,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
     // if not contain,put<>
     // if contains, update start pos, abcbdce, max(index,map.get(char)+1)
     // update max
-    public int lengthOfLongestSubstring1(String s) {
+    public static int lengthOfLongestSubstring1(String s) {
         if (s == null || s.length() == 0) {
             return 0;
         }
@@ -54,7 +51,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
         int max = 0;
         for (int i = 0, j = 0; i < s.length(); i++) {
             if (map.containsKey(s.charAt(i))) {
-                j = Math.max(j, map.get(s.charAt(i)) + 1);
+                j = Math.max(j, map.get(s.charAt(i)) + 1); // j = map.get(s.charAt(i)) + 1; incorrect, j might be beyond get(i)
             }
             map.put(s.charAt(i), i);
             max = Math.max(max, i - j + 1);
@@ -63,9 +60,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
     }
 
     public static void main(String[] args) {
-        LongestSubstringWithoutRepeatingCharacters ls = new LongestSubstringWithoutRepeatingCharacters();
-        String s = "abba";
-                //"daaabcd";
-        System.out.print(ls.lengthOfLongestSubstring1(s));
+//        LongestSubstringWithoutRepeatingCharacters a = new LongestSubstringWithoutRepeatingCharacters();
+        System.out.println(lengthOfLongestSubstring1("abba"));
     }
 }
