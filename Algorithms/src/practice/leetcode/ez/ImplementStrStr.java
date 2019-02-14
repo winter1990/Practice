@@ -1,5 +1,8 @@
 package practice.leetcode.ez;
 
+/**
+ * @string
+ */
 public class ImplementStrStr {
     public int strStr(String haystack, String needle) {
         if (haystack == null || needle == null) {

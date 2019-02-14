@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @string
+ * @recursion
+ *
  * n=3, ()()() (()()) (())() ((()))
  * valid format of parentheses: number of left >= number of right parentheses
  * recursively build the string:
