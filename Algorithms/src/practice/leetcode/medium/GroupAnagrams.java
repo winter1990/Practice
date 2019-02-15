@@ -3,8 +3,11 @@ package practice.leetcode.medium;
 import java.util.*;
 
 /**
- * hashmap
- * for each string, tochararray and sort
+ * @hashmap
+ *
+ * for each string, convert to char array and sort the array
+ * use the new string as the key
+ * value is a list of string
  */
 public class GroupAnagrams {
     public List<List<String>> groupAnagrams(String[] strs) {
@@ -18,7 +21,7 @@ public class GroupAnagrams {
             Arrays.sort(cs);
             String t = new String(cs);
             if (!map.containsKey(t)) {
-                List<String> list = new LinkedList<String>();
+                List<String> list = new LinkedList<>();
                 list.add(s);
                 map.put(t, list);
             } else {
@@ -27,11 +30,5 @@ public class GroupAnagrams {
         }
         res.addAll(map.values());
         return res;
-    }
-
-    public static void main(String[] args) {
-        GroupAnagrams ga = new GroupAnagrams();
-        String[] in = {"eat","tea","tan","ate","nat","bat"};
-        System.out.println(ga.groupAnagrams(in));
     }
 }

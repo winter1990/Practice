@@ -1,6 +1,9 @@
 package practice.leetcode.medium;
 
 /**
+ * @array
+ * @binarySearch
+ *
  * return the target index, or -1
  * 01235678->35678012
  * 01235678->78012356
@@ -19,24 +22,23 @@ public class SearchInRotatedSortedArray {
         if (nums == null || nums.length == 0) {
             return -1;
         }
-        int start = 0;
-        int end = nums.length - 1;
-        while (start <= end) {
-            int mid = start + (end - start) / 2;
+        int s = 0, e = nums.length - 1;
+        while (s <= e) {
+            int mid = (s + e) / 2;
             if (nums[mid] == target) {
                 return mid;
             }
-            if (nums[start] <= nums[mid]) { // first half is increasing
-                if (target >= nums[start] && target < nums[mid]) {
-                    end = mid - 1;
+            if (nums[s] <= nums[mid]) { // < covers most of cases, but for [1],4 it would be stackoverflow
+                if (nums[s] <= target && target < nums[mid]) {
+                    e = mid - 1;
                 } else {
-                    start = mid + 1;
+                    s = mid + 1;
                 }
-            } else if (nums[mid] < nums[end]) {
-                if (target > nums[mid] && target <= nums[end]) {
-                    start = mid + 1;
+            } else if (nums[mid] < nums[e]) {
+                if (nums[mid] < target && target <= nums[e]) {
+                    s = mid + 1;
                 } else {
-                    end = mid - 1;
+                    e = mid - 1;
                 }
             }
         }
@@ -44,8 +46,8 @@ public class SearchInRotatedSortedArray {
     }
 
     public static void main(String[] args) {
-        int[] in = {1,3};
-        int target = 4;
+        int[] in = {1,2};
+        int target = 1;
         SearchInRotatedSortedArray sr = new SearchInRotatedSortedArray();
         System.out.println(sr.search(in, target));
     }

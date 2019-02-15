@@ -1,6 +1,8 @@
 package practice.leetcode.ez;
 
 /**
+ * @array
+ *
  * [-2,1,-3,4,-1,2,1,-5,4] => 6 ([4,-1,2,1])
  *
  * dp works. but rethink
@@ -8,6 +10,7 @@ package practice.leetcode.ez;
  * can it be neg?
  */
 public class MaximumSubarray {
+
     public int maxSubArray(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;

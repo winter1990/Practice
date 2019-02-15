@@ -1,6 +1,8 @@
 package practice.leetcode.ez;
 
 /**
+ * @string
+ *
  * 1. 1
  * 2. 11
  * 3. 21

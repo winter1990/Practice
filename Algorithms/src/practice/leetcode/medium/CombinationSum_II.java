@@ -26,10 +26,7 @@ public class CombinationSum_II {
             res.add(new LinkedList<>(list));
             return;
         }
-//        if (target < 0) {
-//            return;
-//        }
-//        if (candidates[index] > target) {
+//        if (candidates[index] > target) { out of boundary when index = length
 //            return;
 //        }
         for (int i = index; i < candidates.length; i++) {

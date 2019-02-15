@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @recursion
+ * @backtracking
+ *
  * Given a collection of distinct numbers, return all possible permutations.
  *
  * recursion:
@@ -40,7 +43,7 @@ public class Permutations {
         if (nums == null || nums.length == 0) {
             return res;
         }
-        helper(nums, new LinkedList<Integer>(), res);
+        helper(nums, new LinkedList<>(), res);
         return res;
     }
 

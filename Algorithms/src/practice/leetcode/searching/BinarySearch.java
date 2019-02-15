@@ -5,7 +5,7 @@ public class BinarySearch {
     public static int binarySearch(int[] arr, int target) {
         int l = 0;
         int r = arr.length - 1;
-        while (l <= r) { // must be <=, otherwise there will be an element missed check
+        while (l <= r) { // if < we are missing to check one element
             int mid = l + (r - l) / 2;
             if (arr[mid] == target) {
                 return mid;

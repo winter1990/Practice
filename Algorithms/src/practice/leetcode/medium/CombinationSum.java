@@ -29,7 +29,7 @@ public class CombinationSum {
 
     private void helper(int[] candidates, int index, int target, LinkedList<Integer> list, List<List<Integer>> res) {
         if (target == 0) {
-            res.add(new LinkedList<Integer>(list));
+            res.add(new LinkedList<>(list));
             return;
         }
         if (candidates[index] > target) {
@@ -42,10 +42,27 @@ public class CombinationSum {
         }
     }
 
+    // this helper method is wrong as when add 223 in the list and continue the next stack call, the target is 0
+    private void helper1(int[] candidates, int index, int target, LinkedList<Integer> list, List<List<Integer>> res) {
+        if (target == candidates[index]) {
+            list.add(candidates[index]);
+            res.add(new LinkedList<>(list));
+            return;
+        }
+        if (candidates[index] > target) {
+            return;
+        }
+        for (int i = index; i < candidates.length; i++) {
+            list.add(candidates[i]);
+            helper1(candidates, i, target - candidates[i], list, res);
+            list.remove(list.size() - 1);
+        }
+    }
+
     public static void main(String[] args) {
         CombinationSum cs = new CombinationSum();
         int[] in = {2,3,6,7};
-        System.out.println(cs.combinationSum(in, 6));
+        System.out.println(cs.combinationSum(in, 7));
     }
 
 }
