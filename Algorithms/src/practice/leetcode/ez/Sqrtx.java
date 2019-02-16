@@ -1,15 +1,18 @@
 package practice.leetcode.ez;
 
 /**
+ * @math
+ *
  * Compute and return the square root of x.
  * x is guaranteed to be a non-negative integer.
  * 4->2, 8->2
+ * return type is an integer, the decimal digits are truncated and only the integer part of the result is returned
  *
- * from 1 to x, brute
+ * Brute force: from 1 to x
  * binary search
- * mid^2=x mid
- * mid^2>x mid-1
- * mid^2<x mid-1
+ * mid^2 = x, mid
+ * mid^2 > x, mid - 1
+ * mid^2 < x, mid - 1
  * r is the value
  */
 public class Sqrtx {

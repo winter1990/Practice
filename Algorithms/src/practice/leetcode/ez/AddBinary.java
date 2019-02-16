@@ -14,9 +14,9 @@ package practice.leetcode.ez;
  */
 public class AddBinary {
     public String addBinary(String a, String b) {
-        int len = Math.max(a.length(), b.length());
         int l1 = a.length();
         int l2 = b.length();
+        int len = Math.max(l1, l2);
         int carry = 0;
         String res = "";
         for (int i = 0; i < len; i++) {

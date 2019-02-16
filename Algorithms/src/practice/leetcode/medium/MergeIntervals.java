@@ -6,7 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * sort the intervals by start value, comparator - override compare method
+ * @sort
+ * @array
+ *
+ * to compare two intervals and merge, need to sort it first
+ * only two possible ways: sort by start or end
  *
  * get end val of first interval
  * go through list

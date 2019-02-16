@@ -1,9 +1,10 @@
 package practice.leetcode.ez;
 
 /**
- * 1 - 2 - 3 - 4
+ * @linkedlist
  *
- *
+ * 1 - 2 - 3 - 4 -> 4 - 3 - 2 - 1
+ * current, next, previous
  */
 public class ReverseLinkedList {
     public ListNode reverseList(ListNode head) {

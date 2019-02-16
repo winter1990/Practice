@@ -1,6 +1,9 @@
 package practice.leetcode.medium;
 
 /**
+ * @greedy
+ * @array
+ *
  * dynamic programming
  * [32104],false
  * [23101],true
@@ -25,8 +28,28 @@ public class JumpGame {
         return true;
     }
 
+    /**
+     * can use single variable to track the maximum index can reach
+     *
+     * for each loop, update the max and compare with whether current step can be reached
+     */
+    public boolean canJump1(int[] nums) {
+        if (nums == null || nums.length <= 1) {
+            return true;
+        }
+        int max = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (max < i) {
+                return false;
+            }
+            max = Math.max(max, i + nums[i]);
+        }
+        return max >= nums.length - 1;
+    }
+
     public static void main(String[] args) {
         JumpGame jg = new JumpGame();
-        System.out.println(jg.canJump(new int[]{3,2,1,1,4}));
+        System.out.println(jg.canJump1(new int[]{4,2,1,0,0}));
     }
+
 }

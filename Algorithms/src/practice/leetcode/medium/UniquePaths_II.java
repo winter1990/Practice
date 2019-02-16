@@ -1,13 +1,10 @@
 package practice.leetcode.medium;
 
 /**
- * obstacle
- * 0 0 0
- * 0 1 0
- * 0 0 0
+ * @dp
  *
- * initialize row/col dp[i]=dp[i-1]
- * if obstacle, then 0
+ * initialize row and col, if obstacle, then 0 and the value depends on previous value
+ * scan through the matrix, if obstacle then dp[i[j] = 0, otherwise [i-1][j]+[i][j-1]
  */
 public class UniquePaths_II {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
