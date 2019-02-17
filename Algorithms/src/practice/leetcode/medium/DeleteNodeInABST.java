@@ -1,6 +1,8 @@
 package practice.leetcode.medium;
 
 /**
+ * @tree
+ *
  * recursively traverse the tree, set left and right sub tree
  * bst -> compare with key value
  * while key=root value
@@ -29,7 +31,7 @@ public class DeleteNodeInABST {
                     par = newRoot;
                     newRoot = newRoot.left;
                 }
-                if(par == null){
+                if (par == null) {
                     newRoot.left = root.left;
                     return newRoot;
                 }
@@ -42,10 +44,29 @@ public class DeleteNodeInABST {
         return root;
     }
 
-    private TreeNode getLeftmost(TreeNode node) {
-        while (node.left != null) {
-            node = node.left;
+    public TreeNode deleteNode1(TreeNode root, int key) {
+        if (root == null) {
+            return null;
         }
-        return node;
+        if (root.val < key) {
+            root.right = deleteNode(root.right, key);
+        } else if (root.val > key) {
+            root.left = deleteNode(root.left, key);
+        } else {
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            } else {
+                TreeNode newRoot = root.right;
+                TreeNode cur = newRoot;
+                while (cur.left != null) {
+                    cur = cur.left;
+                }
+                cur.left = root.left;
+                return newRoot;
+            }
+        }
+        return root;
     }
 }
