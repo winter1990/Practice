@@ -3,7 +3,7 @@ package practice.leetcode.medium;
 import java.util.Arrays;
 
 /**
- * same char can not be used twice
+ * @search same char can not be used twice, so define a checker[][] to track whether visited
  * ['A','B','C','E'],
  * ['S','F','C','S'],
  * ['A','D','E','E']
@@ -12,70 +12,82 @@ import java.util.Arrays;
  * word = "ABCB", -> returns false.
  *
  * dfs
+ * base case: 1) out of boundary 2) word found - index = length 3) visited already
+ * search in 4 directions
+ * recursive call (board, word, i, j, boolean[][])
  */
 public class WordSearch {
     public boolean exist(char[][] board, String word) {
         int m = board.length;
         int n = board[0].length;
-        boolean[][] checker = new boolean[m][n];
+        boolean[][] visited = new boolean[m][n];
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (word.charAt(0) == board[i][j] && findWord(board, word, 0, i, j, checker)) return true;
-                initializeChecker(checker);
+                if (word.charAt(0) == board[i][j] && findWord(board, word, 0, i, j, visited)) {
+                    return true;
+                }
+                initializeChecker(visited);
             }
         }
         return false;
     }
 
-    private void initializeChecker(boolean[][] checker) {
-        for (int k = 0; k < checker.length; k++) {
-            Arrays.fill(checker[k], false);
+    private void initializeChecker(boolean[][] visited) {
+        for (int i = 0; i < visited.length; i++) {
+            Arrays.fill(visited[i], false);
         }
     }
 
-    private boolean findWord(char[][] board, String word, int index, int i, int j, boolean[][] checker) {
+    private boolean findWord(char[][] board, String word, int index, int i, int j, boolean[][] visited) {
         if (index == word.length()) {
             return true;
         } else if (i < 0 || i >= board.length || j < 0 || j >= board[0].length) {
             return false;
-        } else if (checker[i][j]) {
+        } else if (visited[i][j]) {
             return false;
         } else if (word.charAt(index) != board[i][j]) {
             return false;
         }
-        checker[i][j] = true;
-        if (findWord(board, word, index + 1, i - 1, j, checker)
-                || findWord(board, word, index + 1, i + 1, j, checker)
-                || findWord(board, word, index + 1, i, j - 1, checker)
-                || findWord(board, word, index + 1, i, j + 1, checker)) {
+        visited[i][j] = true;
+        if (findWord(board, word, index + 1, i - 1, j, visited)
+                || findWord(board, word, index + 1, i + 1, j, visited)
+                || findWord(board, word, index + 1, i, j - 1, visited)
+                || findWord(board, word, index + 1, i, j + 1, visited)) {
             return true;
         }
-        checker[i][j] = false;
+        visited[i][j] = false;
         return false;
     }
 
-    // alternative method without checker
-    private boolean exist(char[][] board, int i, int j, String word, int ind){
-        if(ind == word.length()) return true;
-        if(i > board.length-1 || i <0 || j<0 || j >board[0].length-1 || board[i][j]!=word.charAt(ind))
+    /**
+     * alternative method without checker
+     * we must find a method to track the character we have visited
+     * if no extra space is allowed, do it in-place replace the visited as some special character
+     * when we finish the recursive call, change it back to original character
+     */
+    private boolean exist(char[][] board, int i, int j, String word, int index) {
+        if (index == word.length()) {
+            return true;
+        }
+        if (i > board.length - 1 || i < 0 || j < 0 || j > board[0].length - 1 || board[i][j] != word.charAt(index)) {
             return false;
-        board[i][j]='*';
-        boolean result =    exist(board, i-1, j, word, ind+1) ||
-                exist(board, i, j-1, word, ind+1) ||
-                exist(board, i, j+1, word, ind+1) ||
-                exist(board, i+1, j, word, ind+1);
-        board[i][j] = word.charAt(ind);
+        }
+        board[i][j] = '*';
+        boolean result = exist(board, i - 1, j, word, index + 1) ||
+                exist(board, i, j - 1, word, index + 1) ||
+                exist(board, i, j + 1, word, index + 1) ||
+                exist(board, i + 1, j, word, index + 1);
+        board[i][j] = word.charAt(index);
         return result;
     }
 
-
     public static void main(String[] args) {
-        char[][] board = {{'A','B','C','E'},
-                          {'S','F','E','S'},
-                          {'A','D','E','E'}};
+        char[][] board = {{'A', 'B', 'C', 'E'},
+                {'S', 'F', 'E', 'S'},
+                {'A', 'D', 'E', 'E'}};
         WordSearch ws = new WordSearch();
-        System.out.println(ws.exist(board,"EFDEES"));
+        System.out.println(ws.exist(board, "EFDEES"));
     }
 
 

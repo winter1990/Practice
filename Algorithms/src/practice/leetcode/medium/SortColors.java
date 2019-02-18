@@ -1,51 +1,42 @@
 package practice.leetcode.medium;
 
 /**
+ * @sort
+ *
  * 0, 1, and 2 to represent the color red, white, and blue respectively.
+ * Input: [2,0,2,1,1,0], Output: [0,0,1,1,2,2]
+ * 0 1 2 -> red white blue
  *
- * 3 pointers - r w b
- * swap
- * 31212,0 0 4, 21213 12213 12213 11223
+ * brute force: one pass and count all colors
+ * in place method:
+ * 3 pointers, 0, n - 1 and one in the middle starting from 0 to n - 1
+ * if a[i2] = 1 continue, 0 swap with a[i1] i1++ i2++, 2 swap with i3 i3-- do not update i2 (0 1 2 all possible)
  * what if all 0/1/2
- *
- *
  */
 public class SortColors {
     public void sortColors(int[] nums) {
         if (nums == null || nums.length <= 1) {
             return;
         }
-        int len = nums.length;
-        int r = 0;
-        int w = 0;
-        int b = len - 1;
-        while (w <= b) {
-            if (nums[w] == 1) {
-                w++;
-            } else if (nums[w] == 0) {
-                swap(nums, r, w);
-                r++;
-                w++;
-            } else if (nums[w] == 2) {
-                swap(nums, w, b);
-                b--;
+        int n = nums.length;
+        int i1 = 0, i2 = 0, i3 = n - 1;
+        while (i2 <= i3) {
+            if (nums[i2] == 1) {
+                i2++;
+            } else if (nums[i2] == 0) {
+                swap(nums, i1, i2);
+                i1++;
+                i2++;
+            } else {
+                swap(nums, i2, i3);
+                i3--;
             }
         }
     }
 
-    private void swap(int[] nums, int i, int j) {
-        int tmp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = tmp;
-        return;
-    }
-
-    public static void main(String[] args) {
-        SortColors sc =new SortColors();
-        int[] in = {2,1,2,1,0};
-        sc.sortColors(in);
-        for (int i = 0; i < in.length; i++) {
-            System.out.println(in[i]);
-        }
+    private void swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 }

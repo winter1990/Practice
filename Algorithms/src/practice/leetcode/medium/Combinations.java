@@ -9,8 +9,9 @@ import java.util.List;
  * n=4 k=2, 12 13 14 23 24 34
  *
  * recursion:
- * base sublist size=k
- * need index to set the lower bound
+ * base sublist current list size = k
+ * for ([index, n])
+ * in next recursive call, update the start index to i + 1
  */
 public class Combinations {
     public List<List<Integer>> combine(int n, int k) {
@@ -32,10 +33,5 @@ public class Combinations {
             helper(n, k, i + 1, list, res);
             list.remove(list.size() - 1);
         }
-    }
-
-    public static void main(String[] args) {
-        Combinations c = new Combinations();
-        System.out.println(c.combine(3,2));
     }
 }

@@ -1,5 +1,13 @@
 package practice.leetcode.ez;
 
+/**
+ * @array
+ *
+ * if compare from the first element, we need to shift all the elements after to the right and iterate the shift
+ * so, start from the last element. two pointer for two arrays
+ * while (i>=0 && j >=0)
+ * check the leftover elements at last - if some elements in second array smaller
+ */
 public class MergeSortedArray {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         if (nums2 == null || nums2.length == 0) {

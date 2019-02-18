@@ -1,11 +1,13 @@
 package practice.leetcode.medium;
 
 /**
+ * @binarysearch
+ *
  * 1  2  3  4
  * 5  6  7  8
  * 9 10 11 12
- * start=0 end=m*n-1
- * mid/n=row mid%n=col
+ * start = 0, end = m * n - 1
+ * mid / n = row, mid % n = col
  */
 public class Search2DMatrix {
     public boolean searchMatrix(int[][] matrix, int target) {

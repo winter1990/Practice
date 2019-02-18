@@ -1,11 +1,15 @@
 package practice.leetcode.medium;
 
 /**
+ * @linkedlist
+ *
  * all nodes less than x come before nodes greater than or equal to x
  * 1->4->3->2->5->2 and x = 3,1->2->2->4->3->5
  *
  * two Lists two pointers
- *
+ * if smaller, concatenate to first list, if equal or larger, concatenate to second list
+ * at last we have two linked lists, link them together tail to head
+ * check leftover nodes, unlinked nodes, or wrong next reference node
  */
 public class PartitionList {
     public ListNode partition(ListNode head, int x) {
@@ -26,15 +30,7 @@ public class PartitionList {
             head = head.next;
         }
         l1.next = d2.next;
-        l2.next = null; // 1-2-3-1,2
+        l2.next = null;
         return d1.next;
-    }
-
-    public static void main(String[] args) {
-        ListNode n1 = new ListNode(2);
-        ListNode n2 = new ListNode(1);
-        n1.next = n2;
-        PartitionList rd = new PartitionList();
-        System.out.println(rd.partition(n1,2).next.next.val);
     }
 }

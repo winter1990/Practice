@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @bitwise
+ *
+ * Input: 2, Output: [0,1,3,2] -> [00 01 11 10] or [0 2 3 1] -> 00 10 11 01
  * n represents total digits
- * creating a mask
- * n=3, 000 001 011 010 110 111 101 100
- * the mask is 1<<n
+ *
+ * n = 3, 000 001 011 010 110 111 101 100
+ * the mask is 1 << n
  */
 public class GrayCode {
     public List<Integer> grayCode(int n) {
