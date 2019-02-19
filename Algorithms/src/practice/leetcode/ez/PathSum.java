@@ -1,11 +1,16 @@
 package practice.leetcode.ez;
 
 /**
+ * @tree
+ *
  * root-to-leaf path
  *
  * start with root
  * recursively go down, minus root val
- * leaf is the remaining
+ *
+ * if node null, false
+ * if leaf node and same as remaining value, return true
+ * otherwise, go down to left or right
  */
 
 public class PathSum {

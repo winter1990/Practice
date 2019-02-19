@@ -1,6 +1,9 @@
 package practice.leetcode.medium;
 
 /**
+ * @tree
+ * @recursion
+ *
  * binary tree:
  * inorder and preorder given
  * duplicates do not exist in the tree
@@ -8,9 +11,9 @@ package practice.leetcode.medium;
  * in   4 2 1 5 3 6
  * pre  1 2 4 3 5 6
  *
- * preorder get the root of the tree/subtree
- * all the element to the left in inorder will be in left subtree, same for right
- *
+ * first element in preorder array is the root of the tree
+ * if we go check inorder, the root is in the middle, separating the left and right subtree
+ * so we know the start and end index in left subtree
  * recursion
  * base - root found in inorder arr (index needed in preorder)
  * left if helper(i+1)
@@ -27,7 +30,9 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         }
         int i;
         for (i = 0; i < inorder.length; i++) {
-            if (inorder[i] == preorder[ps]) break;
+            if (inorder[i] == preorder[ps]) {
+                break;
+            }
         }
         TreeNode node = new TreeNode(inorder[i]);
         node.left = helper(preorder, ps + 1, ps + i - is, inorder, is, i - 1);

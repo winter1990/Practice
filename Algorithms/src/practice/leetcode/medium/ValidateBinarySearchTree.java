@@ -1,8 +1,12 @@
 package practice.leetcode.medium;
 
 /**
- * left subtree smaller
- * right subtree larger
+ * @tree
+ * @recursion
+ * @dfs
+ *
+ * all nodes in left subtree smaller
+ * all nodes in right subtree larger
  *
  * set left bound and right bound
  * recursively go down the tree
@@ -34,23 +38,8 @@ public class ValidateBinarySearchTree {
         return helper(root.left, min, root.val - 1) && helper(root.right, root.val + 1, max);
     }
 
-    // this method will not pass the case [Long.MIN, null, Long.MAX]
-    public boolean isValidBST1(TreeNode root) {
-        return helper1(root, Long.MIN_VALUE, Long.MAX_VALUE);
-    }
-
-    private boolean helper1(TreeNode root, long minValue, long maxValue) {
-        if (root == null) {
-            return true;
-        }
-        if (root.val <= minValue || root.val >= maxValue) {
-            return false;
-        }
-        return helper1(root.left, minValue, root.val) && helper1(root.right, root.val, maxValue);
-    }
-
     // cc150
-    public boolean isValidBST2(TreeNode root) {
+    public boolean isValidBST1(TreeNode root) {
         return checkBST(root, null, null);
     }
 

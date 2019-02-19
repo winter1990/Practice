@@ -4,9 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * @tree
+ *
+ * return the bottom-up level order traversal of its nodes' values.
+ *
+ *
+ */
 public class BinaryTreeLevelOrderTraversal_II {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> res = new LinkedList<List<Integer>>();
+        List<List<Integer>> res = new LinkedList<>();
         if (root == null) {
             return res;
         }
@@ -29,5 +36,31 @@ public class BinaryTreeLevelOrderTraversal_II {
 
         }
         return res;
+    }
+
+    /**
+     * recursion solution
+     */
+    public List<List<Integer>> levelOrderBottom1(TreeNode root) {
+        List<List<Integer>> res = new LinkedList<>();
+        if (root == null) {
+            return res;
+        }
+        helper(root, 0, res);
+        return res;
+    }
+
+    private void helper(TreeNode node, int level, List<List<Integer>> res) {
+        if (node == null) {
+            return;
+        }
+        if (level == res.size()) {
+            List<Integer> newLevel = new LinkedList<>();
+            res.add(0, newLevel);
+        }
+        List<Integer> list = res.get(res.size() - level - 1);
+        helper(node.left, level + 1, res);
+        helper(node.right, level + 1, res);
+        list.add(node.val);
     }
 }

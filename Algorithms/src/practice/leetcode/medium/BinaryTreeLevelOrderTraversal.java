@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * use a queue to store
- * for each loop, get the size first
+ * @tree
+ *
+ * start with the root
+ * for each level, create a new list
+ * count the number of nodes in each level at the beginning before adding new nodes
+ * poll from the node with count iterations, and check left and right child, if not null, add to queue
  */
 public class BinaryTreeLevelOrderTraversal {
     public List<List<Integer>> levelOrder(TreeNode root) {
@@ -22,8 +26,12 @@ public class BinaryTreeLevelOrderTraversal {
             while (size-- > 0) {
                 TreeNode cur = q.poll();
                 list.add(cur.val);
-                if (cur.left != null) q.offer(cur.left);
-                if (cur.right != null) q.offer(cur.right);
+                if (cur.left != null) {
+                    q.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    q.offer(cur.right);
+                }
             }
             res.add(list);
         }

@@ -35,4 +35,35 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         }
         return res;
     }
+
+    /**
+     * recursive solution:
+     * pass the level value in the recursive call to determine whether we need to reverse or not
+     */
+    public List<List<Integer>> zigzagLevelOrder1(TreeNode root) {
+        List<List<Integer>> res = new LinkedList<>();
+        if (root == null) {
+            return res;
+        }
+        helper(root, 0, res);
+        return res;
+    }
+
+    private void helper(TreeNode node, int level, List<List<Integer>> res) {
+        if (node == null) {
+            return;
+        }
+        if (level == res.size()) {
+            List<Integer> newLevel = new LinkedList<>();
+            res.add(newLevel);
+        }
+        List<Integer> list = res.get(level);
+        if (level % 2 == 0) {
+            list.add(node.val);
+        } else {
+            list.add(0, node.val);
+        }
+        helper(node.left, level + 1, res);
+        helper(node.right, level + 1, res);
+    }
 }

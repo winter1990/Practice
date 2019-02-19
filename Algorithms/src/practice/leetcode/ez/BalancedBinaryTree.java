@@ -1,12 +1,14 @@
 package practice.leetcode.ez;
 
 /**
+ * @tree
+ * @recursion
+ *
  * a height-balanced binary tree is defined as a binary tree
  * in which the depth of the two subtrees of every node never differ by more than 1
  *
  * get height for each node
- * recursively compare left and right, check abs(). O(nlogn)
- *
+ * recursively compare left and right, check abs(left, right). O(nlogn)
  */
 
 public class BalancedBinaryTree {
@@ -28,6 +30,7 @@ public class BalancedBinaryTree {
     }
 
     /**
+     * recursion optimization:
      * check height & check balance at same time
      */
     public boolean isBalanced(TreeNode root) {
@@ -56,6 +59,5 @@ public class BalancedBinaryTree {
             return Integer.MIN_VALUE;
         }
         return Math.max(left, right) + 1;
-
     }
 }

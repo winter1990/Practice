@@ -1,5 +1,16 @@
 package practice.leetcode.ez;
 
+/**
+ * @tree
+ *
+ * need to compare left and right recursively
+ * use a helper method with two subtrees' root
+ *
+ * based case:
+ * both null, true
+ * either null, false
+ * return a.val==b.val helper(left right) (right left)
+ */
 public class SymmetricTree {
     public boolean isSymmetric(TreeNode root) {
         if (root == null) {

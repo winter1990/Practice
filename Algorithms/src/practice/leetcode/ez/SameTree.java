@@ -1,7 +1,13 @@
 package practice.leetcode.ez;
 
 /**
- * dfs
+ * @tree
+ * @dfs
+ *
+ * base condition:
+ * both null - true
+ * either null - false
+ * if value same, then we continue with both left subtree and right subtree
  */
 public class SameTree {
     public boolean isSameTree(TreeNode p, TreeNode q) {

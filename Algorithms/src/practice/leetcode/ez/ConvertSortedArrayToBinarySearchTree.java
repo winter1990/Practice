@@ -1,5 +1,14 @@
 package practice.leetcode.ez;
 
+/**
+ * @array
+ * @recursion
+ *
+ * choose the root first:
+ * element in the middle as the root so that tree is well-balanced though it is not the requirement
+ * recursively get the root from left half of array and right half
+ * need two index start and end to keep track of the index
+ */
 public class ConvertSortedArrayToBinarySearchTree {
     public TreeNode sortedArrayToBST(int[] nums) {
         if (nums == null || nums.length == 0) {

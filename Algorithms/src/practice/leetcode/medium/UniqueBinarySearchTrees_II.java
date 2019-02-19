@@ -4,15 +4,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * divide and conquer
+ * @dp
+ * @tree
+ * @recursion
  *
- * recursively build the tree
- * range [1,n]
- * select the root 1,2...n
- * 1,left null,right [2,n]
- *
- * when building the tree, need to keep track of ALL the roots
- * so each recursive call, need a new list to store the root, which is the left/right subtree in upper level
+ * how to build the tree?
+ * start with root, we can select between [1, n]
+ * if we select 1, all rest of nodes are on right subtree
+ * so we have another sub-set of numbers from [2, n]
+ * recursively build the left and right subtree and pass the values can be selected
+ * if n = 5 and we select 3, so [1,2] and [4,5] are for next recursive call respectively, start and end
+ * base condition:
+ * start = end? leaf node, we can still continue
+ * start > end? return empty list
+ * for i in [1:n], get left tree list and right tree list, i is the root (new), add left and right to root node
+ * add node i to list
  */
 public class UniqueBinarySearchTrees_II {
     public List<TreeNode> generateTrees(int n) {
@@ -22,25 +28,34 @@ public class UniqueBinarySearchTrees_II {
         return helper(1, n);
     }
 
-    private List<TreeNode> helper(int s, int e) {
+    private List<TreeNode> helper(int start, int end) {
         List<TreeNode> list = new LinkedList<>();
-        if (s > e) {
+        if (start > end) {
             list.add(null);
             return list;
         }
-        for (int i = s; i <= e; i++) { // select root
-            List<TreeNode> left = helper(s, i - 1);
-            List<TreeNode> right = helper(i + 1, e);
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> left = helper(start, i - 1);
+            List<TreeNode> right = helper(i + 1, end);
             for (TreeNode l : left) {
                 for (TreeNode r : right) {
-                    TreeNode root = new TreeNode(i);
-                    root.left = l;
-                    root.right = r;
-                    list.add(root);
+                    TreeNode node = new TreeNode(i);
+                    node.left = l;
+                    node.right = r;
+                    list.add(node);
                 }
             }
         }
         return list;
     }
 
+    public static void main(String[] args) {
+//        List<TreeNode> list = new LinkedList<>();
+//        System.out.println(list);
+//        list.add(null);
+//        list.add(null);
+//        System.out.println(list);
+        UniqueBinarySearchTrees_II uni = new UniqueBinarySearchTrees_II();
+        System.out.println(uni.generateTrees(0));
+    }
 }

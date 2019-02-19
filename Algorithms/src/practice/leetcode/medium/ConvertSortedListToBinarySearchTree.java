@@ -1,15 +1,39 @@
 package practice.leetcode.medium;
 
 /**
- * the limitation is can not access to element based on index
- * convert to an array, convert
+ * @linkedlist
+ *
+ * the limitation of a linked list is we can not access to element directly based on index
  *
  * recursion:
  * get length, set up left right node based on the number
  */
 public class ConvertSortedListToBinarySearchTree {
-    ListNode cur;
     public TreeNode sortedListToBST(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        return helper(head, null);
+    }
+
+    private TreeNode helper(ListNode head, ListNode tail) {
+        if (head == tail) {
+            return null;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != tail && fast.next != tail) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        TreeNode node = new TreeNode(slow.val);
+        node.left = helper(head, slow);
+        node.right = helper(slow.next, tail);
+        return node;
+    }
+
+    ListNode cur;
+    public TreeNode sortedListToBST1(ListNode head) {
         if (head == null) {
             return null;
         }
@@ -31,7 +55,6 @@ public class ConvertSortedListToBinarySearchTree {
         root.right = right;
         return root;
     }
-
 
     private int getLen(ListNode head) {
         ListNode cur = head;

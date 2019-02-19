@@ -1,13 +1,12 @@
 package practice.leetcode.ez;
 
 /**
+ * @tree
+ * @recursion
+ *
  * The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node
  *
- * always think about some cases first. it must be leaf
- *
- * deal with empty child
- * make sure its leaf
- *
+ * to the nearest leaf - leaf means left and right child are both null
  */
 
 public class MinimumDepthOfBinaryTree {
