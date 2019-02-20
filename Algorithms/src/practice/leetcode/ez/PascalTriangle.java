@@ -1,7 +1,14 @@
 package practice.leetcode.ez;
 
 /**
- * which subset and which index
+ * @array
+ *
+ * Given a non-negative integer numRows, generate the first numRows of Pascal's triangle
+ *
+ * 1 is the only element in first row. first and last element are always 1
+ * initialize the list with [1], when start the next level, create a new list and add 1
+ * j = 1, j < last level.length
+ *
  */
 
 import java.util.LinkedList;
@@ -16,25 +23,15 @@ public class PascalTriangle {
         List<Integer> l = new LinkedList<>();
         l.add(1);
         res.add(l);
-
         for (int i = 1; i < numRows; i++) {
             List<Integer> list = new LinkedList<>();
             list.add(1);
-            int j = 1;
-            while (j < i) {
-                int val = res.get(i - 1).get(j - 1) + res.get(i - 1).get(j);
-                list.add(val);
-                j++;
+            for (int j = 1; j < i; j++) {
+                list.add(res.get(i - 1).get(j - 1) + res.get(i - 1).get(j));
             }
             list.add(1);
-            res.add(new LinkedList<>(list));
+            res.add(list);
         }
         return res;
-    }
-
-    public static void main(String[] args) {
-        PascalTriangle pt = new PascalTriangle();
-        int i = 5;
-        System.out.println(pt.generate(i));
     }
 }

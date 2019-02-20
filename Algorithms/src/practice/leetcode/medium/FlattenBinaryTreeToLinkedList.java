@@ -3,19 +3,22 @@ package practice.leetcode.medium;
 import java.util.Stack;
 
 /**
- * recursion:
- * store the right child
- * if left, move to right, go to right
- * multiple right children need to be stored, stack
- * while()
+ * @tree
+ * @dfs
+ *
+ * start with root. move all the left node to right and we need to store the previous right nodes
+ * use a stack because we are dealing with the latest pushed node first
+ * check left child first, if null, then we can move to right child
+ * if left not null, then check right, if not null, push to stack
+ *
  */
 public class FlattenBinaryTreeToLinkedList {
     public void flatten(TreeNode root) {
         if (root == null) {
             return;
         }
-        Stack<TreeNode> stack = new Stack<>();
         TreeNode cur = root;
+        Stack<TreeNode> stack = new Stack<>();
         while (cur != null) {
             if (cur.left != null) {
                 if (cur.right != null) {
@@ -23,13 +26,15 @@ public class FlattenBinaryTreeToLinkedList {
                 }
                 cur.right = cur.left;
                 cur.left = null;
-                cur = cur.right;
             } else {
-                if (cur.right == null && !stack.isEmpty()) {
-                    cur.right = stack.pop();
+                if (cur.right == null) {
+                    if (!stack.isEmpty()) {
+                        cur.right = stack.pop();
+                    }
                 }
-                cur = cur.right;
             }
+            cur = cur.right;
+        }
             /* cleaner
             if (cur.right != null) {
                 stack.push(cur.right);
@@ -42,6 +47,5 @@ public class FlattenBinaryTreeToLinkedList {
             }
             cur = cur.right;
              */
-        }
     }
 }

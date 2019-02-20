@@ -1,11 +1,22 @@
 package practice.leetcode.ez;
 
+/**
+ * @string
+ *
+ * considering only alphanumeric characters and ignoring cases
+ * we define empty string as valid palindrome
+ *
+ * trim
+ * lower case
+ * two pointers, check whether it is valid character before comparing
+ *
+ */
 public class ValidPalindrome {
     public boolean isPalindrome(String s) {
         if (s == null || s.length() <= 1) {
             return true;
         }
-        s=s.toLowerCase();
+        s = s.toLowerCase();
         int start = 0;
         int end = s.length() - 1;
         while (start < end) {

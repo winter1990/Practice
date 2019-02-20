@@ -1,6 +1,7 @@
 package practice.leetcode.medium;
 
-/*
+/**
+ * @tree
          1
        /  \
       2    3
@@ -12,21 +13,20 @@ After calling your function, the tree should look like:
       2 -> 3 -> NULL
      / \  / \
     4->5->6->7 -> NULL
- */
-
-/**
+ * given a perfect binary tree where all leaves are on the same level, and every parent has two children
+ * only use constant extra space.
  *
+ * keep track of the HEAD in each level
+ * start with root node, and use another pointer to go through the current level
  */
 public class PopulatingNextRightPointersInEachNode {
-    public void connect(TreeLinkNode root) {
-        if (root == null) {
-            return;
-        } else if (root.left == null && root.right == null) {
-            return;
+    public Node connect(Node root) {
+        if (root == null || (root.left == null && root.right == null)) {
+            return root;
         }
-        TreeLinkNode pre = root;
+        Node pre = root;
         while (pre.left != null) {
-            TreeLinkNode cur = pre;
+            Node cur = pre;
             while (cur != null) {
                 cur.left.next = cur.right;
                 if (cur.next != null) {
@@ -36,5 +36,22 @@ public class PopulatingNextRightPointersInEachNode {
             }
             pre = pre.left;
         }
+        return root;
     }
 }
+
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+
+    public Node(int _val,Node _left,Node _right,Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};

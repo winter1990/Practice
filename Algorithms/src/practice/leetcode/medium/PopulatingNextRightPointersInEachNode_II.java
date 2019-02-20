@@ -1,12 +1,13 @@
 package practice.leetcode.medium;
 
-/*
+/**
+ * @tree
          1
        /  \
       2    3
      / \    \
     4   5    7
-After calling your function, the tree should look like:
+ After calling your function, the tree should look like:
          1 -> NULL
        /  \
       2 -> 3 -> NULL
@@ -20,15 +21,13 @@ After calling your function, the tree should look like:
  * method 2: use constant space to traverse the upper layer
  */
 public class PopulatingNextRightPointersInEachNode_II {
-    public void connect(TreeLinkNode root) {
-        if (root == null) {
-            return;
-        } else if (root.left == null && root.right == null) {
-            return;
+    public Node connect(Node root) {
+        if (root == null || (root.left == null && root.right == null)) {
+            return root;
         }
-        TreeLinkNode node = root;
-        TreeLinkNode pre = null;
-        TreeLinkNode head = null;
+        Node node = root;
+        Node pre = null;
+        Node head = null;
         while (node != null) {
             while (node != null) {
                 if (node.left != null) {
@@ -53,5 +52,6 @@ public class PopulatingNextRightPointersInEachNode_II {
             pre = null;
             head = null;
         }
+        return root;
     }
 }

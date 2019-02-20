@@ -12,6 +12,8 @@ return its length 5.
 import java.util.*;
 
 /**
+ * @string
+ *
  * two end solution
  * search from start and end word
  */

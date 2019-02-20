@@ -10,14 +10,17 @@ import java.util.List;
    [6,5,7],
   [4,1,8,3]
 ]
- min path - 2351,total 11
+ min path: 2 3 5 1, total 11
  */
 
 /**
- * start with 0
- * adjacent nums - i i+1
- * for each layer, depends on above one
- * backtrace dp
+ * @array
+ * @dp
+ *
+ * find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below
+ *
+ * backtrace dp problem
+ * make sure when we update the value in dp array, it does not affect for the next iteration
  */
 public class Triangle {
     public int minimumTotal(List<List<Integer>> triangle) {
@@ -30,12 +33,11 @@ public class Triangle {
             dp[i] = triangle.get(n - 1).get(i);
         }
         for (int i = n - 2; i >= 0; i--) {
-            for (int j = 0; j < triangle.get(i).size(); j++) {
-                dp[n - 1 - j] = (Math.min(dp[n - 1 - j], dp[n - 2 - j])
-                        + triangle.get(i).get(triangle.get(i).size() - 1 - j));
+            for (int j = 0; j <= i; j++) {
+                dp[j] = Math.min(dp[j], dp[j + 1]) + triangle.get(i).get(j);
             }
         }
-        return dp[n - 1];
+        return dp[0];
     }
 
     public static void main(String[] args) {

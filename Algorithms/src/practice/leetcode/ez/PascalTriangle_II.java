@@ -1,13 +1,18 @@
 package practice.leetcode.ez;
 
 /**
+ * @tree
+ *
+ * Given a non-negative index k where k ≤ 33, return the kth index row of the Pascal's triangle.
+ * Note that the row index starts from 0.
  *          1
  *        1   1
  *      1   2   1
  *    1   3   3   1
  *  1   4   6   4   1
- *  k=3, [1 3 3 1]
+ *  k = 3, [1 3 3 1]
  *
+ * at kth row, there are k + 1 elements in the list
  */
 
 import java.util.ArrayList;
