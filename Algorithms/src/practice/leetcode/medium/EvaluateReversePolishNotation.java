@@ -1,13 +1,13 @@
 package practice.leetcode.medium;
 
-import com.sun.deploy.util.StringUtils;
-
 import java.util.Stack;
 
 /**
- * start with first string
- * if number, put in stack
- * if operation, take out
+ * @stack
+ *
+ * start with first string, two scenarios:
+ * 1. number, put in stack
+ * 2. operator, take out and calculate
  */
 public class EvaluateReversePolishNotation {
     public int evalRPN(String[] tokens) {

@@ -4,14 +4,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @dp
+ *
+ * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words,
+ * determine if s can be segmented into a space-separated sequence of one or more dictionary words
+ *
  * recursively check substring
  * this will fail if the string is to long
  * aaaaaaaaaaaaaaaaaaaaaaaaaa...,[a,aa,aa,aaa]
  *
- * optimized
- * dp
- * two pointers
- * i=[1,n] - current substring (0,i)
+ * optimized:
+ * use a boolean array, size = n + 1
+ * i = [1, n] - current substring (0,i)
  * j=[0,i-1] - (0,j) can be segmented, check (i,j) if contains, [i] true
  * initialize start point 0 true
  */
@@ -48,7 +52,9 @@ public class WordBreak {
         }
         for (int i = index + 1; i <= s.length(); i++) {
             if (dict.contains(s.substring(index, i))) {
-                if(helper(s, i, dict)) return true;
+                if(helper(s, i, dict)) {
+                    return true;
+                }
             } else {
                 continue;
             }

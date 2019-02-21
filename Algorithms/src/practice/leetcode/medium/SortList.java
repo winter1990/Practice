@@ -1,11 +1,23 @@
 package practice.leetcode.medium;
 
 /**
+ * @linkedlist
+ * @sort
+ * @daq
+ *
  * Sort a linked list in O(n log n) time using constant space complexity.
  *
- * divide and conquer:
- * divide into half until only 1/2 elements left
+ * 4-2-1-5-3 -> 1-2-3-4-5
+ * divide and conquer thinking:
+ * divide into two linked list until only 1/2 elements left
  * merge the lists recursively
+ * for above case, divide the list into
+ * 4-2-1, 5-3 (first half is always longer or equal to second half)
+ * 4-2, 1 | 5, 3
+ * 4, 2, 1 | 5, 3
+ * merge 4 and 2 to 2-4, then merge with 1, becomes 1-2-4
+ * merge 5 and 3 to 3-5
+ * at last merge two 1-2-3-4-5
  */
 public class SortList {
     public ListNode sortList(ListNode head) {
@@ -34,16 +46,13 @@ public class SortList {
                 cur.next = l1;
                 l1 = l1.next;
             } else {
-                cur.next = l2;
+                cur.next= l2;
                 l2 = l2.next;
             }
             cur = cur.next;
         }
-        if (l1 != null) {
-            cur.next = l1;
-        } else if (l2 != null) {
-            cur.next = l2;
-        }
+        cur.next = l1 == null ? l2 : l1;
         return dummy.next;
     }
+
 }

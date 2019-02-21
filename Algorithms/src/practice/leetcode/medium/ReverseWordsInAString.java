@@ -1,15 +1,19 @@
 package practice.leetcode.medium;
 
-/*
-Given an input string, reverse the string word by word.
-
-For example,
-Given s = "the sky is blue",
-return "blue is sky the".
- */
-
 /**
- * tokenize
+ * @string
+ * @pointer
+ *
+ * Given an input string, reverse the string word by word.
+ * For example, Given s = "the sky is blue", return "blue is sky the".
+ *
+ * method 1
+ * tokenize the string with the separator " "
+ * swap the strings using two pointer method
+ *
+ * method 2
+ * if no util method is allowed to use, then reverse the whole string
+ * "abc def" -> "fed cba" and reverser a single string "fed" and "cba"
  */
 public class ReverseWordsInAString {
     public String reverseWords(String s) {

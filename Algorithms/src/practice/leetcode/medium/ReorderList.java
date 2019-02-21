@@ -1,7 +1,16 @@
 package practice.leetcode.medium;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
+ * @linkedlist
  *
+ * Given 1->2->3->4, reorder it to 1->4->2->3.
+ * Given 1->2->3->4->5, reorder it to 1->5->2->4->3.
+ *
+ * get the first half and last half of the list
+ * reverse the second half and merge the two lists
  */
 public class ReorderList {
     public void reorderList(ListNode head) {
@@ -27,7 +36,6 @@ public class ReorderList {
                 l2 = l2.next;
                 cur = cur.next;
             }
-
         }
     }
 
@@ -52,16 +60,40 @@ public class ReorderList {
         return slow;
     }
 
-    public static void main(String[] args) {
-        ListNode l1 = new ListNode(1);
-        ListNode l2 = new ListNode(2);
-        ListNode l3 = new ListNode(3);
-        ListNode l4 = new ListNode(4);
-        l1.next = l2;
-        l2.next = l3;
-        l3.next = l4;
-        ReorderList rl = new ReorderList();
-        rl.reorderList(l1);
-        System.out.println(l1.val + " " + l1.next.val + " " + l1.next.next.val + " " + l1.next.next.next.val);
+    /**
+     * use a map to have the direct access to each node
+     * we need to find the proper key, which can be 1, 2,...n
+     * define two pointers left 1 and right n
+     * while l < r, think about 1-2-3-4 and 1-2-3-4-5
+     * use a dummy and current node
+     * 0-1-4-2-3 -4
+     * 0-1-5-2-4-5
+     */
+    public void reorderList1(ListNode head) {
+        Map<Integer, ListNode> map = new HashMap<>();
+        int label = 1;
+        ListNode cur = head;
+        while (cur != null) {
+            map.put(label, cur);
+            label++;
+            cur = cur.next;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        cur = dummy;
+        int left = 1, right = map.size();
+        while (left < right) {
+            cur.next = map.get(left);
+            cur.next.next = map.get(right);
+            left++;
+            right--;
+            cur = cur.next.next;
+        }
+        if (left == right) {
+            cur.next = map.get(left);
+            cur.next.next = null;
+        } else {
+            cur.next = null;
+        }
     }
 }

@@ -4,12 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @string
+ * @backtracking
+ * @recursion
+ *
  * aab
  * aa,b
  * a,a,b
  *
- * recursively search substring
- * check whether it's palin
+ * recursively get substring and check whether the substring is a palindrome
+ * if true, put in a sublist
+ * check whether it's palindrome
  */
 public class PalindromePartitioning {
     public List<List<String>> partition(String s) {
@@ -27,7 +32,7 @@ public class PalindromePartitioning {
             return;
         }
         for (int i = index + 1; i <= s.length(); i++) {
-            if (isPalin(s.substring(index, i))) {
+            if (isPalindrome(s.substring(index, i))) {
                 list.add(s.substring(index, i));
                 helper(s, i, list, res);
                 list.remove(list.size() - 1);
@@ -35,7 +40,7 @@ public class PalindromePartitioning {
         }
     }
 
-    private boolean isPalin(String s) {
+    private boolean isPalindrome(String s) {
         int start = 0, end = s.length() - 1;
         while (start <= end) {
             if (s.charAt(start) != s.charAt(end)) {

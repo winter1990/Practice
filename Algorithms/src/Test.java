@@ -1,5 +1,6 @@
 import org.omg.SendingContext.RunTime;
 import practice.leetcode.medium.MyCalendar_II;
+import practice.leetcode.medium.TreeNode;
 
 import java.io.*;
 import java.time.Month;
@@ -24,16 +25,22 @@ public class Test {
     }
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        PriorityQueue<String> pq = new PriorityQueue<>();
-        String a = "abc";
-        String b = "acc";
-        String c = "c";
-        pq.offer(c);
-        pq.offer(a);
-        pq.offer(b);
-        System.out.println(pq.poll());
-        System.out.println(pq.poll());
-        System.out.println(pq.poll());
+        Set<TreeNode> set = new HashSet<>();
+        TreeNode n1 = new TreeNode(1);
+        TreeNode n2 = new TreeNode(1);
+        set.add(n1);
+        set.add(n2);
+        System.out.println(set);
+//        PriorityQueue<String> pq = new PriorityQueue<>();
+//        String a = "abc";
+//        String b = "acc";
+//        String c = "c";
+//        pq.offer(c);
+//        pq.offer(a);
+//        pq.offer(b);
+//        System.out.println(pq.poll());
+//        System.out.println(pq.poll());
+//        System.out.println(pq.poll());
 
 //        String a = "abc";
 //        System.out.println(a.substring(2));
@@ -145,9 +152,9 @@ public class Test {
 //        System.out.println(s1.hashCode() == s2.hashCode());
 //        System.out.println(s1.equals(s2));
 //        System.out.println(s1.matches(s2));
-        Integer n1 = new Integer(1);
-        Integer n2 = n1;
-        n1 +=1;
+//        Integer n1 = new Integer(1);
+//        Integer n2 = n1;
+//        n1 +=1;
 //        System.out.println(n1);
 //        System.out.println(n2);
     }

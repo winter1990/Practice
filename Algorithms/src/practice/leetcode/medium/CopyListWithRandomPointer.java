@@ -4,9 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @linkedlist
+ * @hashmap
+ * @clone
+ *
+ * A linked list is given such that each node contains an additional random pointer
+ * which could point to any node in the list or null.
+ *
  * with data structure:
- * one loop,map node->new node,all nodes are created
- * set the next and random
+ * first pass to create all the nodes in the map, node -> copied node
+ * second pass, add reference
  */
 public class CopyListWithRandomPointer {
     public RandomListNode copyRandomList(RandomListNode head) {
@@ -30,7 +37,8 @@ public class CopyListWithRandomPointer {
     }
 
     /**
-     * without data structure
+     * without using any data structure
+     *
      */
     public RandomListNode copyRandomList1(RandomListNode head) {
         if (head == null) {

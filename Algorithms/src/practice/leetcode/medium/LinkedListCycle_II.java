@@ -4,8 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * @linkedlist
+ *
  * with extra space:
- * Set<Node>
+ * go through the list and store the visited node in a Set
+ * if set contains the node, then return true
+ *
  * the first node that contains, return
  *
  * fast and slow runner

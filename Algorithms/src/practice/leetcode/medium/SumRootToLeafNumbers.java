@@ -1,8 +1,13 @@
 package practice.leetcode.medium;
 
 /**
- * recursion
- * need to keep track of each path
+ * @tree
+ * @recursion
+ *
+ * base case:
+ * reach the leaf node (left & right child null) add to sum
+ * when traverse down the tree, previous level * 10 + current node value
+ * need to keep track of each path in each recursive call
  * sum up all paths - global param
  */
 public class SumRootToLeafNumbers {

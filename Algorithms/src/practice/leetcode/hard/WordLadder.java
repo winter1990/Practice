@@ -1,27 +1,22 @@
 package practice.leetcode.hard;
 
-/*
-Given:
-beginWord = "hit"
-endWord = "cog"
-wordList = ["hot","dot","dog","lot","log","cog"]
-As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
-return its length 5.
-*/
-
 import java.util.*;
 
 /**
  * @string
+ * @bfs
  *
+ * Given:
+ * beginWord = "hit"
+ * endWord = "cog"
+ * wordList = ["hot","dot","dog","lot","log","cog"]
+ * As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
+ * return its length 5.
  * two end solution
  * search from start and end word
  */
 public class WordLadder {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        if (!wordList.contains(endWord)) {
-            return 0;
-        }
         Set<String> dict = new HashSet<>(wordList);
         Set<String> beginSet = new HashSet<>();
         Set<String> endSet = new HashSet<>();
@@ -32,26 +27,26 @@ public class WordLadder {
         Set<String> visited = new HashSet<>();
         while (!beginSet.isEmpty() && !endSet.isEmpty()) {
             if (beginSet.size() > endSet.size()) {
-                Set<String> set = beginSet;
+                Set<String> tmp = beginSet;
                 beginSet = endSet;
-                endSet = set;
+                endSet = tmp;
             }
             Set<String> temp = new HashSet<>();
             for (String word : beginSet) {
-                char[] chs = word.toCharArray();
-                for (int i = 0; i < chs.length; i++) {
+                char[] cs = word.toCharArray();
+                for (int i = 0; i < cs.length; i++) {
                     for (char c = 'a'; c <= 'z'; c++) {
-                        char old = chs[i];
-                        chs[i] = c;
-                        String target = String.valueOf(chs);
-                        if (endSet.contains(target)) {
+                        char old = cs[i];
+                        cs[i] = c;
+                        String str = new String(cs);
+                        if (endSet.contains(str)) {
                             return step + 1;
                         }
-                        if (!visited.contains(target) && dict.contains(target)) {
-                            temp.add(target);
-                            visited.add(target);
+                        if (!visited.contains(str) && dict.contains(str)) {
+                            temp.add(str);
+                            visited.add(str);
                         }
-                        chs[i] = old;
+                        cs[i] = old;
                     }
                 }
             }

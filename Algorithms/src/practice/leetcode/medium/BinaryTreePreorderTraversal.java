@@ -7,6 +7,12 @@ import java.util.Stack;
 /**
  * @tree
  * @stack
+ *
+ * pre-order traversal:
+ * root node first, left and right
+ * when we traverse down, push root node to the result first, and go to left child
+ * so need a stack to store the right subtree, then push left child
+ * while (!empty) pop out the element, put into result list
  */
 public class BinaryTreePreorderTraversal {
     public List<Integer> preorderTraversal(TreeNode root) {
