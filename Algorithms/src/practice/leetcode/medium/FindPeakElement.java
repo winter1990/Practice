@@ -1,14 +1,16 @@
 package practice.leetcode.medium;
 
 /**
+ * @array
+ * @binarysearch
+ *
  * Given an input array where num[i] ≠ num[i+1]
  * O(logn) solution
  *
  * binary search:
- * get mid. meaningless to comapre st/end
- * compare with adjacent
- * if mid>mid+1,e=mid
- *    mid<mid+1,s=mid+1
+ * get mid element and compare with adjacent element
+ * if mid > mid + 1, e = mid
+ *    mid < mid + 1, s = mid+1
  */
 public class FindPeakElement {
     public int findPeakElement(int[] nums) {

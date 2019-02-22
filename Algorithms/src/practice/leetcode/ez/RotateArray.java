@@ -1,9 +1,13 @@
 package practice.leetcode.ez;
 
 /**
- * 1. brute force - O(1) space, O(nk) time
- * 2. extra space - O(n), O(n)
+ * @array
  *
+ * method 1
+ * create another array
+ * and we rotate the array to the right by k steps
+ * i = [0, n - 1], (i + k) % n
+ * copy each element in the new array back to original array
  */
 
 public class RotateArray {
@@ -12,8 +16,6 @@ public class RotateArray {
             return;
         }
         int n = nums.length;
-//        k = n % k; // k might be 0, so do not need
-
         int arr[] = new int[n];
         for (int i = 0; i < n; i++) {
             arr[(i + k) % n] = nums[i];
@@ -23,11 +25,11 @@ public class RotateArray {
         }
     }
 
-
     /**
+     * method 2
+     * in-place with O(1) extra space
      * reverse method O(1) space, O(n) time
-     * @param nums
-     * @param k
+     * [1 2 3 4 5 6 7], k = 3 -> [7 6 5 4 3 2 1] -> reverse first 3 elements [5 6 7 4 3 2 1] -> reverse the rest
      */
     public void rotate1(int[] nums, int k) {
         int n = nums.length;
@@ -45,9 +47,5 @@ public class RotateArray {
             s++;
             e--;
         }
-    }
-
-    public void rotate2(int[] nums, int k) {
-
     }
 }

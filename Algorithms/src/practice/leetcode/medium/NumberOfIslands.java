@@ -1,7 +1,15 @@
 package practice.leetcode.medium;
 
 /**
- * if grid[i][j]==1,dfs mark 0
+ * @search
+ *
+ * scan through the 2D array
+ * if there is 1, bfs to mark all the land as visited - we can either mark it as 0 (change the island to the sea)
+ * or we define a new 2D boolean array to keep track whether we have visited the element
+ *
+ * if no extra space is allowed, we can dfs and mark the island as '.' or some special char
+ * after counting, we do another scan and change dot back to 1
+ *
  */
 public class NumberOfIslands {
     public int numIslands(char[][] grid) {

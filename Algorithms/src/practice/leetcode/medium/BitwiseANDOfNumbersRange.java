@@ -24,4 +24,9 @@ public class BitwiseANDOfNumbersRange {
         }
         return i * m;
     }
+
+    public static void main(String[] args) {
+        BitwiseANDOfNumbersRange ba = new BitwiseANDOfNumbersRange();
+        System.out.println(ba.rangeBitwiseAnd(26, 30)); // 11010 11110
+    }
 }

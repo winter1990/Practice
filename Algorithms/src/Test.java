@@ -25,12 +25,16 @@ public class Test {
     }
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        Set<TreeNode> set = new HashSet<>();
-        TreeNode n1 = new TreeNode(1);
-        TreeNode n2 = new TreeNode(1);
-        set.add(n1);
-        set.add(n2);
-        System.out.println(set);
+        String s = String.valueOf(123);
+        int i = Integer.valueOf("123");
+        System.out.println(s + " " + i);
+//        System.out.println("abc".compareTo("ac"));
+//        Set<TreeNode> set = new HashSet<>();
+//        TreeNode n1 = new TreeNode(1);
+//        TreeNode n2 = new TreeNode(1);
+//        set.add(n1);
+//        set.add(n2);
+//        System.out.println(set);
 //        PriorityQueue<String> pq = new PriorityQueue<>();
 //        String a = "abc";
 //        String b = "acc";

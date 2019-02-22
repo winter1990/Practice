@@ -3,6 +3,9 @@ package practice.leetcode.ez;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @array
+ */
 public class TwoSum_II_InputArrayIsSorted {
     public int[] twoSum(int[] numbers, int target) {
         if (numbers == null || numbers.length <= 1) {
@@ -22,8 +25,10 @@ public class TwoSum_II_InputArrayIsSorted {
         return res;
     }
 
-    // two pointers: 0 and len-1
-    // compare with target value
+    /**
+     * linear search
+     * two pointers: 0 and len-1
+     */
     public int[] twoSum2(int[] numbers, int target) {
         int[] res = new int[2];
         int s = 0;

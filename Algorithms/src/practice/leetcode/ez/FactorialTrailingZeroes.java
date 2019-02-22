@@ -1,14 +1,17 @@
 package practice.leetcode.ez;
 
 /**
+ * @math
+ *
  * Given an integer n, return the number of trailing zeroes in n!.
  * Note: Your solution should be in logarithmic time complexity.
  *
- * factor: end with 5 and 0
- *
- * 10,  0*2
- * 20,  0*4
- * 100, 0*2*10 => n/5 !!!MISSING VALUE - 25!!!
+ * there are always enough 2 and make 5 to become 0 in tail
+ * key: numbers that end with 5 and 0 -> rethink, and actually it is the factors of 5 in the number
+ * for 10, it equals to 2 * 5, for 25, it is 5 * 5 that makes the trailing one more 0
+ * for 125, it will have 3
+ * res += n / 5 -> # of 5s, n /= 5
+ * res += n / 5 -> # of 25s, n /= 5
  *
  */
 public class FactorialTrailingZeroes {

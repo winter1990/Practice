@@ -2,15 +2,24 @@ package practice.leetcode.medium;
 
 
 /**
- * [2,3,-2,4]->6
- * even number of negatives
- * [-2,-1,-3,-2]->12
+ * @array
+ * @math
+ *
+ * [2, 3, -2, 4]->6
+ * as many positive numbers as possible
+ * if negative number, even number of negatives are ok
+ * key problem becomes, when we see only one negative, should we skip and reset the product as zero?
+ * a positive multiply a negative, and this minimum number is potentially becoming the largest if there is a second neg
+ * [-2,-1,-3,-2] -> 12
  * [-1,-2,-3]->6
- *
- * if positive,go on
- * if negative,save min,because next neg will be largest
- * max,min store values of max/min by index i
- *
+ * [2 3 -2 4 -1] -> product [2 6 -12 -48 48]
+ * [-1 2 3 -2 4] -> product [-1 -2 -6 12 48]
+ * we do not ignore the negative value
+ * [-1 2 2 -1 -2]
+ * when to start a new subarray
+ * [-1 2 5]
+ * [1 -5 2 -1]
+ * need to compare with the current element
  */
 public class MaximumProductSubarray {
     public int maxProduct(int[] nums) {

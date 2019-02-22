@@ -1,7 +1,10 @@
 package practice.leetcode.ez;
 
 /**
+ * @string
+ *
  * XYZ -> (X-A+1)*26^2 + (Y-A+1)*26^1 + (Z-A+1)^26^0
+ * start with last character, pow value from 0 to len - 1
  */
 
 public class ExcelSheetColumnNumber {

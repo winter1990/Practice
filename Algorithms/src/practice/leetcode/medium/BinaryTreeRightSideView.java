@@ -8,14 +8,14 @@ import java.util.Queue;
  * @tree
  *
  * level order traversal
- * for each level, go to right first (might be empty), then left
- * total levels = size of result
- * determine the level, pass into recursive call and compare with the size of list
- * add to result if level = result.size()
- * base: null, return
+ * for each level, go to right first, then left child
+ * if level = res.size(), it means we are reaching a new level, add to result list
+ * and continue the recursive calls by traversing to right and then left
+ * base case:
+ * node null, return
+ * level = res.size(), add to list
  */
 public class BinaryTreeRightSideView {
-
     public List<Integer> rightSideView1(TreeNode root) {
         List<Integer> res = new LinkedList<>();
         if (root == null) {
