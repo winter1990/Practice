@@ -1,5 +1,10 @@
 package practice.leetcode.ez;
 
+/**
+ * @linkedlist
+ *
+ * head might be changed, so create a dummy node and check the next node one by one
+ */
 public class RemoveLinkedListElements {
     public ListNode removeElements(ListNode head, int val) {
         if (head == null) {

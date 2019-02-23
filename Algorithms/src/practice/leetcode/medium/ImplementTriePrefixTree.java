@@ -1,5 +1,10 @@
 package practice.leetcode.medium;
 
+/**
+ * @design
+ * @trie
+ * @tree
+ */
 public class ImplementTriePrefixTree {
 
 }
@@ -48,6 +53,7 @@ class Trie {
         }
         return true;
     }
+
 }
 
 class TrieNode {

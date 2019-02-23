@@ -1,8 +1,13 @@
-package practice.leetcode.medium;
+package practice.leetcode.question;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @search
+ * @graph
+ * @sort
+ */
 public class CourseSchedule_II {
     int N = 0;
     public int[] findOrder(int numCourses, int[][] prerequisites) {

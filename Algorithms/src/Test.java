@@ -1,4 +1,5 @@
 import org.omg.SendingContext.RunTime;
+import practice.leetcode.medium.ImplementTriePrefixTree;
 import practice.leetcode.medium.MyCalendar_II;
 import practice.leetcode.medium.TreeNode;
 
@@ -25,9 +26,10 @@ public class Test {
     }
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        String s = String.valueOf(123);
-        int i = Integer.valueOf("123");
-        System.out.println(s + " " + i);
+        ImplementTriePrefixTree imp;
+//        String s = String.valueOf(123);
+//        int i = Integer.valueOf("123");
+//        System.out.println(s + " " + i);
 //        System.out.println("abc".compareTo("ac"));
 //        Set<TreeNode> set = new HashSet<>();
 //        TreeNode n1 = new TreeNode(1);

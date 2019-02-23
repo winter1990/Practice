@@ -1,18 +1,20 @@
 package practice.leetcode.medium;
-/*
-given the array [2,3,1,2,4,3] and s = 7,
-the subarray [4,3] has the minimal length under the problem constraint.
- */
-
 /**
- * sliding window thinking
- * two pointers:i,j and sum
- * j[0,len-1]
- *  sum+=a[j]
- *  if sum>=target,getmin(min,j-i+1), while should be used
- * if not found,return 0
- *  define window size MAX
- *  check size MAX
+ * @array
+ * @slidingwindow
+ * @pointers
+ *
+ * given the array [2,3,1,2,4,3] and s = 7, the subarray [4,3] has the minimal length under the problem constraint.
+ *
+ * window size is not fixed, but sum is given, we need to find the smallest window size that sum of all numbers inside
+ *
+ * two pointers: i, j and sum
+ * initially, window size is MAX
+ * i from 1 to n - 2
+ * j slides between 0, and n - 1
+ * sum += a[j]
+ * if sum >= target, update the window size, and then move 1 by one step? should keep moving until sum < target
+ * if not found, check min window size at alst return 0 if MAX
  */
 public class MinimumSizeSubarraySum {
     public int minSubArrayLen(int s, int[] nums) {

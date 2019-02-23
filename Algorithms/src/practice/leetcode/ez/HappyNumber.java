@@ -4,7 +4,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 19, 1+81=82, 64+4=68, 36+64=100
+ * @math
+ *
+ * Input: 19, Output: true
+ * Explanation:
+ * 1^2 + 9^2 = 82
+ * 8^2 + 2^2 = 68
+ * 6^2 + 8^2 = 100
+ * 1^2 + 0^2 + 0^2 = 1
+ *
+ * our target: sum of all power of digits = 1, so 1^1 repeats itself
+ * we need to keep track of the numbers we have calculated in order not to get into a 'circle'
+ * check duplicate, hash ds -> map, hashset
  */
 public class HappyNumber {
     public boolean isHappy(int n) {
