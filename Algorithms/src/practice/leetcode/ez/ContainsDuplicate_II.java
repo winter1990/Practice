@@ -1,7 +1,10 @@
 package practice.leetcode.ez;
 
 /**
- * find narrowest window between numbers
+ * @array
+ * @slidingwindow
+ *
+ * find narrowest window between the two same number
  */
 
 import java.util.HashMap;
@@ -16,22 +19,19 @@ public class ContainsDuplicate_II {
         }
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            if (!map.containsKey(nums[i])) {
-                map.put(nums[i], i);
-            } else {
+            if (map.containsKey(nums[i])) {
                 if (i - map.get(nums[i]) <= k) {
                     return true;
                 }
-                map.put(nums[i], i);
             }
-
+            map.put(nums[i], i);
         }
         return false;
     }
 
     // sliding window
     public boolean containsNearbyDuplicate1(int[] nums, int k) {
-        Set<Integer> set = new HashSet<Integer>();
+        Set<Integer> set = new HashSet<>();
         for (int i = 0; i < nums.length; i++) {
             if (i > k)
                 set.remove(nums[i - k - 1]);

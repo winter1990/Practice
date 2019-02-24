@@ -3,6 +3,19 @@ package practice.leetcode.medium;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
+/**
+ * @search
+ *
+ * method 1
+ * Arrays.sort(arr) and find the value arr[n - k] - O(nlogn) and O(1)
+ *
+ * method 2
+ * PriorityQueue
+ * enqueue the element in array and maintain a K size pq - O(logn + (n-k)logn) and O(k)
+ * provides O(log(n)) time for the enqueing and dequeing methods (offer, poll, remove() and add)
+ * linear time for the remove(Object) and contains(Object) methods;
+ * and constant time for the retrieval methods (peek, element, and size).
+ */
 public class KthLargestElementInAnArray {
 
     // sort and select N(nlogn)

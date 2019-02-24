@@ -18,7 +18,7 @@ search("b..") -> true
  * Trie:
  * if '.' continue
  */
-public class WordDictionary {
+public class AddAndSearchWord_DataStructureDesign1 {
 
     public class TrieNode {
         public TrieNode[] children = new TrieNode[26];
@@ -28,7 +28,7 @@ public class WordDictionary {
 
     private TrieNode root;
     /** Initialize your data structure here. */
-    public WordDictionary() {
+    public AddAndSearchWord_DataStructureDesign1() {
         root = new TrieNode();
     }
 
