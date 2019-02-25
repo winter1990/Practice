@@ -2,6 +2,20 @@ package practice.leetcode.hard;
 
 import java.util.*;
 
+/**
+ * @design
+ *
+ * Least Recently Used - make sure the algorithm always discards the least recently used item
+ * get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
+ * put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity,
+ * it should invalidate the least recently used item before inserting a new item.
+ *
+ * for cache, we have limited size
+ * keep track of the current number of entries
+ * for each entry - we have the reference for next, previous, like a double linked list
+ * when we put new entry in the cache, if the current size > limited size, discard the least recent one, so track the tail
+ * when we get the entry, we put it at the head, so track the head
+ */
 public class LRUCache {
 
     private int capacity;
@@ -26,7 +40,7 @@ public class LRUCache {
         }
     }
 
-    public void set(int key, int value) {
+    public void put(int key, int value) {
         Entry node = nodes.get(key);
         if(node == null){
             if(currentSize >= capacity){
