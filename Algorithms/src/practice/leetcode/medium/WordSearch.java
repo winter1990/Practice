@@ -3,7 +3,9 @@ package practice.leetcode.medium;
 import java.util.Arrays;
 
 /**
- * @search same char can not be used twice, so define a checker[][] to track whether visited
+ * @search
+ *
+ * same char can not be used twice, so define a checker[][] to track whether visited
  * ['A','B','C','E'],
  * ['S','F','C','S'],
  * ['A','D','E','E']
