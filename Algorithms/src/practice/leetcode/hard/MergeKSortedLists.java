@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
+ * @heap
+ *
  * 1-5-7
  * 2-3-6
  * 4

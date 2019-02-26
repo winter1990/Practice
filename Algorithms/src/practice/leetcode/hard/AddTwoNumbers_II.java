@@ -1,9 +1,10 @@
 package practice.leetcode.hard;
 
-import java.util.List;
 import java.util.Stack;
 
 /**
+ * @linkedlist
+ *
  * recursively add two nodes until reaching the tails
  * need to keep track of the carry
  * need to align the nodes - getLength

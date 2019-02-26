@@ -2,9 +2,13 @@ package practice.leetcode.hard;
 
 import java.util.*;
 
+/**
+ * @string
+ *
+ */
 public class SubstringWithConcatenationOfAllWords {
     public List<Integer> findSubstring(String s, String[] words) {
-        List<Integer> res = new LinkedList<Integer>();
+        List<Integer> res = new LinkedList<>();
         int lens = s.length();
         int lenWord = words[0].length();
         int numWord = words.length;
