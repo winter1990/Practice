@@ -1,12 +1,21 @@
 package practice.leetcode.medium;
 
 /**
- * X first, O second -> num(X) - num(O) [0,1]
- * only one player wins
+ * @array
+ * @math
+ *
+ * X first, O second -> need to count num(X) and num(O), #X >= XO and difference should be in 0 or 1
+ * check the winner: only one player wins -> X wins, or O wins or dual
+ * how to win:
+ * 3 in a row
+ * 3 in a col
+ * 3 in diagonal
+ * need to check both players - X and O
  * can not happen like this
  * x x x
  * o o x
  * o o x
+ * count the 3 in a row
  */
 public class ValidTicTacToeState {
     public boolean validTicTacToe(String[] board) {
@@ -51,6 +60,11 @@ public class ValidTicTacToeState {
         return countX - countO;
     }
 
+    /**
+     * @recursion
+     *
+     *
+     */
     public boolean validTicTacToe1(String[] board) {
         int countX = 0;
         int countO = 0;
@@ -74,6 +88,7 @@ public class ValidTicTacToeState {
         }
         return winState == 0 || (winState == -10 && countO == countX) || (winState == 1 && countO + 1 == countX);
     }
+
     private int helper(char c1, char c2, char c3) {
         if (c1 != ' ' && c1 == c2 && c2 == c3) {
             return c1 == 'X' ? 1 : -10;

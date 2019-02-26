@@ -1,5 +1,7 @@
 package practice.leetcode.ez;
 
+import java.util.Stack;
+
 /**
  * @tree
  * @dfs
@@ -17,5 +19,43 @@ public class SameTree {
             return false;
         }
         return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+    public boolean isSameTree1(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        } else if (p == null || q == null) {
+            return false;
+        }
+        Stack<TreeNode> sp = new Stack<>();
+        Stack<TreeNode> sq = new Stack<>();
+        sp.push(p);
+        sq.push(q);
+        while (!sp.isEmpty() && !sq.isEmpty()) {
+            TreeNode m = sp.pop();
+            TreeNode n = sq.pop();
+            if (m.val != n.val) {
+                return false;
+            }
+            if (m.right != null) {
+                sp.push(m.right);
+            }
+            if (n.right != null) {
+                sq.push(n.right);
+            }
+            if (sp.size() != sq.size()) {
+                return false;
+            }
+            if (m.left != null) {
+                sp.push(m.left);
+            }
+            if (n.left != null) {
+                sq.push(n.left);
+            }
+            if (sp.size() != sq.size()) {
+                return false;
+            }
+        }
+        return sp.size() == sq.size();
     }
 }

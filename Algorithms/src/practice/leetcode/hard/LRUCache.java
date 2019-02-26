@@ -15,6 +15,9 @@ import java.util.*;
  * for each entry - we have the reference for next, previous, like a double linked list
  * when we put new entry in the cache, if the current size > limited size, discard the least recent one, so track the tail
  * when we get the entry, we put it at the head, so track the head
+ *
+ * always keep in mind all the parameters and whether reference of pre and next is null
+ * always manage to update the head and tails - check whether null or need to be updated
  */
 public class LRUCache {
 
@@ -64,9 +67,9 @@ public class LRUCache {
     }
 
     private void moveToHead(Entry node){
-        if(node == first)
+        if(node == first) {
             return;
-
+        }
         // delete current node from doubly linked list
         if(node.pre != null){
             node.pre.next = node.next;
