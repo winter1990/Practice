@@ -2,7 +2,6 @@ package practice.leetcode.medium;
 
 /**
  * @array
- * @two pointers
  *
  * two pointers
  * calculate the area - Math.min(a[i],a[j]) *(j-i)

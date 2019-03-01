@@ -1,7 +1,7 @@
 package practice.leetcode.medium;
 
 /**
- * @binarySearch
+ * @binarysearch
  *
  *
  */

@@ -2,7 +2,7 @@ package practice.leetcode.medium;
 
 /**
  * @array
- * @binarySearch
+ * @binarysearch
  *
  * return the target index, or -1
  * 01235678->35678012
