@@ -3,6 +3,9 @@ package practice.leetcode.ez;
 /**
  * @string
  *
+ * keep track of the result in previous loop
+ * start with index 0, compare with next character, if same count++, if not same, say it out by count+charat(i)
+ *
  * 1. 1
  * 2. 11
  * 3. 21
@@ -15,26 +18,22 @@ public class CountAndSay {
 
         int index;
         StringBuilder cur;
-        int c;
+        int count;
         for (int m = 1; m < n; m++) {
             index = 0;
             cur = new StringBuilder();
             while (index < pre.length()) {
-                c = 1;
+                count = 1;
                 while (index < pre.length() - 1 && pre.charAt(index) == pre.charAt(index + 1)) {
-                    c++;
+                    count++;
                     index++;
                 }
-                cur.append(c);
+                cur.append(count);
                 cur.append(pre.charAt(index));
-                index += 1;
+                index++;
             }
             pre = cur.toString();
         }
         return pre;
-    }
-
-    public static void main(String[] args) {
-        System.out.print(countAndSay(6));
     }
 }

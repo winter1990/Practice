@@ -4,6 +4,7 @@ import practice.leetcode.medium.TreeNode;
 
 /**
  * @tree
+ * @daq
  *
  * divide and conquer:
  * get left
@@ -22,16 +23,16 @@ public class BinaryTreeTilt {
         if (root == null) {
             return 0;
         }
-        helper(root);
+        postOrder(root);
         return sum;
     }
 
-    private int helper(TreeNode root) {
+    private int postOrder(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        int left = helper(root.left);
-        int right = helper(root.right);
+        int left = postOrder(root.left);
+        int right = postOrder(root.right);
         sum += Math.abs(left - right);
         return left + root.val + right;
     }

@@ -1,18 +1,23 @@
 package practice.leetcode.ez;
 
 /**
- *  count the number of non-empty (contiguous) substrings that have the same number of 0's and 1's,
- *  and all the 0's and all the 1's in these substrings are grouped consecutively
+ * @string
  *
- *  00110011 -> 6
- *  0011 01 1100 10 01 0011
+ * count the number of non-empty (contiguous) substrings that have the same number of 0's and 1's,
+ * and all the 0's and all the 1's in these substrings are grouped consecutively
  *
- *  brute force:
- *  time - O(nlogn)
+ * 00110011 -> 6
+ * 0011 01 1100 10 01 0011
  *
- *  optimized:
- *  grouped, consecutively
- *  cur.char compare with pre.char
+ * brute force:
+ * time - O(n^2)
+ *
+ * optimized:
+ * grouped, consecutively
+ * scan through and count the consecutive same 0 or 1
+ * compare with previous character, if same then count++, if not same store the current count number and start new count
+ * if previous count >= current count, then res++
+ *
  */
 public class CountBinarySubstrings {
     public int countBinarySubstrings(String s) {
@@ -30,7 +35,6 @@ public class CountBinarySubstrings {
                 res++;
             }
         }
-
         return res;
     }
 }

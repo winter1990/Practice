@@ -3,6 +3,17 @@ package practice.leetcode.ez;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @array
+ *
+ * Input: A = [2,7,4], K = 181, Output: [4,5,5]
+ * Input: A = [9,9,9,9,9,9,9,9,9,9], K = 1, Output: [1,0,0,0,0,0,0,0,0,0,0]
+ *
+ * array A and K might in different lengths
+ * either of them can be longer than the other, so either K != 0 or index >= 0
+ * if i >= 0 sum up the A[i] K%10 carry, otherwise K%10 + carry
+ * update K, index, carry, add value to result at head
+ */
 public class AddtoArrayFormofInteger {
     public List<Integer> addToArrayForm(int[] A, int K) {
         List<Integer> res = new LinkedList<>();
@@ -30,8 +41,4 @@ public class AddtoArrayFormofInteger {
         return res;
     }
 
-    public static void main(String[] args) {
-        AddtoArrayFormofInteger aa = new AddtoArrayFormofInteger();
-        System.out.println(aa.addToArrayForm(new int[]{9,9,9}, 1));
-    }
 }

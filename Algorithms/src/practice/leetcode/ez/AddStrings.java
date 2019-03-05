@@ -3,6 +3,12 @@ package practice.leetcode.ez;
 /**
  * @string
  * @math
+ *
+ * align the last digit of two strings -> start from the len1-i and len2-i
+ * because 999 + 1, we need to keep calculating until the leftmost digit of longer string of the two
+ * out of bound case -> each time, check i < len1 and i < len2, then get the value -> convert char to integer
+ * carry = 0, carry = sum / 10, value = sum % 10, add value to the head of the result string
+ * at last check value of carry
  */
 public class AddStrings {
     public String addStrings(String num1, String num2) {
@@ -24,10 +30,5 @@ public class AddStrings {
             sb.insert(0, carry);
         }
         return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        AddStrings as = new AddStrings();
-        System.out.println(as.addStrings("9", "99"));
     }
 }

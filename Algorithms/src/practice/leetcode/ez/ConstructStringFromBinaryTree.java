@@ -1,12 +1,12 @@
 package practice.leetcode.ez;
-/*
+
+/**
 Input: Binary tree: [1,2,3,4]
        1
      /   \
     2     3
    /
   4
-
 Output: "1(2(4))(3)"
 
 Input: Binary tree: [1,2,3,null,4]
@@ -15,15 +15,14 @@ Input: Binary tree: [1,2,3,null,4]
     2    3
      \
       4
-
 Output: "1(2()(4))(3)"
- */
 
-/**
- * preorder traversal:
- * recursively add to result
- * when we go down to left add '('
- * if go right, check if left null
+ * all the leaf node has independent left and right parenthesis
+ * pre-order traversal:
+ * recursion
+ * if null, return empty string
+ * recursively go to left node
+ * recursively go to right node
  */
 public class ConstructStringFromBinaryTree {
     public String tree2str(TreeNode t) {
@@ -54,6 +53,45 @@ public class ConstructStringFromBinaryTree {
             helper(n.right, sb);
             sb.append(")");
         }
+    }
+
+    public String helper(TreeNode t) {
+        if (t == null) {
+            return "";
+        }
+        String l = helper(t.left);
+        String r = helper(t.right);
+
+        String res = "" + t.val;
+        if (l == "") {
+            if (r != "") res += "()";
+        } else {
+            res += "(" + l + ")";
+        }
+        if (r != "") {
+            res += "(" + r + ")";
+        }
+        return res;
+    }
+
+    /**
+     * @daq
+     *
+     * bottom up recursion
+     */
+    public String tree2str1(TreeNode t) {
+        if (t == null) {
+            return "";
+        }
+        String value = t.val + "";
+
+        String left = tree2str1(t.left);
+        String right = tree2str1(t.right);
+
+        if (left == "" && right == "") return value;
+        if (left == "") return value + "()" + "(" + right + ")";
+        if (right == "") return value + "(" + left + ")";
+        return value + "(" + left + ")" + "(" + right + ")";
     }
 
     public static void main(String[] args) {

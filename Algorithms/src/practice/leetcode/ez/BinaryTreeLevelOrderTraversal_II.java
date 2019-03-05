@@ -7,9 +7,15 @@ import java.util.Queue;
 /**
  * @tree
  *
- * return the bottom-up level order traversal of its nodes' values.
+ * Given a binary tree, return the bottom-up level order traversal of its nodes' values.
+ * (ie, from left to right, level by level from leaf to root).
  *
+ * BFS solution
+ * use a queue to do the level order traversal, when reaching a new level, create another sub list, add to index 0
  *
+ * DFS solution
+ * base case: null, return. recursive traverse the tree until reaching leaf node, check the result size.
+ * if level=res.size() add a new list at front. recursively traverse to left, then right child
  */
 public class BinaryTreeLevelOrderTraversal_II {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
@@ -46,11 +52,11 @@ public class BinaryTreeLevelOrderTraversal_II {
         if (root == null) {
             return res;
         }
-        helper(root, 0, res);
+        dfs(root, 0, res);
         return res;
     }
 
-    private void helper(TreeNode node, int level, List<List<Integer>> res) {
+    private void dfs(TreeNode node, int level, List<List<Integer>> res) {
         if (node == null) {
             return;
         }
@@ -58,9 +64,9 @@ public class BinaryTreeLevelOrderTraversal_II {
             List<Integer> newLevel = new LinkedList<>();
             res.add(0, newLevel);
         }
+        dfs(node.left, level + 1, res);
+        dfs(node.right, level + 1, res);
         List<Integer> list = res.get(res.size() - level - 1);
-        helper(node.left, level + 1, res);
-        helper(node.right, level + 1, res);
         list.add(node.val);
     }
 }

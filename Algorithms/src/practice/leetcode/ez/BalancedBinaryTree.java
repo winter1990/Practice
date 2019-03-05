@@ -32,24 +32,28 @@ public class BalancedBinaryTree {
     /**
      * recursion optimization:
      * check height & check balance at same time
+     *
+     * which means when we return the level value to the upper recursive call
+     * if we find the tree is not balanced, return something that tell the recursive call above it's unbalanced
+     * we define the helper method with int, return the level value and compare, if it's not balanced, then return -1
      */
     public boolean isBalanced(TreeNode root) {
         if (root == null) {
             return true;
         }
-        return helper(root) != Integer.MIN_VALUE;
+        return dfs(root) != Integer.MIN_VALUE;
     }
 
-    public int helper(TreeNode node) {
+    public int dfs(TreeNode node) {
         if (node == null) {
             return 0;
         }
-        int left = helper(node.left);
+        int left = dfs(node.left);
         if (left == Integer.MIN_VALUE) {
             return Integer.MIN_VALUE;
         }
 
-        int right = helper(node.right);
+        int right = dfs(node.right);
         if (right == Integer.MIN_VALUE) {
             return Integer.MIN_VALUE;
         }

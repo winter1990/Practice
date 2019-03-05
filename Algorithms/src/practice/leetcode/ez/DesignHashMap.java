@@ -12,100 +12,53 @@ import java.util.List;
  *
  */
 public class DesignHashMap {
-    public static void main(String[] args) {
-        MyHashMap m = new MyHashMap();
-        m.put(1,1);
-        m.put(2,2);
-        System.out.println(m.get(1));
-        System.out.println(m.get(3));
-        m.put(2,1);
-        System.out.println(m.get(2));
-        m.put(2,3);
-        System.out.println(m.get(2));
-        m.remove(2);
-        System.out.println(m.get(2));
-        m.put(2,4);
-        System.out.println(m.get(2));
-    }
 }
 
-/**
- * still do not know why it's wrong
- */
 class MyHashMap {
-    Node[] lists;
-    int buckets = 10000;
+    ListNode[] nodes = new ListNode[10000];
 
-    public MyHashMap() {
-        lists = new Node[buckets];
-    }
-
-    /**
-     * value will always be non-negative.
-     */
     public void put(int key, int value) {
-        int h = hash(key);
-        if (lists[h] == null) {
-            lists[h] = new Node(-1, -1);
-        }
-        Node pre = findNodeInBucket(lists[h], key);
-        if (pre.next == null) {
-            pre.next = new Node(key, value);
-        } else {
-            pre.next.val = value;
-        }
+        int i = idx(key);
+        if (nodes[i] == null)
+            nodes[i] = new ListNode(-1, -1);
+        ListNode prev = find(nodes[i], key);
+        if (prev.next == null)
+            prev.next = new ListNode(key, value);
+        else prev.next.val = value;
     }
 
-    private Node findNodeInBucket(Node node, int key) {
-        Node pre = null;
-        Node cur = node;
-        while (cur != null && cur.key != key) {
-            pre = cur;
-            cur = cur.next;
-        }
-        return pre;
-    }
-
-    private int hash(int key) {
-        return key % buckets;
-    }
-
-    /**
-     * Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
-     */
     public int get(int key) {
-        int h = hash(key);
-        if (lists[h] == null) {
+        int i = idx(key);
+        if (nodes[i] == null)
             return -1;
-        }
-        Node pre = findNodeInBucket(lists[h], key);
-        if (pre.next == null) {
-            return -1;
-        }
-        return pre.next.val;
+        ListNode node = find(nodes[i], key);
+        return node.next == null ? -1 : node.next.val;
     }
 
-    /**
-     * Removes the mapping of the specified value key if this map contains a mapping for the key
-     */
     public void remove(int key) {
-        int h = hash(key);
-        if (lists[h] == null) {
-            return;
-        }
-        Node pre = findNodeInBucket(lists[h], key);
-        if (pre.next == null) {
-            return;
-        }
-        pre.next = pre.next.next;
+        int i = idx(key);
+        if (nodes[i] == null) return;
+        ListNode prev = find(nodes[i], key);
+        if (prev.next == null) return;
+        prev.next = prev.next.next;
     }
 
-    class Node {
-        int key;
-        int val;
-        Node next;
+    int idx(int key) { return Integer.hashCode(key) % nodes.length;}
 
-        public Node(int key, int val) {
+    ListNode find(ListNode bucket, int key) {
+        ListNode node = bucket, prev = null;
+        while (node != null && node.key != key) {
+            prev = node;
+            node = node.next;
+        }
+        return prev;
+    }
+
+    class ListNode {
+        int key, val;
+        ListNode next;
+
+        ListNode(int key, int val) {
             this.key = key;
             this.val = val;
         }

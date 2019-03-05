@@ -3,7 +3,10 @@ package practice.leetcode.ez;
 /**
  * @math
  *
- * 38 3+8=11 1+1=2
+ * 685 -> 6+8+5=19 -> 1+9=10 -> 1+0=1 end
+ * the condition is while number is >= 10, we keep calculating
+ * while (n >= 10)
+ * while n!=0, m += n%10, n/=10, after n=m
  */
 public class AddDigits {
     public int addDigits(int num) {
@@ -17,11 +20,5 @@ public class AddDigits {
             num = res;
         }
         return num;
-    }
-
-    public static void main(String[] args) {
-        AddDigits ad = new AddDigits();
-        int n = 38;
-        System.out.println(ad.addDigits(n));
     }
 }

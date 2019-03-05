@@ -7,19 +7,14 @@ package practice.leetcode.ez;
  */
 public class ClimbingStairs {
     public int climbStairs(int n) {
-        if (n <= 0) {
-            return 0;
-        } else if (n == 1 || n == 2) {
+        if (n == 1 || n == 2) {
             return n;
         }
         int a = 1;
         int b = 2;
-        int cur = 0;
         for (int i = 3; i <= n; i++) {
-            cur = a + b;
-            a = b;
-            b = cur;
+            a = (b += a) - a;
         }
-        return cur;
+        return b;
     }
 }

@@ -1,17 +1,22 @@
 package practice.leetcode.ez;
 
-/**
- * @array
- * @slidingwindow
- *
- * find narrowest window between the two same number
- */
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @array
+ * @slidingwindow
+ *
+ * Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array
+ * such that nums[i] = nums[j] and the absolute difference between i and j is at most k.
+ *
+ * method 1: use a hash map to store the last index. if not found, put value-index. otherwise get index and i-lastIndex
+ *
+ * method 2: sliding window. use a set to store all the numbers in the window. maintain all the numbers within the window
+ * start from 0, if (i < k) put visited numbers in set,
+ */
 public class ContainsDuplicate_II {
     public boolean containsNearbyDuplicate(int[] nums, int k) {
         if (nums == null || nums.length < 2) {
@@ -29,7 +34,9 @@ public class ContainsDuplicate_II {
         return false;
     }
 
-    // sliding window
+    /**
+     * @slidingwindow
+     */
     public boolean containsNearbyDuplicate1(int[] nums, int k) {
         Set<Integer> set = new HashSet<>();
         for (int i = 0; i < nums.length; i++) {
@@ -44,7 +51,6 @@ public class ContainsDuplicate_II {
     public static void main(String[] args) {
         int[] in1 = {1,2,1};
         ContainsDuplicate_II app = new ContainsDuplicate_II();
-        System.out.println(app.containsNearbyDuplicate(in1, 0));
     }
     /*
     public boolean containsNearbyDuplicate(int[] nums, int k) {

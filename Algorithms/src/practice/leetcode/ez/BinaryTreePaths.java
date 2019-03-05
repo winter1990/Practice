@@ -1,9 +1,13 @@
 package practice.leetcode.ez;
 
 /**
+ * @tree
+ *
+ * Given a binary tree, return all root-to-leaf paths.
+ *
  * recursion:
- * 1. base case: reach leaf - add current and return
- * 2. travel down - add current
+ * 1. base case: if null then stop, else if reach leaf - add current and return
+ * 2. travel down - add current node and arrow sign
  */
 
 import java.util.LinkedList;
@@ -15,20 +19,18 @@ public class BinaryTreePaths {
         if (root == null) {
             return res;
         }
-        helper(res, root, "");
+        dfs(res, root, "");
         return res;
     }
 
-    private void helper(List<String> res, TreeNode root, String s) {
+    private void dfs(List<String> res, TreeNode root, String s) {
         if (root == null) {
             return;
         } else if (root.left == null && root.right == null) {
-            s += root.val;
-            res.add(s);
+            res.add(s + root.val);
             return;
         }
-        s = s + root.val + "->";
-        helper(res, root.left, s);
-        helper(res, root.right, s);
+        dfs(res, root.left, s + root.val + "->");
+        dfs(res, root.right, s + root.val + "->");
     }
 }

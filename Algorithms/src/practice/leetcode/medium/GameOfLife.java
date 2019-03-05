@@ -1,19 +1,35 @@
 package practice.leetcode.medium;
 
-/*
-[2nd bit, 1st bit] = [next state, current state]
-
-- 00  dead (next) <- dead (current)
-- 01  dead (next) <- live (current)
-- 10  live (next) <- dead (current)
-- 11  live (next) <- live (current)
-
-n the beginning, every cell is either 00 or 01.
-Notice that 1st state is independent of 2nd state.
-Imagine all cells are instantly changing from the 1st to the 2nd state, at the same time.
-Let’s count # of neighbors from 1st state and set 2nd state bit.
-Since every 2nd state is by default dead, no need to consider transition 01 -> 00.
-In the end, delete every cell’s 1st state by doing >> 1.
+/**
+ * @array
+ *
+ * Any live cell with fewer than two live neighbors dies, as if caused by under-population.
+ * Any live cell with two or three live neighbors lives on to the next generation.
+ * Any live cell with more than three live neighbors dies, as if by over-population..
+ * Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+ *
+ * 0 1 neighbors, 1 -> 0
+ * 2 3 neighbors, 1 -> 1
+ * 3+  neighbors, 1 -> 0
+ * 3   neighbors, 0 -> 1
+ * all the status and its changes
+ *
+ * define another row * col 2D array to count the neighbors and get the status next
+ *
+ * if we are not allowed to use extra space, in place
+ * totally 4, we can use a 2-bit number to track the status for next
+ * count neighbors one by one, for all neighbors & 1 to get the current status
+ * second to right bit is used to track the next status
+ * 0 1 neighbors, 1 -> 0 -> 01  no need to change the value
+ * 2 3 neighbors, 1 -> 1 -> 11  change value to 3
+ * 3+  neighbors, 1 -> 0 -> 01  no need to change the val
+ * 3   neighbors, 0 -> 1 -> 10  change value from 1 to 2
+ *
+ * scan through all the elements in the 2d
+ * count number of live neighbors using #&1
+ * assign the current value with next value
+ *
+ * scan again, each value >> 1 to get the current status for next generation
  */
 
 public class GameOfLife {
@@ -22,14 +38,12 @@ public class GameOfLife {
         int m = board.length, n = board[0].length;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                int lives = liveNeighbors(board, m, n, i, j);
-                // In the beginning, every 2nd bit is 0;
-                // So we only need to care about when will the 2nd bit become 1.
+                int lives = countLiveNeighbors(board, m, n, i, j);
                 if (board[i][j] == 1 && lives >= 2 && lives <= 3) {
-                    board[i][j] = 3; // Make the 2nd bit 1: 01 ---> 11
+                    board[i][j] = 3;
                 }
                 if (board[i][j] == 0 && lives == 3) {
-                    board[i][j] = 2; // Make the 2nd bit 1: 00 ---> 10
+                    board[i][j] = 2;
                 }
             }
         }
@@ -39,16 +53,17 @@ public class GameOfLife {
                 board[i][j] >>= 1;  // Get the 2nd state.
             }
         }
+        return;
     }
 
-    public int liveNeighbors(int[][] board, int m, int n, int i, int j) {
-        int lives = 0;
+    public int countLiveNeighbors(int[][] board, int m, int n, int i, int j) {
+        int count = 0;
         for (int x = Math.max(i - 1, 0); x <= Math.min(i + 1, m - 1); x++) {
             for (int y = Math.max(j - 1, 0); y <= Math.min(j + 1, n - 1); y++) {
-                lives += board[x][y] & 1;
+                count += board[x][y] & 1;
             }
         }
-        lives -= board[i][j] & 1;
-        return lives;
+        count -= board[i][j] & 1;
+        return count;
     }
 }

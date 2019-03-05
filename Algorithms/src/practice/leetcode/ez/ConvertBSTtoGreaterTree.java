@@ -1,8 +1,15 @@
-package practice.leetcode.medium;
+package practice.leetcode.ez;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @tree
+ *
+ * reverse order of in-order traversal
+ * because we are suming up all the nodes that larger than current node, so define a global variable for sum
+ * start with largest value in the tree
+ */
 public class ConvertBSTtoGreaterTree {
     int sum = 0;
     public TreeNode convertBST(TreeNode root) {

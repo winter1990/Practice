@@ -1,7 +1,5 @@
 package practice.leetcode.ez;
 
-import practice.algorithmAndOOD.OOD.P;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,11 +7,13 @@ import java.util.Set;
 /**
  * @array
  *
- * method 1 brute force
+ * Given an array of integers, find if the array contains any duplicates.
+ * Your function should return true if any value appears at least twice in the array,
+ * and it should return false if every element is distinct.
  *
- * method 2 sort and compare
- *
- * method 3 hashset
+ * method 1 brute force: two pointers i [0,n-2] j [i+1,n-1]
+ * method 2 sort and compare: Arrays.sort(), start from index 1 to n-1, compare with previous value
+ * method 3 hashset: put visited value in the set, and set.add() false then we find duplicate
  */
 public class ContainsDuplicate {
     public  boolean containsDuplicate1(int[] nums) {
@@ -30,7 +30,7 @@ public class ContainsDuplicate {
         return false;
     }
 
-    boolean containsDuplicate2(int[] nums) {
+    public boolean containsDuplicate2(int[] nums) {
         if (nums == null || nums.length <= 1) {
             return false;
         }
