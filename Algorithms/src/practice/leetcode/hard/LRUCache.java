@@ -12,9 +12,14 @@ import java.util.*;
  *
  * for cache, we have limited size
  * keep track of the current number of entries
- * for each entry - we have the reference for next, previous, like a double linked list
- * when we put new entry in the cache, if the current size > limited size, discard the least recent one, so track the tail
- * when we get the entry, we put it at the head, so track the head
+ * for each entry - we have key, value and the reference for next, previous -> like a double linked list
+ *
+ * when we get the entry, two cases: 1. not exists in cache, do nothing; 2. exists and we move it at the head as recent used
+ *
+ * when we put new entry in the cache,two cases: 1. exist; 2. non-exist
+ * to check whether exists, get from map -> it can be null or we get the existing entry
+ * if null, add a new to the head, update head (head can be null also, head and tail will be new entry)
+ * also need to check the size every time we add a new entry, if current size >= capacity, remove and update tail
  *
  * always keep in mind all the parameters and whether reference of pre and next is null
  * always manage to update the head and tails - check whether null or need to be updated
@@ -54,16 +59,39 @@ public class LRUCache {
             }
             node = new Entry();
         }
-
         if(currentSize == 1){
             first = node;
             last = node;
         }
-
         node.key = key;
         node.value = value;
         moveToHead(node);
         nodes.put(key, node);
+    }
+
+    private void put1(int key, int value) {
+        Entry entry = nodes.get(key);
+        if (entry == null) {
+            entry = new Entry();
+            if (first == null) {
+                last = entry;
+            } else {
+                entry.next = first;
+                first.pre = entry;
+            }
+            first = entry;
+            currentSize += 1;
+            if (currentSize > capacity) {
+                nodes.remove(last.key);
+                removeLast();
+            }
+            nodes.put(key, entry);
+        } else {
+            moveToHead(entry);
+            first = entry;
+        }
+        entry.key = key;
+        entry.value = value;
     }
 
     private void moveToHead(Entry node){
@@ -101,11 +129,21 @@ public class LRUCache {
             last = last.pre;
         }
     }
+
+    class Entry {
+        Entry pre;
+        Entry next;
+        int key;
+        int value;
+    }
+
+    public static void main(String[] args) {
+        LRUCache cache = new LRUCache(2);
+        cache.put1(2,1);
+        cache.put1(2,2);
+        System.out.println(cache.get(2));
+        cache.put1(3,3);
+        System.out.println(cache.get(2));
+    }
 }
 
-class Entry{
-    Entry pre;
-    Entry next;
-    int key;
-    int value;
-}

@@ -45,11 +45,11 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         if (root == null) {
             return res;
         }
-        helper(root, 0, res);
+        dfs(root, 0, res);
         return res;
     }
 
-    private void helper(TreeNode node, int level, List<List<Integer>> res) {
+    private void dfs(TreeNode node, int level, List<List<Integer>> res) {
         if (node == null) {
             return;
         }
@@ -63,7 +63,7 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         } else {
             list.add(0, node.val);
         }
-        helper(node.left, level + 1, res);
-        helper(node.right, level + 1, res);
+        dfs(node.left, level + 1, res);
+        dfs(node.right, level + 1, res);
     }
 }

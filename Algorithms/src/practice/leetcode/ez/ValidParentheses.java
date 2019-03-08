@@ -6,7 +6,10 @@ import java.util.Stack;
 
 /**
  * @string
+ * @stack
  *
+ * three types of parentheses -> [] {} ()
+ * each of them must be paired
  * the right parentheses always paired with left
  * if right occurs, the left must be on the top / next to it
  */

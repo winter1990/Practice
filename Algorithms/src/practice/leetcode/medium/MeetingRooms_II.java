@@ -3,7 +3,31 @@ package practice.leetcode.medium;
 import java.util.*;
 
 /**
- * minimum number of rooms required
+ * @greedy
+ * @heap
+ * @sort
+ *
+ * Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
+ *
+ * first, need some mechanism to sort the all intervals, based on start and end
+ * because we want to greedily add intervals to the same room, need to start the meeting asap
+ * sort by start and compare next intervals with the end of previous interval
+ * -----------      1
+ *    ---           2
+ *        ---       3
+ *           --     4
+ *            --    5
+ * start with 1, take a room, 2 start > end of 1, take a room, current is 3, we need to find the previous interval that
+ * finishes earliest, 2 is replaced by 3, 4 the same. when see 5, we compare with the ones that smaller, 1 replaced by 5
+ *
+ * how to determine two meetings can be scheduled in the same meeting room
+ * keep track of all the meeting room that available earliest -> because if it does not fit, all the rooms after it
+ * will not be working for sure
+ *
+ * it's the reason we use a heap
+ * use heap to store the ending time, in ascending order
+ * if current start >= heap.peek(), then pop(), otherwise start another room -> push into heap
+ * at last return the size of priority queue
  */
 public class MeetingRooms_II {
     public int minMeetingRooms(Interval[] intervals) {
@@ -11,8 +35,8 @@ public class MeetingRooms_II {
         list.addAll(Arrays.asList(intervals));
         Collections.sort(list, new Comparator<Interval>() {
             @Override
-            public int compare(Interval o1, Interval o2) {
-                return o1.start - o2.start;
+            public int compare(Interval i1, Interval i2) {
+                return i1.start - i2.start;
             }
         });
         int count = 0;

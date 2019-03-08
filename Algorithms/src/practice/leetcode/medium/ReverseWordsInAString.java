@@ -20,6 +20,56 @@ public class ReverseWordsInAString {
         if (s == null) {
             return null;
         }
+        char[] cs = s.toCharArray();
+        reverse(cs, 0, cs.length - 1);
+        int i = 0, j = 0, n = cs.length;
+        while (j < n) {
+            while (j < n && cs[j] == ' ') {
+                j++;
+            }
+            i = j;
+            while (j < n && cs[j] != ' ') {
+                j++;
+            }
+            reverse(cs, i, j - 1);
+        }
+        return cleanSpacesBetweenWords(cs);
+    }
+
+    private String cleanSpacesBetweenWords(char[] cs) {
+        int i = 0, j = 0, n = cs.length;
+        while (j < n) {
+            while (j < n && cs[j] == ' ') j++;
+            while (j < n && cs[j] != ' ') cs[i++] = cs[j++];
+            while (j < n && cs[j] == ' ') j++;
+            if (j < n) cs[i++] = ' ';
+        }
+        return new String(cs).substring(0, i);
+    }
+
+    private void reverse(char[] cs, int i, int j) {
+        while (i < j) {
+            char tmp = cs[i];
+            cs[i++] = cs[j];
+            cs[j--] = tmp;
+        }
+    }
+
+    public static String reverseWords1(String s) {
+        StringBuilder res = new StringBuilder();
+        for (int start = s.length() - 1; start >= 0; start--) {
+            if (s.charAt(start) == ' ') continue;
+            int end = start;
+            while (start >= 0 && s.charAt(start) != ' ') start--;
+            res.append(s.substring(start + 1, end + 1)).append(" ");
+        }
+        return res.toString().trim();
+    }
+
+    public String reverseWords2(String s) {
+        if (s == null) {
+            return null;
+        }
         s = s.trim();
         if (s.length() == 0) {
             return "";
@@ -46,7 +96,10 @@ public class ReverseWordsInAString {
 
     public static void main(String[] args) {
         ReverseWordsInAString rw = new ReverseWordsInAString();
-        String in = "   a   b ";
-        System.out.println(rw.reverseWords(in));
+        System.out.println(rw.reverseWords("a good   example"));
+        System.out.println(rw.reverseWords("hello world!  "));
+        String s2 = "   a   b ";
+        System.out.println(rw.reverseWords(s2));
+
     }
 }

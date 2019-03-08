@@ -4,21 +4,44 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+/**
+ * @tree
+ * @design
+ * @string
+ *
+ * You may serialize the following tree:
+   1
+  / \
+ 2   3
+    / \
+   4   5
+as "[1,2,3,null,null,4,5]"
+
+ *          4
+          2   5
+        1  3   6
+        pre-order:
+        4,2,1,#,#,3,#,#,5,#,6
+ *
+ * for serialization:
+ * order traversal - select between preorder inorder and postorder
+ * for in order, we do not know the root from the string
+ * for post order, the same problem for subtree
+ * preorder is the selection
+ * we need separator between two nodes, and special character for null -> , #
+ * start with root node, recursively traverse down the tree. left child first, then right child.
+ * base case: if node is null, append @ and separatpr
+ * otherwise, append current node value
+ * next call with left chilld
+ * next call with right child
+ *
+ * for deserialization:
+ * split by separator to get string array
+ *
+ */
 public class SerializeAndDeserializeBST {
 }
 
-/**
- * tree traversal:
- * in, pre and post
- */
-/*
-         4
-       2   5
-     1  3   6
-     pre-order:
-     # as null and , separates the ndoes
-     4,2,1,#,#,3,#,#,5,#,6
- */
 class Codec3 {
     // Encodes a tree to a single string.
     final String N = "#";

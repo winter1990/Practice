@@ -5,18 +5,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @array
+ *
  * the degree of this array is defined as the maximum frequency of any one of its elements.
  * Your task is to find the smallest possible length of a (contiguous) subarray of nums,
  * that has the same degree as nums.
  *
- * scan, get largest freq. get max. narrow down the width.
- * => wrong, because multiple # have same freq
- *
- * use maps to keep track of left, right and freq
+ * potentially, there might be multiple elements that have the same largest frequency, and we need to get the smallest window
+ * need a map to track the leftmost index of all the elements in array
+ * need a map to track the occurrence of the numbers
+ * current degree - max occurrences
+ * result -> minimum length
+ * i = [0,n-1] if new element (not exists) in leftmost map, put value-index
+ * if counter >= degree, update result
+ * else update occurrence value
  */
 
 public class DegreeOfAnArray {
     public int findShortestSubArray(int[] nums) {
+        Map<Integer, Integer> leftmost = new HashMap<>(), counter = new HashMap<>();
+        int degree = 0, res = 0;
+        for (int i = 0; i < nums.length; i++) {
+            leftmost.putIfAbsent(nums[i], i);
+            counter.put(nums[i], counter.getOrDefault(nums[i], 0) + 1);
+            if (counter.get(nums[i]) > degree) {
+                res = i - leftmost.get(nums[i]) + 1;
+                degree = counter.get(nums[i]);
+            } else if (counter.get(nums[i]) == degree) {
+                res = Math.min(res, i - leftmost.get(nums[i]) + 1);
+            }
+        }
+        return res;
+    }
+
+    public int findShortestSubArray1(int[] nums) {
         Map<Integer, Integer> l = new HashMap<>();
         Map<Integer, Integer> r = new HashMap<>();
         Map<Integer, Integer> count = new HashMap<>();
@@ -48,36 +70,4 @@ public class DegreeOfAnArray {
         System.out.println(degreeOfAnArray.findShortestSubArray(a2));
         System.out.println(degreeOfAnArray.findShortestSubArray(a3));
     }
-
-        /*
-    public int findShortestSubArray(int[] nums) {
-        int max = 0;
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (!map.containsKey(nums[i])) {
-                map.put(nums[i], 1);
-            } else {
-                int freq = map.get(nums[i]);
-                max = Math.max(max, freq + 1);
-                map.put(nums[i], freq + 1);
-            }
-        }
-        int target = 0;
-        for (int n : map.keySet()) {
-            if (map.get(n) == max) {
-                target = n;
-            }
-        }
-
-        int left = 0;
-        int right = nums.length - 1;
-        while (nums[left] != target) {
-            left++;
-        }
-        while (nums[right] != target) {
-            right--;
-        }
-        return right - left + 1;
-    }
-    */
 }

@@ -11,7 +11,11 @@ import java.util.List;
  * contains(value) : Return whether the value exists in the HashSet or not.
  * remove(value): Remove a value in the HashSet. If the value does not exist in the HashSet, do nothing.
  *
- *
+ * create an array of bucket, use hash code determine the index of bucket we want to store the value
+ * need to define hash function -> int hash(int) {Integer.hashCode(int) % total#ofBucket}
+ * because potential collision may happen, for each bucket we define it as List of integer
+ * to add, get bucket # -> if null create a new list, if not check whether exist then add
+ * remove, get bucket # -> check null bucket,
  */
 public class DesignHashSet {
 
@@ -30,7 +34,7 @@ public class DesignHashSet {
 
 class MyHashSet {
     List<Integer>[] lists;
-    int buckets = 13000;
+    int buckets = 10000;
     /** Initialize your data structure here. */
     public MyHashSet() {
         lists = new LinkedList[buckets];

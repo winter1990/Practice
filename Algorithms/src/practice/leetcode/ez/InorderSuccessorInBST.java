@@ -1,12 +1,17 @@
 package practice.leetcode.ez;
-/*
+/**
+ * @tree
+ *
+ * Given a binary search tree and a node in it, find the in-order successor of that node in the BST.
+ * The successor of a node p is the node with the smallest key greater than p.val.
+ *
         20
     10      45
   8   17
     16 18
          19
 
-  8->10  10->61  19->20  20->45  45->null
+  8->10  10->16  19->20  20->45  45->null
   10->8  18->17  19->18  20->19  8->null
  */
 /**

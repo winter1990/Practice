@@ -84,6 +84,13 @@ public class LRUCache1 {
         tail = tail.pre;
     }
 
+    class Entry {
+        Entry pre;
+        Entry next;
+        int key;
+        int value;
+    }
+
     public static void main(String[] args) {
         LRUCache1 cache1 = new LRUCache1(2);
         cache1.put(1,1);

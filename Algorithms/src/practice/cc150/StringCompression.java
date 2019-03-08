@@ -1,5 +1,8 @@
 package practice.cc150;
 
+/**
+ * @string
+ */
 public class StringCompression {
     public String compression(String s) {
         StringBuilder sb = new StringBuilder();
@@ -13,6 +16,26 @@ public class StringCompression {
             }
         }
         return sb.toString();
+    }
+
+    public int compress(char[] chars) {
+        int i = 0, j = 0, n = chars.length;
+        while (j < n) {
+            char c = chars[j];
+            int count = 0;
+            while (j < n && chars[j] == c) {
+                count++;
+                j++;
+            }
+            chars[i] = c;
+            i++;
+            if (count != 1) {
+                for (char digit : ("" + count).toCharArray()) {
+                    chars[i++] = digit;
+                }
+            }
+        }
+        return i;
     }
 
     public static void main(String[] args) {

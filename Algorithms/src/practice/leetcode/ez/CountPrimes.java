@@ -4,6 +4,18 @@ package practice.leetcode.ez;
  * @math
  *
  * Count the number of prime numbers less than a non-negative number, n.
+ * Input: 10, Output: 4, Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
+ *
+ * brute force:
+ * from 2 to n - 1, if n % i != 0, then count++
+ *
+ * use boolean array with size n to track whether it is prime or not
+ * start with first prime - 2
+ * for all the integers start from 2, times that prime number, will be non-prime
+ * for i = [2,n]
+ * if i is prime, count++
+ *   for j = [2, i * j < n]
+ * time complexity O(N log (log N))
  */
 
 public class CountPrimes {

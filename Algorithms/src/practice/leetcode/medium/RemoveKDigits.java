@@ -5,6 +5,7 @@ import java.util.Stack;
 /**
  * @greedy
  * @string
+ * @stack
  *
  * Input: num = "1432219", k = 3
  * Output: "1219"
@@ -21,8 +22,16 @@ import java.util.Stack;
  * 5413210 k = 3, 1210
  * 1000123 k = 2, 12
  * 451789 k = 2
- * always compare with next digit and if num[i] > nums[i+1] remove i
+ * always compare with next digit and if num[i] > nums[i+1] remove the digit at i
+ * 4563241 k = 4, 241, 456 when we see 3, compare with 6 remove, 5 remove, 4 remove -> backtracking previous digit 1 by 1
+ * use a stack
+ * when increasing order, push in stack, if see smaller value, pop from stack, update k
+ * until stack is empty or current > stack.peek(), then continue, until k == 0
+ * 100324 k = 2, 24, 0024
  * then at last, need to handle the leading 0s
+ *
+ * 1111 k = 2, remove k digits, any
+ * 1000 k = 2, 000 k = 1
  */
 
 public class RemoveKDigits {
@@ -32,19 +41,15 @@ public class RemoveKDigits {
         }
         Stack<Character> stack = new Stack<>();
         char[] cs = num.toCharArray();
-        int count = 0;
         for (char c : cs) {
-            if (!stack.isEmpty() && stack.peek() > c) {
-                while (!stack.isEmpty() && stack.peek() > c && count < k) {
-                    stack.pop();
-                    count++;
-                }
+            while (!stack.isEmpty() && c < stack.peek() && k > 0) {
+                stack.pop();
+                k--;
             }
             stack.push(c);
         }
-        while (count < k) {
+        while (k-- > 0) {
             stack.pop();
-            k--;
         }
         StringBuilder sb = new StringBuilder();
         while (!stack.isEmpty()) {
@@ -54,7 +59,10 @@ public class RemoveKDigits {
         while (i < sb.length() && sb.charAt(i) == '0') {
             i++;
         }
-        return i == sb.length() ? "0" : sb.toString().substring(i);
+        if (i == sb.length()) {
+            return "0";
+        }
+        return sb.substring(i);
     }
 
     public String removeKdigits1(String num, int k) {

@@ -7,6 +7,19 @@ package practice.leetcode.medium;
  * A move is guaranteed to be valid and is placed on an empty block.
  * Once a winning condition is reached, no more moves is allowed.
  * A player who succeeds in placing n of their marks in a horizontal, vertical, or diagonal row wins the game.
+ *
+ * initialize the board with n * n
+ * for each call of make move (player, row, col) -> player can be 1 or 2, row and col is [0, n - 1]
+ * if each move is valid, we just need to check col, row and diagonal
+ * for each move, mark the point as X or O, but the purpose is to determine which player wins, check row col dia not efficient
+ * to determine who wins, all elements in row / col / dia should be the same value -> to quick check winner, p1 1, p2 -1
+ * sum up the col and row when player makes move, use two arrays with size n
+ * if different players make move on same row / col / dia, then value will never reach n
+ * for each move, update rows / col and dia -> define two integer diagonal
+ * steps:
+ * first, get value based on player, if 1 then 1, if 2 then -1
+ * update rows and cols and diagonals
+ * check value of all, if = n, return that player. relation of conditions should be ||
  */
 
 public class DesignTicTacToe {

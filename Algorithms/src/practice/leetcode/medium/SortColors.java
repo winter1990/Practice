@@ -1,6 +1,7 @@
 package practice.leetcode.medium;
 
 /**
+ * @array
  * @sort
  *
  * 0, 1, and 2 to represent the color red, white, and blue respectively.

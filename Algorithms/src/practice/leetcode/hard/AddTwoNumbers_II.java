@@ -5,6 +5,21 @@ import java.util.Stack;
 /**
  * @linkedlist
  *
+ * method 1: brute force
+ * because two linked lists are not perfectly aligned, so need get length, start with last, second to last...
+ * scan the two lists n times. because we can not go back
+ *
+ * method 2: reverse the two lists
+ * so it's aligned from least significant digits
+ * add two linked lists, and reverse again
+ *
+ * method 3:
+ * reverse order of a linked list -> stack
+ *
+ *
+ *
+ *
+ *
  * recursively add two nodes until reaching the tails
  * need to keep track of the carry
  * need to align the nodes - getLength
@@ -25,8 +40,6 @@ public class AddTwoNumbers_II {
             l2 = l2.next;
         }
         int sum = 0;
-        //[7,2,4,3]
-        //  [5,6,4]
         ListNode newHead = new ListNode(1);
         while (!s1.isEmpty() || !s2.isEmpty()) {
             if (!s1.isEmpty()) sum += s1.pop();

@@ -11,10 +11,11 @@ package practice.leetcode.medium;
  * 3 in a col
  * 3 in diagonal
  * need to check both players - X and O
- * can not happen like this
+ * can not happen like this?
  * x x x
  * o o x
  * o o x
+ * it might happen
  * count the 3 in a row
  */
 public class ValidTicTacToeState {
@@ -22,26 +23,31 @@ public class ValidTicTacToeState {
         if (board == null || board.length < 3) {
             return false;
         }
-        if (checkCount(board) > 1 || checkCount(board) < 0) {
+        int turn = checkCount(board); // turn = 0 X move next, turn = 1 O move next
+        if (turn > 1 || turn < 0) {
             return false;
         }
-        if ((!isWinner(board, 'O') && !isWinner(board, 'X'))
-                || (isWinner(board, 'O') && !isWinner(board, 'X') && checkCount(board) == 0)
-                || (isWinner(board, 'X') && !isWinner(board, 'O') && checkCount(board) == 1)) {
+        boolean xWin = isWinner(board, 'X');
+        boolean oWin = isWinner(board, 'O');
+        if ((!xWin && !oWin)
+                || (!xWin && oWin && turn == 0)
+                || (xWin && !oWin && turn == 1)) {
             return true;
         }
         return false;
     }
 
     private boolean isWinner(String[] board, char c) {
-        int count = 0;
         for (int i = 0; i < 3; i++) {
-            if (board[i].charAt(0) == c && board[i].charAt(1) == c && board[i].charAt(2) == c) count++;
-            if (board[0].charAt(i) == c && board[1].charAt(i) == c && board[2].charAt(i) == c) count++;
+            if (board[i].charAt(0) == c && board[i].charAt(1) == c && board[i].charAt(2) == c) return true;
         }
-        if (board[1].charAt(1) == c && board[0].charAt(0) == c && board[2].charAt(2) == c) count++;
-        if (board[1].charAt(1) == c && board[0].charAt(2) == c && board[2].charAt(0) == c) count++;
-        if (count == 1) return true;
+        for (int j = 0; j < 3; j++) {
+            if (board[0].charAt(j) == c && board[1].charAt(j) == c && board[2].charAt(j) == c) {
+                return true;
+            }
+        }
+        if (board[0].charAt(0) == c && board[1].charAt(1) == c && board[2].charAt(2) == c) return true;
+        if (board[0].charAt(2) == c && board[1].charAt(1) == c && board[2].charAt(0) == c) return true;
         return false;
     }
 
