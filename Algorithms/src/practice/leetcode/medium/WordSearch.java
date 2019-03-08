@@ -5,6 +5,10 @@ import java.util.Arrays;
 /**
  * @search
  *
+ * Given a 2D board and a word, find if the word exists in the grid.
+ * The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally
+ * or vertically neighboring. The same letter cell may not be used more than once.
+ *
  * same char can not be used twice, so define a checker[][] to track whether visited
  * ['A','B','C','E'],
  * ['S','F','C','S'],
@@ -23,7 +27,6 @@ public class WordSearch {
         int m = board.length;
         int n = board[0].length;
         boolean[][] visited = new boolean[m][n];
-
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (word.charAt(0) == board[i][j] && findWord(board, word, 0, i, j, visited)) {

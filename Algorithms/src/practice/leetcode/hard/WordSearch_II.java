@@ -6,6 +6,10 @@ import java.util.*;
  * @search
  * @trie
  *
+ * Given a 2D board and a list of words from the dictionary, find all words in the board.
+ * Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those
+ * horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+ *
  * build up trie
  */
 public class WordSearch_II {
@@ -14,7 +18,7 @@ public class WordSearch_II {
         TrieNode root = buildTrie(words);
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                dfs (board, i, j, root, res);
+                dfs(board, i, j, root, res);
             }
         }
         return res;
@@ -42,15 +46,15 @@ public class WordSearch_II {
     public TrieNode buildTrie(String[] words) {
         TrieNode root = new TrieNode();
         for (String w : words) {
-            TrieNode p = root;
+            TrieNode cur = root;
             for (char c : w.toCharArray()) {
                 int i = c - 'a';
-                if (p.children[i] == null) {
-                    p.children[i] = new TrieNode();
+                if (cur.children[i] == null) {
+                    cur.children[i] = new TrieNode();
                 }
-                p = p.children[i];
+                cur = cur.children[i];
             }
-            p.word = w;
+            cur.word = w;
         }
         return root;
     }

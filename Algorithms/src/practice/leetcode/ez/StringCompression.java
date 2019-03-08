@@ -13,6 +13,26 @@ package practice.leetcode.ez;
  */
 public class StringCompression {
     public int compress(char[] chars) {
+        int i = 0, j = 0, n = chars.length;
+        while (j < n) {
+            char c = chars[j];
+            int count = 0;
+            while (j < n && chars[j] == c) {
+                count++;
+                j++;
+            }
+            chars[i] = c;
+            i++;
+            if (count != 1) {
+                for (char digit : ("" + count).toCharArray()) {
+                    chars[i++] = digit;
+                }
+            }
+        }
+        return i;
+    }
+
+    public int compress1(char[] chars) {
         if (chars == null || chars.length == 0) {
             return 0;
         }

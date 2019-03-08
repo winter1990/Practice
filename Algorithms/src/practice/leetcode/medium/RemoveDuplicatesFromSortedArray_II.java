@@ -15,7 +15,7 @@ package practice.leetcode.medium;
  *   =         =    j++
  *   =         !    replace ++i j++
  *   !         =    replace ++i j++
- *   !         !    replaec ++i j++
+ *   !         !    replace ++i j++
  */
 public class RemoveDuplicatesFromSortedArray_II {
     public int removeDuplicates(int[] nums) {

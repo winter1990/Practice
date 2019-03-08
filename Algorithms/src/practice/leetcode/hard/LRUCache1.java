@@ -23,11 +23,18 @@ public class LRUCache1 {
         moveEntryToHead(entry);
         return entry.value;
     }
-    // exist - update, not exist - create new
+
+    /**
+     * if exists -> move to head
+     * if not exists -> check current size
+     *  if oversize, remove tail
+     *  otherwise size++
+     *  update map
+     */
     public void put(int key, int value) {
         Entry entry = map.get(key);
         if (entry == null) {
-            if (currentSize >= capacity) {
+            if (currentSize == capacity) {
                 map.remove(tail.key);
                 removeTail();
             } else {
@@ -44,7 +51,15 @@ public class LRUCache1 {
         moveEntryToHead(entry);
         map.put(key, entry);
     }
-    // head tail null, check prev, if head already, or in the middle
+
+    /**
+     * it will be called by both get and put
+     * 1. head is null -> update head and tail
+     * 2. head not null
+     * 2.1 entry is head, do nothing
+     * 2.2 entry is tail, move it to head
+     * 2.3 entry in the middle, concatenate pre and next, move to head
+     */
     private void moveEntryToHead(Entry entry) {
         if (head == null) {
             head = entry;

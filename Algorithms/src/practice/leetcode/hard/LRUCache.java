@@ -35,7 +35,7 @@ public class LRUCache {
     public LRUCache(int capacity) {
         this.capacity = capacity;
         currentSize = 0;
-        nodes = new HashMap<Integer, Entry>();
+        nodes = new HashMap<>();
     }
 
     public int get(int key) {
@@ -95,14 +95,13 @@ public class LRUCache {
     }
 
     private void moveToHead(Entry node){
-        if(node == first) {
+        if (node == first) {
             return;
         }
-        // delete current node from doubly linked list
-        if(node.pre != null){
+        if (node.pre != null) {
             node.pre.next = node.next;
         }
-        if(node.next != null){
+        if (node.next != null) {
             node.next.pre = node.pre;
         }
 
