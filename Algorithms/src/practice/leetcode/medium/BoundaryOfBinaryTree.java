@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoundaryOfBinaryTree {
-    List<Integer> nodes = new ArrayList<>(1000);
-
+    List<Integer> nodes = new ArrayList<>();
     public List<Integer> boundaryOfBinaryTree(TreeNode root) {
         if (root == null) {
             return nodes;
@@ -39,7 +38,7 @@ public class BoundaryOfBinaryTree {
         } else {
             rightBoundary(root.right);
         }
-        nodes.add(root.val); // add after child visit(reverse)
+        nodes.add(root.val);
     }
 
     public void leaves(TreeNode root) {

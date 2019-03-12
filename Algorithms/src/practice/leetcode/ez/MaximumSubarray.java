@@ -10,7 +10,6 @@ package practice.leetcode.ez;
  * can it be neg?
  */
 public class MaximumSubarray {
-
     public int maxSubArray(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
