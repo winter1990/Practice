@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * @string
+ *
  * partition this string into as many parts as possible so that each letter appears in at most one part
  * ababcbacadefegdehijhklij -> [9,7,8] "ababcbaca", "defegde", "hijhklij"
  * arr[26] track the freq of char

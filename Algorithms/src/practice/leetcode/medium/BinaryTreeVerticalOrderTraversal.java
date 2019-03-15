@@ -1,7 +1,5 @@
 package practice.leetcode.medium;
 
-import practice.leetcode.ez.MagicSquaresInGrid;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,9 +27,8 @@ public class BinaryTreeVerticalOrderTraversal {
         }
         int[] range = new int[2];
         getRange(root, range, 0);
-        for (int i = 0; i <= range[1] - range[0]; i++) {
-            res.add(new ArrayList<>());
-        }
+        for (int i = 0; i <= range[1] - range[0]; i++) res.add(new ArrayList<>());
+
         Queue<Integer> indexQ = new LinkedList<>();
         Queue<TreeNode> q = new LinkedList<>();
         indexQ.offer(-range[0]);
