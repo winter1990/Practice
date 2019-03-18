@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @array Input: A = [1,2,1,2,3], K = 2, Output: 7
+ * @array
+ * Input: A = [1,2,1,2,3], K = 2, Output: 7
  * [1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,1,2]
  * <p>
  * when see word "distinct", Set comes to my mind naturally

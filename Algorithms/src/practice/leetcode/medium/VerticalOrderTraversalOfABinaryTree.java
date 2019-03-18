@@ -19,6 +19,7 @@ public class VerticalOrderTraversalOfABinaryTree {
         getWidthOfTheTree(root, width, 0);
         for (int i = 0; i <= width[1] - width[0]; i++) res.add(new ArrayList<>());
 
+
         return res;
     }
 
