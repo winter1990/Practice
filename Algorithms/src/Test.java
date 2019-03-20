@@ -1,11 +1,16 @@
+import javafx.util.Pair;
+
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
 public class Test {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+        Pair p = new Pair<>(1, 2);
+        System.out.println(p.getKey().toString());
+
         // mod with negative number
         System.out.println(-1 % (2));
-        System.out.println(-10 % 5);
+        System.out.println(-5 % 5);
         System.out.println(-5 % -7);
 
         // split and trim

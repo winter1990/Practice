@@ -8,25 +8,31 @@ import java.util.TreeMap;
 /**
  * @array
  *
- * calculate the time for each car to arrive the target
- * for each car from the rightmost to left, keep track of the slowest -> the blocker and limit of the cars after
- * if the next car is faster, which means arrives target in less time, it will combine with previous car
- * otherwise, it will become the 'blocker'
+ * N cars are going to the same destination along a one lane road.  The destination is target miles away.
+ * Each car i has a constant speed speed[i] (in miles per hour), and initial position position[i] miles towards the
+ * target along the road.
+ * A car can never pass another car ahead of it, but it can catch up to it, and drive bumper to bumper at the same speed.
  *
- * data structure:
- * mapping relation between time and cars and position should be sorted -> tree map
+ * based on the description, whether two cars can be combined depends on the slowest car on the rightmost
+ * sorting the car based on arrival time not applicable as when blocked, it will change the speed to slower one on right
+ * start from right car
+ * we need to position to be sorted -> sort or tree map -> key is in ascending order by default
+ * key: -position[i] can make sure when scanning the map, we start with right car
+ * value: how much time needed to arrive target
+ * keep track of the slowest speed
+ * if current cars's time > slowest, count++ and update slowest value
+ *
+ * The collection's iterator returns the values in ascending order of the corresponding keys.
  */
 public class CarFleet {
     public int carFleet(int target, int[] position, int[] speed) {
         TreeMap<Integer, Double> map = new TreeMap<>();
-        for (int i = 0; i < position.length; i++) {
-            map.put(-position[i], (double) (target - position[i]) / speed[i]); // start from rightmost
-        }
-        int count = 0;
+        for (int i = 0; i < position.length; i++) map.put(-position[i], (double)(target - position[i]) / speed[i]);
         double slowest = 0;
-        for (double t : map.values()) { // returns the values in ascending order of the corresponding keys
-            if (t > slowest) {
-                slowest = t;
+        int count = 0;
+        for (double time : map.values()) {
+            if (time > slowest) {
+                slowest = time;
                 count++;
             }
         }
