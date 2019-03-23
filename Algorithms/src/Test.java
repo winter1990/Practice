@@ -5,6 +5,12 @@ import java.io.UnsupportedEncodingException;
 
 public class Test {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+        int i = 0;
+        int j = i++;
+        System.out.println(j);
+        System.out.println(i);
+
+        // pair in java
         Pair p = new Pair<>(1, 2);
         System.out.println(p.getKey().toString());
 

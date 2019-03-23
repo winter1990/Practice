@@ -1,21 +1,20 @@
 package practice.leetcode.hard;
 
-/*
-find the minimum number of steps required to convert word1 to word2
-a) Insert a character
-b) Delete a character
-c) Replace a character
- */
-
-/*
-     a b c d
-   0 1 2 3 4 <- insertion
- a 1 0 1 2 3
- e 2 1 1 2 3
- d 3 2 2 2 2
- */
-
 /**
+ * @dp
+ * @string
+ *
+ * find the minimum number of steps required to convert word1 to word2
+ * a) Insert a character
+ * b) Delete a character
+ * c) Replace a character
+
+      a b c d
+    0 1 2 3 4 <- insertion
+  a 1 0 1 2 3
+  e 2 1 1 2 3
+  d 3 2 2 2 2
+ *
  * dp[m+1][n+1] row-w1 col-w2
  * dp[0][i] insertion, d[i][0] deletion, dp[i][j]
  */

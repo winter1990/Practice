@@ -1,13 +1,45 @@
 package practice.leetcode.hard;
 
 import java.util.Arrays;
-import java.util.PriorityQueue;
 
 /**
+ * @array
+ * @dp
+ *
  * Design an algorithm to find the maximum profit. You may complete at most k transactions.
+ * You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again)
+ * Input: [2,4,1], k = 2, Output: 2 -> buy 2, sell 4
+ * Input: [3,2,6,5,0,3], k = 2, Output: 7 -> buy 2 sell 6, buy 0 sell 3
+ *
+ * dp[i][j] stores the maximum profit up to i transactions until prices j
+ * dp[i][j] = max between
+ * 1. no transaction on jth day -> dp[i][j - 1]
+ * 2. have transaction on jth day -> most profit we get -> (price[j] - price[m] + dp[i - 1][m]), m = [0,j-1]
+ *
  */
 public class BestTimeToBuyAndSellStock_IV {
     public int maxProfit(int k, int[] prices) {
+        int len = prices.length;
+        if (k >= len / 2) {
+            int profit = 0;
+            for (int i = 1; i < len; i++) {
+                if (prices[i] > prices[i - 1]) profit += prices[i] - prices[i - 1];
+            }
+            return profit;
+        }
+
+        int[][] dp = new int[k + 1][len];
+        for (int i = 1; i <= k; i++) {
+            int tmpMax = -prices[0];
+            for (int j = 1; j < len; j++) {
+                dp[i][j] = Math.max(dp[i][j - 1], prices[j] + tmpMax); // get max between transaction with no transaction
+                tmpMax =  Math.max(tmpMax, dp[i - 1][j - 1] - prices[j]);
+            }
+        }
+        return dp[k][len - 1];
+    }
+
+    public int maxProfit1(int k, int[] prices) {
         int len = prices.length;
         if (k >= len / 2) {
             int max = 0;
@@ -31,42 +63,10 @@ public class BestTimeToBuyAndSellStock_IV {
         return maxProfit[k];
     }
 
-    // wrong
-    public int maxProfit1(int k, int[] prices) {
-        if (prices == null || prices.length == 0) {
-            return 0;
-        }
-        int n = prices.length;
-        int[][] dp = new int[n + 1][n + 1];
-
-        for (int i = 0; i < n; i++) {
-            int current = prices[i];
-            for (int j = i + 1; j <= n; j++) {
-                dp[i][j] =  prices[j - 1] - current < 0 ? 0 : prices[j - 1] - current;
-            }
-        }
-        int max = 0;
-        int profit = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> {
-            return b - a;
-        });
-        for (int i = 1; i <= n; i++) {
-            max = 0;
-            for (int j = 0; j < n; j++) {
-                max = Math.max(max, dp[j][i]);
-            }
-            pq.offer(max);
-        }
-        for (int i = 0; i < k; i++) {
-            profit += pq.poll();
-        }
-        return profit;
-    }
-
     public static void main(String[] args) {
         BestTimeToBuyAndSellStock_IV b = new BestTimeToBuyAndSellStock_IV();
         //6,3,7,2,9,4
-        int[] input = {6,3,7,2,9,4,8};
+        int[] input = {6,3,7,2,9,5,8};
         int t = 2;
         System.out.println(b.maxProfit(t, input));
     }
