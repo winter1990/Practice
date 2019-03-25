@@ -4,13 +4,17 @@ import java.util.*;
 
 /**
  * @string
- * @map
+ * @hash
+ *
+ * use regex to trim all the symbols -> replaceAll()
+ * get the lists of words
+ * for quick lookup, put banned words in a hash set
+ * use may to count the most frequent word
+ * max = 0, not in set and frequency > max, update result string
  */
 public class MostCommonWord {
     public String mostCommonWord(String paragraph, String[] banned) {
-        if (paragraph == null || paragraph.length() == 0) {
-            return "";
-        }
+        if (paragraph == null || paragraph.length() == 0) return "";
         paragraph = paragraph.replaceAll("[!?',;.]", "");
         String[] words = paragraph.toLowerCase().split(" ");
         String res = "";

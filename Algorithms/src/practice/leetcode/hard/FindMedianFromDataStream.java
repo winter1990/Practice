@@ -8,14 +8,23 @@ import java.util.PriorityQueue;
  *
  * addNum(1), addNum(2), findMedian() -> 1.5, addNum(3), findMedian() -> 2
  *
- * find the median in stream
- * the new value keeps coming, we need to maintain the median as it might be changed any time we put new number
- * we can use heap -> priority queue
- * median -> two priority queues:
- * one in increasing -> min heap (higher)
- * one in decreasing -> max heap (lower)
- * we need to make sure all the min values in higher q > max lower q
- * and also size diff of two queues should be <= 1
+ * intuition
+ * save into an array list, the size the dynamic, when call find medium, sort and get medium based on size odd/even
+ * space O(N), time O(NlogN) for each call
+ *
+ * optimization
+ * no matter what data structure used, need to store all the numbers because when new number comes in may change
+ *
+ * heap is used for getting largest/smallest in O(1) time
+ * median -> two heaps, one max heap and one min heap
+ * all values in min heap are larger than max heap, then medium is average of two peaks or the peak of larger size
+ * maintain the two heaps, size difference must be smaller/equal to 1
+ * add():
+ * add to max/low heap
+ * min.offer(max.poll) because the peek of lower heap might be larger than minimum of higher heap
+ * if size of higher is larger than lower, lower.offer(higher.poll)
+ * getMedium();
+ * check size difference, if not lower.peek, otherwise, calculate
  */
 public class FindMedianFromDataStream {
 }

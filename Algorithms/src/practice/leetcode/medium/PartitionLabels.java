@@ -1,36 +1,29 @@
 package practice.leetcode.medium;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @string
  *
- * partition this string into as many parts as possible so that each letter appears in at most one part
+ * A string S of lowercase letters is given. We want to partition this string into as many parts as possible so that
+ * each letter appears in at most one part, and return a list of integers representing the size of these parts.
  * ababcbacadefegdehijhklij -> [9,7,8] "ababcbaca", "defegde", "hijhklij"
- * arr[26] track the freq of char
- * each time,add to set
- * ababc [2 2 1]
- * [a]  [1 2 1], [ab] [1 1 1], [b] [0 1 1], [] [0 0 1],
+ *
+ * use an array to track the last occurrence of the character char[26]
+ * define two variables (pre and last) as the left and right boundary of the window
+ * scan through the string, extend the right bound of the window
+ * until i == last, which means within this window, it contains all the occurrences of the characters inside
  */
 public class PartitionLabels {
     public List<Integer> partitionLabels(String S) {
-        List<Integer> res = new LinkedList<>();
-        if (S == null || S.length() == 0) {
-            return res;
-        }
-        int[] lastIndex = new int[26];
+        List<Integer> res = new ArrayList<>();
+        if (S == null || S.length() == 0) return res;
+        int[] index = new int[26];
+        for (int i = 0; i < S.length(); i++) index[S.charAt(i) - 'a'] = i;
+        int pre = 0, last = 0;
         for (int i = 0; i < S.length(); i++) {
-            lastIndex[S.charAt(i) - 'a'] = i;
-        }
-
-        int last = 0;
-        int pre = 0;
-        for (int i = 0; i < S.length(); i++) {
-            last = Math.max(last, lastIndex[S.charAt(i) - 'a']);
-            if (last == i) {
+            last = Math.max(last, index[S.charAt(i) - 'a']);
+            if (i == last) {
                 res.add(last - pre + 1);
                 pre = last + 1;
             }

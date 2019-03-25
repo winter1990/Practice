@@ -5,6 +5,12 @@ import java.io.UnsupportedEncodingException;
 
 public class Test {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+
+        // bitwise signed and unsigned shift
+        System.out.println((5 >> 1) + " " + (5 >>> 1)); // 5 -> 0101
+        System.out.println((-5 >> 1) + " " + (-5 >>> 1)); // -5 -> 1111....1011
+
+        // value update
         int i = 0;
         int j = i++;
         System.out.println(j);
@@ -18,6 +24,7 @@ public class Test {
         System.out.println(-1 % (2));
         System.out.println(-5 % 5);
         System.out.println(-5 % -7);
+        System.out.println(50 % -13);
 
         // split and trim
         System.out.println("->" + "     ".trim() + "<-");
