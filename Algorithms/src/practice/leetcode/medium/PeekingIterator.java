@@ -1,25 +1,34 @@
 package practice.leetcode.medium;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
+ * @design
+ * @iterator
+ *
+ * Given a sorted array, two integers k and x, find the k closest elements to x in the array. The result should also be
+ * sorted in ascending order. If there is a tie, the smaller elements are always preferred.
+ *
  * next is pop()
  * peek() is just get the first element
  */
 
 public class PeekingIterator implements Iterator<Integer> {
-    private Integer next = null;
-    private Iterator<Integer> ite;
+    Integer next;
+    Iterator<Integer> iter;
+    boolean noSuchElement;
+
     public PeekingIterator(Iterator<Integer> iterator) {
         // initialize any member here.
-        ite = iterator;
-        if (ite.hasNext()) {
-            next = ite.next();
-        }
+        iter = iterator;
+        advanceIter();
     }
 
     // Returns the next element in the iteration without advancing the iterator.
     public Integer peek() {
+        // you should confirm with interviewer what to return/throw
+        // if there are no more values
         return next;
     }
 
@@ -27,13 +36,23 @@ public class PeekingIterator implements Iterator<Integer> {
     // Override them if needed.
     @Override
     public Integer next() {
+        if (noSuchElement)
+            throw new NoSuchElementException();
         Integer res = next;
-        next = ite.hasNext() ? ite.next() : null;
+        advanceIter();
         return res;
     }
 
     @Override
     public boolean hasNext() {
-        return next != null;
+        return !noSuchElement;
+    }
+
+    private void advanceIter() {
+        if (iter.hasNext()) {
+            next = iter.next();
+        } else {
+            noSuchElement = true;
+        }
     }
 }

@@ -9,12 +9,14 @@ import java.util.List;
  * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words,
  * determine if s can be segmented into a space-separated sequence of one or more dictionary words
  *
+ * intuition:
  * recursively check substring
  * this will fail if the string is to long
  * aaaaaaaaaaaaaaaaaaaaaaaaaa...,[a,aa,aa,aaa]
  *
- * optimized:
+ * optimization:
  * use a boolean array, size = n + 1
+ * dp[i] means the substring(0, i) can be segmented into 1+ word(s)
  * i = [1, n] - current substring (0,i)
  * j=[0,i-1] - (0,j) can be segmented, check (i,j) if contains, [i] true
  * initialize start point 0 true

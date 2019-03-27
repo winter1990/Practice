@@ -1,12 +1,42 @@
 package practice.leetcode.ez;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @@dp
+ *
+ * You are given coins of different denominations and a total amount of money amount. Write a function to compute the
+ * fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any
+ * combination of the coins, return -1.
+ *
+ * dp
+ * create a dp array with size amount+1, start from 1
+ * dp[i] represents minimum ways to reach amount of i
+ * if not possible -> dp[i] = -1
+ * transition function:
+ * for each coin
+ *  if value of coin <= i && dp[i - coin] != -1
+ *    use a variable min to keep track all the current minimum values
+ *    get minimum -> min(dp[i - coin], min)
+ *  dp[i] = min or -1
+ */
 public class CoinChange {
-    Map<Integer, Integer> map = new HashMap<>();
     public int coinChange(int[] coins, int amount) {
+        int dp[] = new int[amount + 1];
+        for (int i = 1; i <= amount; i++) {
+            int min = Integer.MAX_VALUE;
+            for (int coin : coins) {
+                if (i - coin >= 0 && dp[i - coin] != -1) min = dp[i - coin] < min ? dp[i - coin] : min;
+            }
+            // Set dp[i] to -1 if i (current amount) can not be reach by  coins array
+            dp[i] = min == Integer.MAX_VALUE ? -1 : 1 + min;
+        }
+        return dp[amount];
+    }
+
+    Map<Integer, Integer> map = new HashMap<>();
+    public int coinChange1(int[] coins, int amount) {
         if (amount == 0) {
             return 0;
         }
