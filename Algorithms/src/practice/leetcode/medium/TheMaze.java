@@ -11,6 +11,8 @@ import java.util.Queue;
  * but it won't stop rolling until hitting a wall. When the ball stops, it could choose the next direction
  * The maze is represented by a binary 2D array. 1 means the wall and 0 means the empty space
  *
+ * Given the ball's start position, the destination and the maze, determine whether the ball could stop at the destination.
+ *
  * 0 0 1 0 0
  * 0 0 0 0 0
  * 0 0 0 1 0
@@ -50,9 +52,7 @@ public class TheMaze {
                 col -= dir[1];
                 if (isVisited[row][col]) continue;
                 isVisited[row][col] = true;
-                if (row == destination[0] && col == destination[1]) {
-                    return true;
-                }
+                if (row == destination[0] && col == destination[1]) return true;
                 q.offer(new Point(row, col));
             }
         }

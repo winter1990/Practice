@@ -13,7 +13,7 @@ import java.util.Stack;
  *
  */
 public class FlattenBinaryTreeToLinkedList {
-    public void flatten(TreeNode root) {
+    public void flatten1(TreeNode root) {
         if (root == null) {
             return;
         }
@@ -47,5 +47,16 @@ public class FlattenBinaryTreeToLinkedList {
             }
             cur = cur.right;
              */
+    }
+
+    // recursive solution
+    private TreeNode prev = null;
+    public void flatten(TreeNode root) {
+        if (root == null) return;
+        flatten(root.right);
+        flatten(root.left);
+        root.right = prev;
+        root.left = null;
+        prev = root;
     }
 }

@@ -1,10 +1,17 @@
 package practice.leetcode.ez;
 
 /**
+ * @tree
+ *
  * The diameter of a binary tree is the length of the longest path between any two nodes in a tree.
  * This path may or may not pass through the root.
  *
- * get maximum depth of the left subtree and right subtree, compute the sum + 1
+ * intuition:
+ * get height recursively for left and right subtree and update sum - O(NlogN)
+ *
+ * optimization:
+ * when we traverse down the tree, get the max between left and right subtree
+ * return the height
  */
 public class DiameterOfBinaryTree {
     int max = 0;
@@ -12,16 +19,16 @@ public class DiameterOfBinaryTree {
         if (root == null) {
             return max;
         }
-        helper(root);
+        dfs(root);
         return max;
     }
 
-    private int helper(TreeNode node) {
+    private int dfs(TreeNode node) {
         if (node == null) {
             return 0;
         }
-        int left = helper(node.left);
-        int right = helper(node.right);
+        int left = dfs(node.left);
+        int right = dfs(node.right);
         max = Math.max(max, left + right);
         return Math.max(left, right) + 1;
     }

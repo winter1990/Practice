@@ -8,6 +8,7 @@ import java.util.*;
  * @sort
  *
  * Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
+ * find the minimum number of conference rooms required.
  *
  * first, need some mechanism to sort the all intervals, based on start and end
  * because we want to greedily add intervals to the same room, need to start the meeting asap
@@ -33,12 +34,7 @@ public class MeetingRooms_II {
     public int minMeetingRooms(Interval[] intervals) {
         List<Interval> list = new ArrayList<>();
         list.addAll(Arrays.asList(intervals));
-        Collections.sort(list, new Comparator<Interval>() {
-            @Override
-            public int compare(Interval i1, Interval i2) {
-                return i1.start - i2.start;
-            }
-        });
+        Collections.sort(list, (i1, i2) -> i1.start - i2.start);
         int count = 0;
         while (list.size() != 0) {
             int end = list.get(0).end;
@@ -58,19 +54,12 @@ public class MeetingRooms_II {
     }
 
     public int minMeetingRooms1(Interval[] intervals) {
-        if (intervals.length == 0) {
-            return 0;
-        }
-        Arrays.sort(intervals, new Comparator<Interval>() {
-            @Override
-            public int compare(Interval a, Interval b) {
-                return a.start - b.start;
-            }
-        });
+        if (intervals.length == 0) return 0;
+        Arrays.sort(intervals, (i1, i2) -> (i1.start - i2.start));
         PriorityQueue<Integer> ends = new PriorityQueue<>();
         ends.offer(intervals[0].end);
         for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i].start >= ends.peek()) { // no overlap, then should update smallest end.
+            if (intervals[i].start >= ends.peek()) {
                 ends.poll();
             }
             ends.offer(intervals[i].end);

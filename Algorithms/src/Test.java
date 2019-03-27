@@ -5,6 +5,9 @@ import java.io.UnsupportedEncodingException;
 
 public class Test {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+        // bitwise
+        System.out.println(true & false);
+        System.out.println(-5 % 3);
 
         // bitwise signed and unsigned shift
         System.out.println((5 >> 1) + " " + (5 >>> 1)); // 5 -> 0101

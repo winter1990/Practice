@@ -1,6 +1,5 @@
 package practice.leetcode.hard;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -18,27 +17,16 @@ import java.util.PriorityQueue;
  */
 public class MergeKSortedLists {
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length == 0) {
-            return null;
-        }
-        PriorityQueue<ListNode> pq = new PriorityQueue<>(lists.length, new Comparator<ListNode>() {
-            @Override
-            public int compare(ListNode l1, ListNode l2) {
-                return l1.val - l2.val;
-            }
-        });
+        if (lists == null || lists.length == 0) return null;
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(lists.length, (a, b) -> (a.val - b.val));
         for (ListNode n : lists) {
-            if (n != null) {
-                pq.offer(n);
-            }
+            if (n != null) pq.offer(n);
         }
         ListNode dummy = new ListNode(0);
         ListNode cur = dummy;
         while (!pq.isEmpty()) {
             ListNode node = pq.poll();
-            if (node.next != null) {
-                pq.offer(node.next);
-            }
+            if (node.next != null) pq.offer(node.next);
             cur.next = node;
             cur = cur.next;
         }

@@ -6,12 +6,25 @@ import java.util.*;
  * @string
  * @bfs
  *
+ * Given two words (beginWord and endWord), and a dictionary's word list, find the length of shortest transformation
+ * sequence from beginWord to endWord, such that:
+ * Only one letter can be changed at a time.
+ * Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
+ *
  * Given:
  * beginWord = "hit"
  * endWord = "cog"
  * wordList = ["hot","dot","dog","lot","log","cog"]
  * As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
  * return its length 5.
+ *
+ * find the next step first:
+ * start with begin word, for each character, replace it with other chars in [a,z] (skip the original char)
+ * and see whether it exists in the dictionary
+ * there might be multiple words for next step
+ * store all of them
+ * in next level, go through all the words, repeat the replacement and check in dict
+ *
  * two end solution
  * search from start and end word
  */
