@@ -29,10 +29,7 @@ class NestedIterator implements Iterator<Integer> {
     @Override
     public boolean hasNext() {
         while (!stack.isEmpty()) {
-            // the object in stack might be integer or another nested integer
-            if (stack.peek().isInteger()) {
-                return true;
-            }
+            if (stack.peek().isInteger()) return true;
             NestedInteger cur = stack.pop();
             for (int i = cur.getList().size() - 1; i >= 0; i--) {
                 stack.push(cur.getList().get(i));
