@@ -19,5 +19,6 @@
     </orderEntry>
     <orderEntry type="library" name="Maven: antlr:antlr:2.7.7" level="project" />
     <orderEntry type="module" module-name="CtCI-6th-Edition" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.13" level="project" />
   </component>
 </module>

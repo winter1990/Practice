@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 
 public class Test {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+        char[] cs = new char[2];
         // bitwise
         System.out.println(true & false);
         System.out.println(-5 % 3);
