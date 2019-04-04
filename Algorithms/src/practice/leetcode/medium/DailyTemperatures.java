@@ -3,23 +3,29 @@ package practice.leetcode.medium;
 import java.util.Stack;
 
 /**
+ * @array
+ * @stack
+ *
+ *
+ * translate the problem to: find the first bigger value in the next
+ * index    0  1  2  3  4  5  6  7
  * temp   [73 74 75 71 69 72 76 73],
  * output [ 1  1  4  2  1  1  0  0]
- * translate the problem to:
- * find the first bigger value in the next
  *
- *
+ * for each value, push to stack
+ * while larger than stack.peek value, res[peek] = i - peek
+ * push(0)
  */
 public class DailyTemperatures {
-    public int[] dailyTemperatures1(int[] temperatures) {
-        if (temperatures == null || temperatures.length <= 1) {
+    public int[] dailyTemperatures1(int[] T) {
+        if (T == null || T.length <= 1) {
             return null;
         }
-        int len = temperatures.length;
+        int len = T.length;
         int[] res = new int[len];
         for (int i = 0; i < len - 1; i++) {
             for (int j = i + 1; j < len; j++) {
-                if (temperatures[j] > temperatures[i]) {
+                if (T[j] > T[i]) {
                     res[i] = j - i;
                     break;
                 }
@@ -28,18 +34,12 @@ public class DailyTemperatures {
         return res;
     }
 
-    // optimization:
-    // only increasing or decreasing
-    // if increasing
-    // if decreasing,push the index
-    public int[] dailyTemperatures(int[] temperatures) {
-        int len = temperatures.length;
-        int[] res = new int[len];
+    public int[] dailyTemperatures(int[] T) {
+        int n = T.length;
         Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < len; i++) {
-            while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
-                res[stack.peek()] = i - stack.pop();
-            }
+        int[] res = new int[n];
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && T[i] > T[stack.peek()]) res[stack.peek()] = i - stack.pop();
             stack.push(i);
         }
         return res;
