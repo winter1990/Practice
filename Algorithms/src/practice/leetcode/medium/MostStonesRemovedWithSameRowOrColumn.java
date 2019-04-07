@@ -15,7 +15,10 @@ import java.util.Map;
  *
  * similar with counting island
  * the stones that share the row or column is counted as one island, not necessarily adjacent
- *
+ * union find:
+ * if two nodes are "adjacent", set them as the same root
+ * total n stones, if two stones have the different root, count-- (original value is n)
+ * number of islands = n - count
  */
 public class MostStonesRemovedWithSameRowOrColumn {
     /**

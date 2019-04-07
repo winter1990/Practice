@@ -5,28 +5,57 @@ import java.util.Stack;
 /**
  * @string
  *
+ * Given two strings S and T, return if they are equal when both are typed into empty text editors.
+ * # means a backspace character.
  * follow up: Can you solve it in O(N) time and O(1) space?
  *
- * if no extra space is required, we can only do it in place -> concatenate the substring
- * start from 0
+ * method 1: stack
+ * push if not #
+ * pop if not empty
+ *
+ * method 2: substring
+ * if no extra data structure is allowed, we can do it in place -> if #, concatenate two substrings (check 0 and n-1)
+ *
+ * method 3: two pointers
+ * start from last character in each string
+ * skip/delete all chars in two strings:
+ *   either one is < 0, false
+ *   both are < 0, true
+ *   S[p1] != T[p2], false
+ * need to count the number of #
  */
 public class BackspaceStringCompare {
     public boolean backspaceCompare2(String S, String T) {
-        int i = S.length() - 1, j = T.length() - 1;
-        while (true) {
-            for (int back = 0; i >= 0 && (back > 0 || S.charAt(i) == '#'); i--) {
-                back += S.charAt(i) == '#' ? 1 : -1;
+        int c1 = 0, c2 = 0;
+        for (int p1 = S.length() -1, p2 = T.length() - 1; p1 >= 0 || p2 >= 0; p1--, p2--) {
+            while (p1 >= 0 && (c1 != 0 || S.charAt(p1) == '#')) {
+                if (S.charAt(p1) == '#') {
+                    c1++;
+                } else {
+                    c1--;
+                }
+                p1--;
             }
-            for (int back = 0; j >= 0 && (back > 0 || T.charAt(j) == '#'); j--) {
-                back += T.charAt(j) == '#' ? 1 : -1;
+            while (p2 >= 0 && (c2 != 0 || T.charAt(p2) == '#')) {
+                if (T.charAt(p2) == '#') {
+                    c2++;
+                } else {
+                    c2--;
+                }
+                p2--;
             }
-            if (i >= 0 && j >= 0 && S.charAt(i) == T.charAt(j)) {
-                i--;
-                j--;
-            } else {
-                return i == -1 && j == -1;
-            }
+            if (p1 < 0 && p2 < 0) return true;
+            if (p1 < 0 || p2 < 0) return false;
+            if (S.charAt(p1) != T.charAt(p2)) return false;
         }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        String s1 = "bdc##";
+        String s2 = "";
+        BackspaceStringCompare backspaceStringCompare = new BackspaceStringCompare();
+        System.out.println(backspaceStringCompare.backspaceCompare2(s1,s2));
     }
 
     public boolean backspaceCompare(String S, String T) {
@@ -54,15 +83,13 @@ public class BackspaceStringCompare {
         return s;
     }
 
-    public static void main(String[] args) {
-        String s1 = "bbd##c";
-        String s2 = "bc#c";
-        BackspaceStringCompare backspaceStringCompare = new BackspaceStringCompare();
-        System.out.println(backspaceStringCompare.backspaceCompare2(s1,s2));
-    }
 
     /**
-     * use two stacks and if # then pop() otherwise push in to stack
+     * @stack
+     * use two stacks and if # then check if stack is empty and pop()
+     * otherwise push in to stack
+     * at last, build up two strings and compare
+     * time O(m+n), space O(m+n)
      */
     public boolean backspaceCompare1(String S, String T) {
         Stack<Character> stack1 = new Stack<>();
