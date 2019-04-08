@@ -29,35 +29,28 @@ import java.util.Set;
  * each combination appears only once
  */
 public class CrackingTheSafe {
-    Set<String> seen;
-    StringBuilder ans;
-
     public String crackSafe(int n, int k) {
-        if (n == 1 && k == 1) return "0";
-        seen = new HashSet();
-        ans = new StringBuilder();
-
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n - 1; i++) sb.append("0");
-        String start = sb.toString();
-        dfs(start, k);
-        ans.append(start);
-        return new String(ans);
+        Set<String> seen = new HashSet<>();
+        StringBuilder res = new StringBuilder();
+        StringBuilder st = new StringBuilder();
+        for (int i = 1; i < n; i++) st.append("0");
+        dfs(st.toString(), k, seen, res);
+        res.append(st);
+        return res.toString();
     }
 
-    public void dfs(String node, int k) {
-        for (int x = 0; x < k; x++) {
-            String nei = node + x;
-            if (!seen.contains(nei)) {
-                seen.add(nei);
-                dfs(nei.substring(1), k);
-                ans.append(x);
+    private void dfs(String start, int k, Set<String> set, StringBuilder res) {
+        for (int i = 0; i < k; i++) {
+            String next = start + i;
+            if (set.add(next)) {
+                dfs(next.substring(1), k, set, res);
+                res.append(i);
             }
         }
     }
 
     public static void main(String[] args) {
         CrackingTheSafe c = new CrackingTheSafe();
-        System.out.println(c.crackSafe(2,3));
+        System.out.println(c.crackSafe(1,1));
     }
 }

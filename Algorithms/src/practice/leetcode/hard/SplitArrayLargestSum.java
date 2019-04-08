@@ -12,7 +12,7 @@ package practice.leetcode.hard;
  * [15 3 2 20 6 12 5 12] 4 -> 15 3 2 | 20 | 6 12 | 5 12
  * sum = 75, 75 / 4 = 18.75 so the smallest is 19
  * we cannot calculate like this because we cannot guarantee that the subarray can be grouped and sum is close to sum/m
- * for example [20 19 18 1 2 1]
+ * for example [20 19 18 1 2 4], m = 3
  *
  * 1. the range of result value should be between max value in the array and the sum of the array
  * 2. we have left bound and right bound left = max, right = sum

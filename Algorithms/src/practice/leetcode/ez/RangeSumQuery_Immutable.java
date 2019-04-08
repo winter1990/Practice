@@ -3,11 +3,16 @@ package practice.leetcode.ez;
 public class RangeSumQuery_Immutable {
 }
 
-/*
-Given nums = [-2, 0, 3, -5, 2, -1]
-sumRange(0, 2) -> 1
-sumRange(2, 5) -> -1
-sumRange(0, 5) -> -3
+/**
+ * @array
+ *
+ * Given nums = [-2, 0, 3, -5, 2, -1]
+ * sumRange(0, 2) -> 1
+ * sumRange(2, 5) -> -1
+ * sumRange(0, 5) -> -3
+ *
+ * use an array to store the sum of all previous values, sum[i] = sum[0,1,...i]
+ * sum[i to j] = sum[j] - sum[i - 1], i != 0 -> sum[j]-sum[i]+num[i]
  */
 
 class NumArray {

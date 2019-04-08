@@ -1,41 +1,47 @@
 package practice.leetcode.medium;
 
 /**
+ * @string
+ *
  * either replacing one occurrence of "XL" with "LX", or replacing one occurrence of "RX" with "XR"
  * Input: start = "RXXLRXRXL", end = "XRLXXRRLX"
  * start = "RXXLRXRXL", XRXLRXRXL,XRLXRXRXL,XRLXXRRXL,XRLXXRRLX, true
+ *
+ * thinking of sub sequence
+ * two operations we can do:
+ *   XL -> LX
+ *   RX -> XR
+ * L can swap with left and R can swap with right
+ * count L and R in two strings
+ * XL RX XLRX XLXR XRL LXRX
+ * LX XR LXXR LRXX RXL XLXR
+ * ok ok   ok   ok  no   no
+ *
+ * L can move to left until blocked by R
+ * R can move to right until blocked by L
+ * we need to count L and R, so for the index [0, n-1]
+ * for start:
+ *   s[i] = l, l++
+ *   s[i] = r, r++
+ * for end:
+ *   e[i] = l, l--
+ *   e[i] = r, r--
+ *
+ * for each loop:
+ *   if l negative, right can not be positive
+ *   if l positive, false
+ *   if r negative, false
+ *   if r positive, left can not be positive
  */
 public class SwapAdjacentInLRString {
-    /**
-     * thinking of sub sequence
-     * XL->LX and RX->XR
-     * L can swap with left and R can swap with right
-     * count L and R in two strings
-     * XL RX XLRX XLXR XRL LXRX
-     * LX XR LXXR LRXX RXL XLXR
-     * ok ok   ok   ok  no
-     *
-     * L can move to left until blocked by R
-     * R can move to right until blocked by L
-     * R can not be negative. if R > 0, L must remain 0
-     */
     public boolean canTransform(String start, String end) {
-        int r = 0;
-        int l = 0;
+        int r = 0, l = 0;
         for (int i = 0; i < start.length(); i++){
-//            if (start.charAt(i) == 'L') l--;
-//            if (start.charAt(i) == 'R') r++;
-//            if (end.charAt(i) == 'L') l++;
-//            if (end.charAt(i) == 'R') r--;
-//            if ((l < 0 || r != 0) && (l != 0 || r < 0)) {
-//                return false;
-//            }
-
             if (start.charAt(i) == 'L') l++;
             if (start.charAt(i) == 'R') r++;
             if (end.charAt(i) == 'L') l--;
             if (end.charAt(i) == 'R') r--;
-            if (l > 0 || r < 0 || (r > 0 && l != 0)) {
+            if (l > 0 || r < 0 || (r > 0 && l < 0)) {
                 return false;
             }
         }
