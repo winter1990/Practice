@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * @string
+ * @recursion
  *
  * Input: (add 1 2) Output: 3
  * Input: (mult 3 (add 2 3)) Output: 15
@@ -16,7 +17,7 @@ import java.util.Map;
  * we check from the innermost scope to the outermost in the context of the variable we are trying to evaluate.
  * Since x = 3 is found first, the value of x is 3.
  *
- * Input: (let x 3 x 2 x)Output: 2 Explanation: Assignment in let statements is processed sequentially.
+ * Input: (let x 3 x 2 x) Output: 2 Explanation: Assignment in let statements is processed sequentially.
  * Input: (let x 1 y 2 x (add x y) (add x y)) Output: 5
  * Explanation: The first (add x y) evaluates as 3, and is assigned to x.
  * The second (add x y) evaluates as 3+2 = 5.
@@ -41,20 +42,19 @@ public class ParseLispExpression {
 
     private int eval(String exp, Map<String, Integer> parent) {
         if (exp.charAt(0) != '(') {
-            if (Character.isDigit(exp.charAt(0)) || exp.charAt(0) == '-')
-                return Integer.parseInt(exp);
+            if (Character.isDigit(exp.charAt(0)) || exp.charAt(0) == '-') return Integer.parseInt(exp);
             return parent.get(exp);
         }
         Map<String, Integer> map = new HashMap<>();
         map.putAll(parent);
+        // mult, add or let
         List<String> tokens = parse(exp.substring(exp.charAt(1) == 'm' ? 6 : 5, exp.length() - 1));
         if (exp.startsWith("(a")) { // add
             return eval(tokens.get(0), map) + eval(tokens.get(1), map);
         } else if (exp.startsWith("(m")) { // mult
             return eval(tokens.get(0), map) * eval(tokens.get(1), map);
         } else { // let
-            for (int i = 0; i < tokens.size() - 2; i += 2)
-                map.put(tokens.get(i), eval(tokens.get(i + 1), map));
+            for (int i = 0; i < tokens.size() - 2; i += 2) map.put(tokens.get(i), eval(tokens.get(i + 1), map));
             return eval(tokens.get(tokens.size() - 1), map);
         }
     }

@@ -4,7 +4,10 @@ public class ReadNCharactersGivenRead4_II {
 }
 
 /**
- * max can be used or not fully used
+ * @design
+ *
+ * Your method read may be called multiple times.
+ *
  *
  */
 class Solution2 extends Reader4 {
@@ -13,30 +16,21 @@ class Solution2 extends Reader4 {
      * @param n   Maximum number of characters to read
      * @return    The number of characters read
      */
-    private int buffPtr = 0;
+    private int buffIdx = 0;
     private int buffCnt = 0;
     private char[] buff = new char[4];
     public int read(char[] buf, int n) {
-        int ptr = 0;
-        while (ptr < n) {
-            // initialize read4
-            if (buffPtr == 0) {
+        int index = 0;
+        while (index < n) {
+            if (buffIdx == 0) {
                 buffCnt = read4(buff);
             }
-            // copy the char in buff into buf
-            while (ptr < n && buffPtr < buffCnt) {
-                buf[ptr++] = buff[buffPtr++];
+            while (index < n && buffIdx < buffCnt) {
+                buf[index++] = buff[buffIdx++];
             }
-            // all chars in buff used up, set pointer to 0
-            // buf might be full and not all char in buff used
-            if (buffPtr == buffCnt) {
-                buffPtr = 0;
-            }
-            // read4 returns less than 4, end of file
-            if (buffCnt < 4) {
-                break;
-            }
+            if (buffIdx == buffCnt) buffIdx = 0;
+            if (buffCnt < 4) break;
         }
-        return ptr;
+        return index;
     }
 }
