@@ -1,45 +1,33 @@
 package practice.leetcode.medium;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class MyCalendar_II {
-    public static void main(String[] args) {
-        MyCalendarTwo cal = new MyCalendarTwo();
-        System.out.println(cal.book(10,20));
-        System.out.println(cal.book(50,60));
-        System.out.println(cal.book(10,40));
-        System.out.println(cal.book(5,15));
-        System.out.println(cal.book(5,10));
-        System.out.println(cal.book(25,55));
-        // 5,10 10,20 10,40 50,60
-    }
-
-}
-
-class MyCalendarTwo {
-    TreeMap<Integer,Integer> map;
-    public MyCalendarTwo() {
-        map = new TreeMap<Integer,Integer>();
-    }
-
-    public boolean book(int start, int end) {
-        map.put(start, map.getOrDefault(start, 0) + 1);
-        map.put(end, map.getOrDefault(end, 0) - 1);
-        int booked = 0;
-        for (Map.Entry<Integer,Integer> entry : map.entrySet()) {
-            booked += entry.getValue();
-            if (booked == 3) {
-                map.put(start, map.get(start) - 1);
-                map.put(end, map.get(end) + 1);
-                return false;
-            }
+    class MyCalendarTwo {
+        TreeMap<Integer,Integer> map;
+        public MyCalendarTwo() {
+            map = new TreeMap<Integer,Integer>();
         }
-        return true;
+
+        public boolean book(int start, int end) {
+            map.put(start, map.getOrDefault(start, 0) + 1);
+            map.put(end, map.getOrDefault(end, 0) - 1);
+            int booked = 0;
+            for (Map.Entry<Integer,Integer> entry : map.entrySet()) {
+                booked += entry.getValue();
+                if (booked == 3) {
+                    map.put(start, map.get(start) - 1);
+                    map.put(end, map.get(end) + 1);
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
+
+
 /* mis understand the question
 class MyCalendarTwo {
     List<int[]> cal;
