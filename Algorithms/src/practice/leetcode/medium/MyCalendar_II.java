@@ -1,13 +1,65 @@
 package practice.leetcode.medium;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * @array
+ * @binarysearch
+ *
+ * cannot have triple overlap area
+ * so, if there are two intervals overlap, it is ok
+ * so we need to keep track of the existing overlapped intervals, and all the intervals
+ * if we have a list of intervals:
+ *   case 1: |----------|
+ *             |-----|
+ *   case 2: |----------|
+ *                  |-----|
+ *   case 3: |----------|
+ *                        |--|
+ *
+ */
 public class MyCalendar_II {
+
+    /**
+     * use two list to store the intervals and overlaps
+     */
+    class MyCalendarTwo1 {
+        List<int[]> cal;
+        List<int[]> overlaps;
+        public MyCalendarTwo1() {
+            cal = new ArrayList<>();
+            overlaps = new ArrayList<>();
+        }
+
+        public boolean book(int start, int end) {
+            for (int[] overlap : overlaps) {
+                if (Math.max(overlap[0], start) < Math.min(overlap[1], end)) return false;
+            }
+            for (int[] interval : cal) {
+                int s = Math.max(interval[0], start);
+                int e = Math.min(interval[1], end);
+                if (s < e) overlaps.add(new int[]{s, e});
+            }
+            cal.add(new int[]{start, end});
+            return true;
+        }
+    }
+
+    /**
+     * @treemap
+     *
+     * the whole calendar/list should be balanced
+     * start means +1 on all previous schedule
+     * end means -1 on all previous schedule
+     * when we put new interval in the timeline, it should keep the same balance
+     */
     class MyCalendarTwo {
         TreeMap<Integer,Integer> map;
         public MyCalendarTwo() {
-            map = new TreeMap<Integer,Integer>();
+            map = new TreeMap<>();
         }
 
         public boolean book(int start, int end) {
@@ -26,43 +78,3 @@ public class MyCalendar_II {
         }
     }
 }
-
-
-/* mis understand the question
-class MyCalendarTwo {
-    List<int[]> cal;
-    public MyCalendarTwo() {
-        cal = new ArrayList<>();
-    }
-    public boolean book(int start, int end) {
-        int left = 0;
-        int right = cal.size() - 1;
-        while (left <= right) {
-            int mid = (left + right) / 2;
-            if (cal.get(mid)[0] >= end) {
-                right = mid - 1;
-            } else if (cal.get(mid)[1] <= start) {
-                left = mid + 1;
-            } else {
-                if (cal.get(mid)[0] <= start && mid != cal.size() - 1 && cal.get(mid + 1)[0] < end) {
-                    return false;
-                } else if (cal.get(mid)[1] >= end && mid != 0 && cal.get(mid - 1)[1] > start) {
-                    return false;
-                } else {
-                    break;
-                }
-            }
-        }
-        if (right != -1 && left != cal.size() && cal.get(left)[0] == start) {
-            if (cal.get(left)[1] > end) {
-                cal.add(left, new int[]{start, end});
-            } else {
-                cal.add(left + 1, new int[]{start, end});
-            }
-            return true;
-        }
-        cal.add(left, new int[]{start, end});
-        return true;
-    }
-}
-*/

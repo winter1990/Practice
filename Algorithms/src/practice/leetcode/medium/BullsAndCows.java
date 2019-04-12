@@ -1,16 +1,21 @@
 package practice.leetcode.medium;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
+ * @string
+ *
+ * You may assume that the secret number and your friend's guess only contain digits, and their lengths are always equal.
  * bulls - position & digit - A
  * cows - digit only - B
  * case 1: 1807 7810 -> 1A3B
  * case 2: 1123 0111 -> 1A1B
- * use map to track num&pos 1,01 2,3 3,3
+ *
+ * for bulls: scan through the two strings, i = [0, n-1], if s(i) == t(i) bulls++
+ * for cows:
+ *   numbers are range in [0,9] -> use map/int[10] to track occurrences
+ *   for string s, checker[s[i]] < 0 cow++
+ *   for string t, checker[t[i]] > 0 cow++
+ *   checker[s[i]]++
+ *   checker[t[i]]--
  */
 public class BullsAndCows {
     public String getHint(String secret, String guess) {
