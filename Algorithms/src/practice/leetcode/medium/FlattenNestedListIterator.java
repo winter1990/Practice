@@ -1,6 +1,6 @@
 package practice.leetcode.medium;
 
-import practice.leetcode.ez.NestedInteger;
+import practice.leetcode.easy.NestedInteger;
 
 import java.util.*;
 

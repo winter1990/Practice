@@ -1,7 +1,5 @@
 package practice.leetcode.medium;
 
-import practice.leetcode.ez.ConstructStringFromBinaryTree;
-
 import java.util.Stack;
 
 /**
