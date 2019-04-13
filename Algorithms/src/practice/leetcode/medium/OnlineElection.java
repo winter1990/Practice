@@ -1,5 +1,6 @@
 package practice.leetcode.medium;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,11 +15,58 @@ import java.util.TreeMap;
  * candidates) wins.
  * times is a strictly increasing array with all elements in [0, 10^9]
  *
- * need two maps:
- * hash map -> person id is the key, # of votes value
- * tree map -> time is the key, node is the value
+ * translation:
+ * one operation to implement - q
+ * given persons and times, times[i] means one vote for persons[i]
+ * return who is leading in count (most recent if ties)
+ *
+ *
  */
 public class OnlineElection {
+}
+
+class TopVotedCandidate1 {
+    TreeMap<Integer, Integer> time;
+    public TopVotedCandidate1(int[] persons, int[] times) {
+        time = new TreeMap<>();
+        int[] count = new int[persons.length];
+        int lead = -1;
+        for (int i = 0; i < times.length; i++) {
+            ++count[persons[i]];
+            if (count[persons[i]] >= lead) {
+                lead = count[persons[i]];
+                time.put(times[i], persons[i]);
+            }
+        }
+    }
+
+    public int q(int t) {
+        return time.floorEntry(t).getValue();
+    }
+}
+
+class TopVotedCandidate2 {
+    private Map<Integer, Integer> map;
+    private int[] times;
+
+    public TopVotedCandidate2(int[] persons, int[] times) {
+        this.times = times;
+        map = new HashMap<>();
+        int[] count = new int[persons.length + 1];
+        int lead = -1;
+        for (int i = 0; i < times.length; ++i) {
+            ++count[persons[i]];
+            if (map.isEmpty() || count[lead] <= count[persons[i]]) {
+                lead = persons[i];
+            }
+            map.put(times[i], lead); // update time and winner.
+        }
+    }
+
+    public int q(int t) {
+        int idx = Arrays.binarySearch(times, t); // search for the time slot.
+        return map.get(times[idx < 0 ? -idx - 2 : idx]); // fetch the corresponding information.
+    }
 }
 
 class TopVotedCandidate {

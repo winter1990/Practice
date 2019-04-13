@@ -5,6 +5,10 @@ import java.io.UnsupportedEncodingException;
 
 public class Test {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+        char c = 'a';
+        System.out.println(c);
+        System.out.println(c + 1);
+
         System.out.println(5 & (-5));
         System.out.println(13 & (-13));
         System.out.println(0 & (-0));
@@ -42,8 +46,8 @@ public class Test {
 
         String s1 = "Hello world ";
         char[] cs1 = s1.toCharArray();
-        for (char c : cs1) {
-            System.out.print(c);
+        for (char cc : cs1) {
+            System.out.print(cc);
         }
     }
 }

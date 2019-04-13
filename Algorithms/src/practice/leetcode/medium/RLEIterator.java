@@ -10,10 +10,12 @@ package practice.leetcode.medium;
  * .next(1) exhausts 1 term of the sequence, returning 5.  The remaining sequence is now [5].
  * .next(2) exhausts 2 terms, returning -1.
  *
- * use an array list to store the changed array, and every time we cann next, remove n elements from the head
- * then get the first element
- *
- * we can also use constant space, the index start with 0
+ * keep track of the current index, start with 0
+ * two cases:
+ *   a[index] > n, then return a[index+1]
+ *   a[index] = n, then return a[index+1] and move to next index - index+=2
+ *   a[index] < n, keep doing n -= a[index] and move to next index
+ *   move out of the array, return -1
  */
 public class RLEIterator {
     int[] a;
