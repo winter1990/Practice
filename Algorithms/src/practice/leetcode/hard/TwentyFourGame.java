@@ -1,7 +1,5 @@
 package practice.leetcode.hard;
 
-import practice.interview.google.DoubleListNode;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,50 +25,35 @@ import java.util.List;
  * -> 8/0.333=23.999...
  */
 public class TwentyFourGame {
-    final double eps = 0.001;
-    boolean res = false;
+    double eps = 0.001;
     public boolean judgePoint24(int[] nums) {
         List<Double> arr = new ArrayList<>();
-        for (int n : nums) {
-            arr.add((double) n);
-        }
-        helper(arr);
-        return res;
+        for (int n : nums) arr.add((double) n);
+        return dfs(arr);
     }
 
-    private void helper(List<Double> arr) {
-        if (res) {
-            return;
-        }
+    private boolean dfs(List<Double> arr) {
         if (arr.size() == 1) {
-            if (Math.abs(arr.get(0) - 24.0) < eps) {
-                res = true;
-            }
-            return;
+            if (Math.abs(arr.get(0) - 24.0) < eps) return true;
         }
         for (int i = 0; i < arr.size(); i++) {
-            for (int j = 0; j < i; j++) {
+            for (int j = i + 1; j < arr.size(); j++) {
                 List<Double> next = new ArrayList<>();
-                Double p1 = arr.get(i);
-                Double p2 = arr.get(j);
-                next.addAll(Arrays.asList(p1 + p2, p1 - p2, p2 - p1, p1 * p2));
-                if (Math.abs(p2) > eps) {
-                    next.add(p1 / p2);
+                for (int k = 0; k < arr.size(); k++) {
+                    if (k != i && k != j) next.add(arr.get(k));
                 }
-                if (Math.abs(p1) > eps) {
-                    next.add(p2 / p1);
+                for (double c : computeTwoNums(arr.get(i), arr.get(j))) {
+                    next.add(c);
+                    if (dfs(next)) return true;
+                    else next.remove(next.size() - 1);
                 }
-                arr.remove(i);
-                arr.remove(j);
-                for (Double n : next) {
-                    arr.add(n);
-                    helper(arr);
-                    arr.remove(arr.size() - 1);
-                }
-                arr.add(j, p2);
-                arr.add(i, p1);
             }
         }
+        return false;
+    }
+
+    private List<Double> computeTwoNums(Double a, Double b) {
+        return new ArrayList<>(Arrays.asList(a + b, a - b, b - a, a * b, a / b, b / a));
     }
 
     public static void main(String[] args) {

@@ -8,6 +8,34 @@ import java.util.Stack;
  */
 public class DecodeAString {
     public String decodeString(String s) {
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        Stack<StringBuilder> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (Character.isDigit(c)) {
+                count *= 10;
+                count += c - '0';
+            } else {
+                if (count != 0) {
+                    StringBuilder cur = sb;
+                    sb = stack.pop();
+                    for (int i = 0; i < count; i++) sb.append(cur);
+                    count = 0;
+                }
+                if (c == '[') {
+                    stack.push(sb);
+                    sb = new StringBuilder();
+                } else if (c == ']') {
+                    continue;
+                } else {
+                    sb.append(c);
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    public String decodeString1(String s) {
         Stack<String> stack = new Stack<>();
         StringBuilder sb = new StringBuilder();
         int count = 0, n = s.length();
@@ -49,8 +77,9 @@ public class DecodeAString {
     }
 
     public static void main(String[] args) {
-        String s = "aa[bc[i]4]2rr";
+        String s = "aa[bc[i]4a]2rr";
         DecodeAString sf = new DecodeAString();
+        System.out.println(sf.decodeString1(s));
         System.out.println(sf.decodeString(s));
     }
 }
