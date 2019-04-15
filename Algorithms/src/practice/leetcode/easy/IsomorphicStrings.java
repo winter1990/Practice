@@ -11,17 +11,16 @@ package practice.leetcode.easy;
  * Input: s = "foo", t = "bar", Output: false
  * Input: s = "paper", t = "title", Output: true
  *
- * total number of each character is the same
- * so we create two arrays/maps to check the frequency of the characters
- * if the input is aabbb ccddc, when checking index = 4, both are 3 but they are not isomorphic
- * track the freq only does not apply
+ * use two arrays/maps to check the frequency of the characters
+ * aabba, aabbb
+ * index[0,n-1] compare frequency only is not enough
  *
- * instead we can track the last index that char appears
- * aabb ccdd -> check the index in two arrays, they must be the same
- *  aa    ab
- * [0 0] [0 0]
- * this will not work because all defaults are 0
- * we can use i + 1 as the index for the characters
+ * problem to solve:
+ * for each character in a and b, track the position that the char last appears
+ *   use i+1 to handle the 0 index
+ * for each char in two strings:
+ *   if cs[s[i]-'0'] != ct[t[i]], then false
+ *   then update the index
  */
 
 public class IsomorphicStrings {

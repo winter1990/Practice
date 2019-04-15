@@ -9,81 +9,43 @@ import java.util.*;
  * Given a time represented in the format "HH:MM", form the next closest time by reusing the current digits
  *
  * Input: "19:34", Output: "19:39"
+ *
+ * problems to solve:
+ * 1. get next time / next bigger value
+ * 2. can only reuse the current digits
+ * 3. convert minutes to hours (01:59 -> +1 = 02:00)
+ * 4. 23:59 -> next day / start from 00:00
+ *
+ * convert the given time to minutes
+ * each time add [1, 1440-1], convert back to hours and minutes
+ *   each time get 1 digit -> check whether reused digit -> /600 /60 /10 1
+ *   check whether exists in cur time
+ *   if not exists, break
+ *   if all 4 digits are filled, then return result
  */
 public class NextClosestTime {
-    public String nextClosestTime3(String time) {
-        // represents 4 digits
+    public String nextClosestTime(String time) {
         int[] mins = {600, 60, 10, 1};
-        int colon = time.indexOf(':');
-        // get the total minutes of the current time
-        int oldTime = Integer.valueOf(time.substring(0, colon)) * 60 + Integer.valueOf(time.substring(colon + 1));
-        char[] next = new char[4];
-        // i means add i minutes to current time
+        int separator = time.indexOf(':');
+        int cur = Integer.valueOf(time.substring(0, separator)) * 60 + Integer.valueOf(time.substring(separator + 1));
+        char[] cs = new char[4];
         int digit = 0;
         for (int i = 1; i <= 1440 && digit < 4; i++) {
-            int minutes = (oldTime + i) % 1440;
+            int next = (cur + i) % 1440;
             for (digit = 0; digit < 4; digit++) {
-                next[digit] = (char)('0' + minutes / mins[digit]);
-                minutes %= mins[digit];
-                if (time.indexOf(next[digit]) == -1) {
-                    break;
-                }
+                cs[digit] = (char)('0' + next / mins[digit]);
+                next %= mins[digit];
+                if (time.indexOf(cs[digit]) == -1) break;
             }
         }
-        return new String(next, 0, 2) + ':' + new String(next, 2, 2);
+        return new String(cs, 0, 2) + ':' + new String(cs, 2, 2);
     }
 
     public String nextClosestTime1(String time) {
-        String[] val = time.split(":");
-        Set<Integer> set = new HashSet<>();
-        int hour = add(set, val[0]);
-        int minu = add(set, val[1]);
-
-        int[] times = new int[] {hour, minu};
-        nxt(times);
-
-        while (!contains(times[0], times[1], set)) {
-            nxt(times);
-        }
-        return valid(times[0]) + ":" + valid(times[1]);
-    }
-
-    public void nxt(int[] time) {
-        int hour = time[0];
-        int minu = time[1];
-        minu ++;
-        if (minu == 60) {
-            hour ++;
-            minu = 0;
-            if (hour == 24) hour = 0;
-        }
-        time[0] = hour;
-        time[1] = minu;
-    }
-
-    public int add(Set<Integer> set, String timeStr) {
-        int time = Integer.parseInt(timeStr);
-        set.add(time / 10);
-        set.add(time % 10);
-        return time;
-    }
-
-    public String valid(int time) {
-        if (time >= 0 && time <= 9) return "0" + time;
-        else return time + "";
-    }
-
-    public boolean contains(int hour, int minu, Set<Integer> set) {
-        return set.contains(hour / 10) && set.contains(hour % 10) && set.contains(minu / 10) && set.contains(minu % 10);
-    }
-
-    public String nextClosestTime(String time) {
         String[] str = time.split(":");
         int hrs = Integer.valueOf(str[0]);
         int mins = Integer.valueOf(str[1]);
-        if (hrs == 0 && mins == 0) {
-            return "00:00";
-        }
+        if (hrs == 0 && mins == 0) return "00:00";
         Set<Character> set = new HashSet<>();
         for (char c : time.toCharArray()) set.add(c);
         int hr = hrs;
@@ -114,17 +76,11 @@ public class NextClosestTime {
             }
             hr++;
         }
-        if (min > mins) {
-            return str[0] + ":" + m;
-        }
+        if (min > mins) return str[0] + ":" + m;
         while (true) {
-            if (hr == 24) {
-                hr = 0;
-            }
+            if (hr == 24) hr = 0;
             h = hr < 10 ? "0" + hr : Integer.toString(hr);
-            if (set.contains(h.charAt(0)) && set.contains(h.charAt(1))) {
-                break;
-            }
+            if (set.contains(h.charAt(0)) && set.contains(h.charAt(1))) break;
             hr++;
         }
         return h + ":" + m;
