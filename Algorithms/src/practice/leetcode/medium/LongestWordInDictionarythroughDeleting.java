@@ -12,8 +12,14 @@ import java.util.List;
  * Example 1:
  * Input: s = "abpcplea", d = ["ale","apple","monkey","plea"] Output: "apple"
  *
- * sort the dictionary first based on length and alpha
- * for each string, check if it is subsequence of s
+ * for two strings (s, word):
+ *   the order of chars in word, must be the same in s
+ *   for each char in s, if same with word(i), i++ check if i == word.len
+ * for string[]:
+ *   longest & lexicographical -> sort by length, if same length, a.compareTo(b)
+ *
+ * Space O(m)
+ * time O(mnk+nlogn)
  */
 public class LongestWordInDictionarythroughDeleting {
     public String findLongestWord(String s, List<String> d) {
@@ -26,5 +32,18 @@ public class LongestWordInDictionarythroughDeleting {
             if (i == w.length()) return w;
         }
         return "";
+    }
+
+    public String findLongestWord1(String s, List<String> d) {
+        String longest = "";
+        for (String dictWord : d) {
+            int i = 0;
+            for (char c : s.toCharArray()) {
+                if (i < dictWord.length() && c == dictWord.charAt(i)) i++;
+            }
+            if (i == dictWord.length() && dictWord.length() >= longest.length())
+                if (dictWord.length() > longest.length() || dictWord.compareTo(longest) < 0) longest = dictWord;
+        }
+        return longest;
     }
 }

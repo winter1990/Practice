@@ -4,18 +4,28 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
+ * @array
  * @search
  *
  * Each 0 marks an empty land which you can pass by freely.
  * Each 1 marks a building which you cannot pass through.
  * Each 2 marks an obstacle which you cannot pass through.
+ * You want to build a house on an empty land which reaches all buildings in the shortest amount of distance
  *
- * the distance to all buildings -> 2D array
- * check if 0 can reach all buildings -> find any 0 and count the buildings can reach to = total buildings
- * scan through the distance array and find the minimum
+ * problem to solve:
+ * 1. find the land (0) for house
+ * 2. the house can reach all buildings -> find path from 0 to 1
+ * 3. total distance is smallest
  *
- * 0 1 1
- * 0 1 0 => should be -1 as we cannot pass through building
+ * for distance related issue -> BFS
+ * for each empty space bfs all the possible path, and also need to count the reached buildings - O(mn^mn)
+ * or
+ * the reverse way: start with each building, bfs and record the length to each possible steps
+ * distance[i][j] = the distance to all buildings, each time +level
+ * if can not be reached, then distance = 0
+ * also need to track at the point in grid, how many buildings can be reached - count[][], each time visited +1
+ * scan through distance[][] and get smallest non-zero value, at the same time, count[i][j] must = total buildings
+ * -> count buildings is needed
  */
 public class ShortestDistanceFromAllBuildings {
     public int shortestDistance(int[][] grid) {
@@ -23,25 +33,23 @@ public class ShortestDistanceFromAllBuildings {
         int m = grid.length, n = grid[0].length;
         int[][] distance = new int[m][n];
         int[][] reachCount = new int[m][n];
-        int houseCount = 0;
+        int totalCount = 0;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 1) {
-                    houseCount++;
-                }
+                if (grid[i][j] == 1) totalCount++;
             }
         }
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 1) {
-                    if (!bfs(grid, distance, reachCount, houseCount, m, n, i, j)) return -1;
+                    if (!bfs(grid, distance, reachCount, totalCount, m, n, i, j)) return -1;
                 }
             }
         }
         int minDistance = Integer.MAX_VALUE;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 0 && reachCount[i][j] == houseCount) {
+                if (grid[i][j] == 0 && reachCount[i][j] == totalCount) {
                     minDistance = Math.min(minDistance, distance[i][j]);
                 }
             }
