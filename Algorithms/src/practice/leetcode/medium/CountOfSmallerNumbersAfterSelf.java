@@ -1,22 +1,26 @@
 package practice.leetcode.medium;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
-/*
-[5, 4, 2, 6, 1] => [3, 2, 1, 1, 0]
- */
-
 /**
- * if want to optimize the time
- * build some data structure to store the numbers
- * duplicate numbers? need to store frequency
+ * @array
+ * @daq
+ * @sementtree
+ *
+ * [5, 4, 2, 6, 1] => [3, 2, 1, 1, 0]
+ *
+ * use a tree-like data structure and track the visited numbers
+ * from right most element: keep track how many elements are smaller than current node
+ * [3, 2, 2, 6, 1]
  *        1 (0,1)
- *          6 (
- *        2
- *         4
- *          5
+ *         \
+ *          6 (3,1)
+ *         /
+ *        2 (0,2)
+ *         \
+ *          3 (0,1)
+ * when traversing to left node, increase the count in the path
  */
 public class CountOfSmallerNumbersAfterSelf {
     public List<Integer> countSmaller(int[] nums) {
@@ -33,12 +37,7 @@ public class CountOfSmallerNumbersAfterSelf {
 
     private Integer insertNode(Node node, int num) {
         int total = 0;
-        // if node already exists, just need to update the count of node
-        // so only need to consider the cases node.val!=num
-        System.out.println(node.val);
         while (node.val != num) {
-            // we are scanning from right to left
-            // so if smaller, update the left count
             if (num < node.val) {
                 if (node.left == null) {
                     node.left = new Node(num);
