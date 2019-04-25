@@ -2,7 +2,7 @@ package practice.leetcode.hard;
 
 /**
  * @array
- * @bit
+ * @bitwise
  *
  * start with first element, slide the window until we see the first
  */
