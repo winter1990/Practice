@@ -1,4 +1,4 @@
-package practice.leetcode.question;
+package practice.leetcode.medium;
 
 /**
  * @string
@@ -20,19 +20,19 @@ package practice.leetcode.question;
 public class PushDominoes {
     public String pushDominoes(String dominoes) {
         char[] cs = dominoes.toCharArray();
-        int L = -1, R = -1;
-        for (int i = 0; i <= dominoes.length(); i++) {
-            if (i == cs.length || cs[i] == 'R') {
-                if (R > L) {
-                    while (R < i) cs[R++] = 'R';
+        int l = -1, r = -1, n = cs.length;
+        for (int i = 0; i <= n; i++) {
+            if (i == n || cs[i] == 'R') {
+                if (r > l) {
+                    while (r < i) cs[r++] = 'R';
                 }
-                R = i;
+                r = i;
             } else if (cs[i] == 'L') {
-                if (L > R || (R == -1 && L == -1)) {
-                    while (++L < i) cs[L] = 'L';
+                if (l > r || (l == -1 && r == -1)) {
+                    while (++l < i) cs[l] = 'L';
                 } else {
-                    L = i;
-                    int lo = R + 1, hi = L - 1;
+                    l = i;
+                    int lo = r + 1, hi = l - 1;
                     while (lo < hi) {
                         cs[lo++] = 'R';
                         cs[hi--] = 'L';
@@ -45,7 +45,7 @@ public class PushDominoes {
 
     public static void main(String[] args) {
         PushDominoes p = new PushDominoes();
-        String s = "..L..L";
+        String s = "L.....RR.RL.....L.R.";
         System.out.println(p.pushDominoes(s));
     }
 }

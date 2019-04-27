@@ -21,7 +21,6 @@ package practice.leetcode.question;
 public class RegionsCutBySlashes {
     int count, n;
     int[] f;
-
     public int regionsBySlashes(String[] grid) {
         n = grid.length;
         f = new int[n * n * 4];
