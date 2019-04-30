@@ -5,6 +5,9 @@ import java.io.UnsupportedEncodingException;
 
 public class Test {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+        int INF = 0x3F3F3F3F;
+        System.out.println("INF - " + INF);
+
         char c = 'a';
         System.out.println(c);
         System.out.println(c + 1);

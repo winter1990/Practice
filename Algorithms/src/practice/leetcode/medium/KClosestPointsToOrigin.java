@@ -1,4 +1,4 @@
-package practice.leetcode.easy;
+package practice.leetcode.medium;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
@@ -42,12 +42,12 @@ public class KClosestPointsToOrigin {
      * @quickselect
      *
      * similar with quick select
-     * pick a pivot
+     * pick a pivot - pick an element
      */
     public int[][] kClosest3(int[][] points, int K) {
         int len =  points.length, l = 0, r = len - 1;
         while (l <= r) {
-            int mid = helper(points, l, r);
+            int mid = partition(points, l, r);
             if (mid == K) break;
             if (mid < K) {
                 l = mid + 1;
@@ -58,7 +58,7 @@ public class KClosestPointsToOrigin {
         return Arrays.copyOfRange(points, 0, K);
     }
 
-    private int helper(int[][] A, int l, int r) {
+    private int partition(int[][] A, int l, int r) {
         int[] pivot = A[l];
         while (l < r) {
             while (l < r && compare(A[r], pivot) >= 0) r--;
