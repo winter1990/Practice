@@ -3,12 +3,16 @@ package practice.leetcode.medium;
 /**
  * @string
  *
- * palindrome: substring can be even or odd length
- * choose pivot: s.charAt(i) or (i & i+1)
- * and span to two directions
- * getPalinLength(s,i,j), return s.substring(i+1,j)
+ * problems to solve:
+ * 1. get substring and it must be palindrome
+ * 2. odd or even length matters, both should be handled separately
+ * 3. longest substring
  *
- * abbac->(a)(ab),(b)(bb),(b)(ba),...
+ * choose pivot:
+ *   because the length of substring can be even or odd, the pivot to choose single char (i), two chars (i,i+1)
+ * define two pointers:
+ *   expand to two directions as far as we can to get longest substring
+ *   as the pivot can be (i) or (i,i+1), define a method (string, i, j)
  *
  * time O(n^2)
  * space O(1)

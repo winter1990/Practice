@@ -6,11 +6,27 @@ import java.util.*;
  * @string
  * @hash
  *
- * use regex to trim all the symbols -> replaceAll()
- * get the lists of words
- * for quick lookup, put banned words in a hash set
- * use may to count the most frequent word
- * max = 0, not in set and frequency > max, update result string
+ * Given a paragraph and a list of banned words, return the most frequent word that is not in the list of banned words.
+ * It is guaranteed there is at least one word that isn't banned, and that the answer is unique.
+ * Words in the list of banned words are given in lowercase, and free of punctuation.
+ * Words in the paragraph are not case sensitive.
+ * The answer is in lowercase.
+ *
+ * problems to solve:
+ * 1. count the frequency of not banned words
+ * 2. quick lookup for the banned words
+ * 3. handle the upper/lower case
+ * 4. trim the paragraph/word by removing the special characters
+ *
+ * pre-process the paragraph
+ *   use regex to trim all the symbols -> replaceAll()
+ *   get the lists of words (lower case)
+ * use a set to store all the banned words
+ * keep track of the highest freq
+ * for each word:
+ *   not banned
+ *     update frequency map
+ *     check and compare with current max frequency
  */
 public class MostCommonWord {
     public String mostCommonWord(String paragraph, String[] banned) {

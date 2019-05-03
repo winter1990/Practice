@@ -2,13 +2,19 @@ package practice.leetcode.medium;
 
 /**
  * @search
+ * @dfs
+ *
+ * problems to solve:
+ * 1. count the number of disjoint block of 1s
+ * 2. when scan the matrix, do not re-count the same island
  *
  * scan through the 2D array
- * if there is 1, dfs to mark all the land as visited - we can either mark it as 0 (change the island to the sea)
+ * if there is 1, dfs to mark all the land as visited - we can either mark it as 0
  * or we define a new 2D boolean array to keep track whether we have visited the element
  *
- * if no extra space is allowed, we can dfs and mark the island as '.' or some special char
- * after counting, we do another scan and change dot back to 1
+ * if no extra space is allowed:
+ * we can dfs and mark the island as '.' or some special char
+ * after counting, we do another scan and change all the special chars back to 1
  *
  * followup:
  * 1. if cannot modify the grid
@@ -16,11 +22,10 @@ package practice.leetcode.medium;
  * 2. if we need to keep the original array as it is
  *    mark the 1 as some char other than 0 or 1
  *    at the end, scan again to change the special char back to 1
- *
  */
 public class NumberOfIslands {
     public int numIslands(char[][] grid) {
-        if (grid == null || grid.length == 0) return 0;
+        if (grid == null || grid.length == 0 || grid[0].length == 0) return 0;
         int m = grid.length, n = grid[0].length;
         int count = 0;
         for (int i = 0; i < m; i++) {

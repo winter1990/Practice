@@ -26,11 +26,9 @@ import java.util.*;
  */
 public class LRUCache {
 
-    private int capacity;
+    private int capacity, currentSize;
     private Map<Integer, Entry> nodes;
-    private int currentSize;
-    private Entry first;
-    private Entry last;
+    private Entry first, last;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
@@ -40,7 +38,7 @@ public class LRUCache {
 
     public int get(int key) {
         Entry node = nodes.get(key);
-        if(node != null){
+        if (node != null) {
             moveToHead(node);
             return node.value;
         } else {
@@ -50,8 +48,8 @@ public class LRUCache {
 
     public void put(int key, int value) {
         Entry node = nodes.get(key);
-        if(node == null){
-            if(currentSize >= capacity){
+        if (node == null) {
+            if (currentSize >= capacity) {
                 nodes.remove(last.key);
                 removeLast();
             } else {
@@ -59,7 +57,7 @@ public class LRUCache {
             }
             node = new Entry();
         }
-        if(currentSize == 1){
+        if (currentSize == 1) {
             first = node;
             last = node;
         }
@@ -80,7 +78,7 @@ public class LRUCache {
                 first.pre = entry;
             }
             first = entry;
-            currentSize += 1;
+            ++currentSize;
             if (currentSize > capacity) {
                 nodes.remove(last.key);
                 removeLast();
@@ -94,7 +92,7 @@ public class LRUCache {
         entry.value = value;
     }
 
-    private void moveToHead(Entry node){
+    private void moveToHead(Entry node) {
         if (node == first) {
             return;
         }
@@ -105,11 +103,11 @@ public class LRUCache {
             node.next.pre = node.pre;
         }
 
-        if(last == node){
+        if (last == node) {
             last = node.pre;
         }
 
-        if(first != null){
+        if (first != null) {
             node.next = first;
             first.pre = node;
         }
@@ -118,9 +116,9 @@ public class LRUCache {
 
     }
 
-    private void removeLast(){
-        if(last != null){
-            if(last.pre != null){
+    private void removeLast() {
+        if (last != null) {
+            if (last.pre != null) {
                 last.pre.next = null;
             } else {
                 first = null;
@@ -138,10 +136,10 @@ public class LRUCache {
 
     public static void main(String[] args) {
         LRUCache cache = new LRUCache(2);
-        cache.put1(2,1);
-        cache.put1(2,2);
+        cache.put1(2, 1);
+        cache.put1(2, 2);
         System.out.println(cache.get(2));
-        cache.put1(3,3);
+        cache.put1(3, 3);
         System.out.println(cache.get(2));
     }
 }

@@ -4,10 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LRUCache1 {
-    int currentSize;
-    int capacity;
-    Entry head;
-    Entry tail;
+    int currentSize, capacity;
+    Entry head, tail;
     Map<Integer, Entry> map;
     public LRUCache1(int capacity) {
         this.capacity = capacity;

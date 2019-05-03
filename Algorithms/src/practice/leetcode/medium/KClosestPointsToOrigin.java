@@ -2,6 +2,7 @@ package practice.leetcode.medium;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 /**
  * @heap
@@ -40,7 +41,6 @@ public class KClosestPointsToOrigin {
 
     /**
      * @quickselect
-     *
      * similar with quick select
      * pick a pivot - pick an element
      */
@@ -72,5 +72,54 @@ public class KClosestPointsToOrigin {
 
     private int compare(int[] p1, int[] p2) {
         return p1[0] * p1[0] + p1[1] * p1[1] - p2[0] * p2[0] - p2[1] * p2[1];
+    }
+
+    public int[][] kClosest4(int[][] points, int K) {
+        int len = points.length, l = 0, r = len - 1;
+        while (l < r) {
+            int index = partitionPoints(points, l, r);
+            if (index == K) {
+                break;
+            } else if (index < K) {
+                l = index + 1;
+            } else {
+                r = index - 1;
+            }
+        }
+        return Arrays.copyOfRange(points, 0, K);
+    }
+
+    private int partitionPoints(int[][] a, int start, int end) {
+        int index = start + new Random().nextInt(end - start + 1);
+        int[] pivot = a[index];
+        swap(a, index, end);
+        int l = start, r = end - 1;
+        while (l <= r) {
+            while (l <= r && !isFurther(a[l], pivot)) l++;
+            while (l <= r && isFurther(a[r], pivot)) r--;
+            if (l <= r) {
+                swap(a, l, r);
+                l++;
+                r--;
+            }
+        }
+        swap(a, l, end);
+        return l;
+    }
+
+    private boolean isFurther(int[] p1, int[] p2) {
+        return p1[0] * p1[0] + p1[1] * p1[1] > p2[0] * p2[0] + p2[1] * p2[1];
+    }
+
+    private void swap(int[][] a, int i, int j) {
+        int[] tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
+    }
+
+    public static void main(String[] args) {
+        int[][] in = new int[][]{{1,3},{-2,2}};
+        KClosestPointsToOrigin k = new KClosestPointsToOrigin();
+        System.out.println(k.kClosest4(in, 1));
     }
 }
