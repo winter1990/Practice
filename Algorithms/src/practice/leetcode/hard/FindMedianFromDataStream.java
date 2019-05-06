@@ -27,12 +27,19 @@ import java.util.PriorityQueue;
  * check size difference, if not lower.peek, otherwise, calculate
  */
 public class FindMedianFromDataStream {
+    public static void main(String[] args) {
+        MedianFinder m = new MedianFinder();
+        m.addNum(1);
+        m.addNum(2);
+        m.findMedian();
+        m.addNum(3);
+        m.findMedian();
+    }
 }
 
 class MedianFinder {
     PriorityQueue<Integer> higher;
     PriorityQueue<Integer> lower;
-    /** initialize your data structure here. */
     public MedianFinder() {
         higher = new PriorityQueue<>();
         lower = new PriorityQueue<>((a, b) -> b - a);
@@ -51,14 +58,5 @@ class MedianFinder {
             return (double) (lower.peek() + higher.peek()) / 2;
         }
         return (double)lower.peek();
-    }
-
-    public static void main(String[] args) {
-        MedianFinder m = new MedianFinder();
-        m.addNum(1);
-        m.addNum(2);
-        m.findMedian();
-        m.addNum(3);
-        m.findMedian();
     }
 }

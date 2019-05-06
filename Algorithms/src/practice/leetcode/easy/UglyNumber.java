@@ -1,25 +1,22 @@
 package practice.leetcode.easy;
 
 /**
+ * @math
+ *
  * Ugly numbers are positive numbers whose prime factors only include 2, 3, 5
  *
- * 6 8 10 12 15 18 20...
+ * keep removing the factor 2/3/5 in the number
+ * while (n % 2/3/5 != 0) n/= 2/3/5
+ * use 3 while loops to divide the factors
+ * check if the result = 1 at the end
  */
 
 public class UglyNumber {
     public boolean isUgly(int num) {
-        if (num <= 0) {
-            return false;
-        }
-        while (num % 5 == 0) {
-            num /= 5;
-        }
-        while (num % 3 == 0) {
-            num/= 3;
-        }
-        while (num % 2 == 0) {
-            num /= 2;
-        }
+        if (num <= 0) return false;
+        while (num % 5 == 0) num /= 5;
+        while (num % 3 == 0) num/= 3;
+        while (num % 2 == 0) num /= 2;
         return num == 1;
     }
 

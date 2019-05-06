@@ -10,6 +10,23 @@ import java.util.Queue;
  *
  * level order traversal
  * reverse the odd number sublists
+ *
+ * method 1 - bfs
+ * level order traversal
+ * check the size of result
+ * for each level, create a new sublist
+ *   if size is odd, then current level is even level - add to list
+ *   if size is even, then current level is odd level - add to the head of list
+ *
+ * method 2 - dfs
+ * base case:
+ *   if null, return
+ *   if level >= res.size(), means we are traversing to a new level, create a new sublist and add to result
+ * recursion:
+ *   get the list in current level
+ *   check the level
+ *     if odd, add to head
+ *     if even, add to tail
  */
 public class BinaryTreeZigzagLevelOrderTraversal {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
@@ -36,10 +53,6 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         return res;
     }
 
-    /**
-     * recursive solution:
-     * pass the level value in the recursive call to determine whether we need to reverse or not
-     */
     public List<List<Integer>> zigzagLevelOrder1(TreeNode root) {
         List<List<Integer>> res = new LinkedList<>();
         if (root == null) {
