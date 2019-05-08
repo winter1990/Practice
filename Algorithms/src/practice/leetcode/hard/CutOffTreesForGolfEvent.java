@@ -1,9 +1,6 @@
 package practice.leetcode.hard;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * @array
@@ -23,7 +20,11 @@ import java.util.Queue;
  * [7,6,5]
  * Output: 6
  *
- * the trees should be cut in order
+ * problems to solve:
+ * 1. the trees should be cut in order
+ * 2. available and shortest path to next tree
+ * 3. keep track of the total steps to cut all
+ *
  * start from point [0,0], walk to the lowest first lowest, second lowest -> use heap to store all the trees position
  * heap stores int[]{row, col, height}
  * bfs to find the closest path to next tree
@@ -33,22 +34,24 @@ import java.util.Queue;
 public class CutOffTreesForGolfEvent {
     final int[][] dirs = new int[][]{{1, 0}, {-1, 0}, {0, -1}, {0, 1}};
     public int cutOffTree(List<List<Integer>> forest) {
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]);
+        List<int[]> trees = new ArrayList<>();
         int m = forest.size(), n = forest.get(0).size();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (forest.get(i).get(j) > 1) pq.offer(new int[]{i, j, forest.get(i).get(j)});
+                if (forest.get(i).get(j) > 1) trees.add(new int[]{i, j, forest.get(i).get(j)});
             }
         }
+        Collections.sort(trees, (a, b) -> (a[2] - b[2]));
         int[] start = new int[]{0, 0};
         int total = 0;
-        while (!pq.isEmpty()) {
-            int[] next = pq.poll();
+        while (trees.size() != 0) {
+            int[] next = trees.get(0);
             int steps = getSteps(forest, start, next, m, n);
-            if (steps < 0) return -1;
+            if (steps == -1) return -1;
             total += steps;
             start[0] = next[0];
             start[1] = next[1];
+            trees.remove(0);
         }
         return total;
     }
@@ -75,5 +78,15 @@ public class CutOffTreesForGolfEvent {
             steps++;
         }
         return -1;
+    }
+
+    public static void main(String[] args) {
+        List<List<Integer>> in = new ArrayList<>();
+        in.add(Arrays.asList(new Integer[]{1,6,1,1,2}));
+        in.add(Arrays.asList(new Integer[]{4,1,1,3,1}));
+        in.add(Arrays.asList(new Integer[]{1,1,1,1,1}));
+        in.add(Arrays.asList(new Integer[]{5,1,1,1,1}));
+        CutOffTreesForGolfEvent c = new CutOffTreesForGolfEvent();
+        System.out.println(c.cutOffTree(in));
     }
 }

@@ -8,22 +8,29 @@ import java.util.PriorityQueue;
  *
  * addNum(1), addNum(2), findMedian() -> 1.5, addNum(3), findMedian() -> 2
  *
+ * problems to solve:
+ * 1. data stream - continuous new values come in, may makes the median smaller, larger, same
+ * 2. median can be single element (odd), or average of two elements (even)
+ *
  * intuition
- * save into an array list, the size the dynamic, when call find medium, sort and get medium based on size odd/even
- * space O(N), time O(NlogN) for each call
+ * insert new element into an array list - find the insertion index - binary search O(logn)
+ * when call find medium, get medium based on size odd/even - O(1)
  *
  * optimization
- * no matter what data structure used, need to store all the numbers because when new number comes in may change
+ * no matter what data structure used, need to store all the numbers because when new number comes in, median may change
  *
  * heap is used for getting largest/smallest in O(1) time
- * median -> two heaps, one max heap and one min heap
- * all values in min heap are larger than max heap, then medium is average of two peaks or the peak of larger size
- * maintain the two heaps, size difference must be smaller/equal to 1
- * add():
+ * two heaps, one max heap and one min heap
+ * all values in min heap are larger than max heap
+ * medium is average of two peaks or the peak of larger size
+ * size difference must be smaller/equal to 1
+ *
+ * add method
  * add to max/low heap
  * min.offer(max.poll) because the peek of lower heap might be larger than minimum of higher heap
  * if size of higher is larger than lower, lower.offer(higher.poll)
- * getMedium();
+ *
+ * getMedium method
  * check size difference, if not lower.peek, otherwise, calculate
  */
 public class FindMedianFromDataStream {
@@ -31,32 +38,32 @@ public class FindMedianFromDataStream {
         MedianFinder m = new MedianFinder();
         m.addNum(1);
         m.addNum(2);
-        m.findMedian();
+        System.out.println(m.findMedian());
         m.addNum(3);
-        m.findMedian();
+        System.out.println(m.findMedian());
     }
 }
 
 class MedianFinder {
-    PriorityQueue<Integer> higher;
-    PriorityQueue<Integer> lower;
+    PriorityQueue<Integer> min;
+    PriorityQueue<Integer> max;
     public MedianFinder() {
-        higher = new PriorityQueue<>();
-        lower = new PriorityQueue<>((a, b) -> b - a);
+        min = new PriorityQueue<>();
+        max = new PriorityQueue<>((a, b) -> b - a);
     }
 
     public void addNum(int num) {
-        lower.offer(num);
-        higher.offer(lower.poll());
-        if (lower.size() < higher.size()) {
-            lower.offer(higher.poll());
+        max.offer(num);
+        min.offer(max.poll());
+        if (max.size() < min.size()) {
+            max.offer(min.poll());
         }
     }
 
     public double findMedian() {
-        if (lower.size() == higher.size()) {
-            return (double) (lower.peek() + higher.peek()) / 2;
+        if (min.size() == max.size()) {
+            return (min.peek() + max.peek()) / 2.0;
         }
-        return (double)lower.peek();
+        return (double) max.peek();
     }
 }

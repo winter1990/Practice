@@ -4,6 +4,7 @@ import java.util.PriorityQueue;
 
 /**
  * @heap
+ * @daq
  *
  * 1-5-7
  * 2-3-6
@@ -32,4 +33,37 @@ public class MergeKSortedLists {
         }
         return dummy.next;
     }
+
+    /**
+     * divide and conquer
+     * recursively divide the list of nodes into sub lists until lo == hi
+     * merge two lists
+     */
+    public ListNode mergeKLists1(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+        return mergeLists(lists, 0, lists.length - 1);
+    }
+
+    private ListNode mergeLists(ListNode[] lists, int lo, int hi) {
+        if (lo == hi) {
+            return lists[lo];
+        }
+        int mid = lo + (hi - lo) / 2;
+        ListNode l1 = mergeLists(lists, lo, mid);
+        ListNode l2 = mergeLists(lists, mid + 1, hi);
+        return merge(l1, l2);
+    }
+
+    private ListNode merge(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        if (l1.val < l2.val) {
+            l1.next = merge(l1.next, l2);
+            return l1;
+        } else {
+            l2.next = merge(l1, l2.next);
+            return l2;
+        }
+    }
+
 }

@@ -9,17 +9,19 @@ import java.util.List;
  * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words,
  * determine if s can be segmented into a space-separated sequence of one or more dictionary words
  *
- * intuition:
+ * intuitive solution:
  * recursively check substring
  * this will fail if the string is to long
  * aaaaaaaaaaaaaaaaaaaaaaaaaa...,[a,aa,aa,aaa]
  *
  * optimization:
- * use a boolean array, size = n + 1
- * dp[i] means the substring(0, i) can be segmented into 1+ word(s)
- * i = [1, n] - current substring (0,i)
- * j=[0,i-1] - (0,j) can be segmented, check (i,j) if contains, [i] true
+ * use an array - boolean[n+1]
+ * dp[i] means the substring(0, i) can be segmented into one or multiple words
  * initialize start point 0 true
+ * i = [1, n] - current substring [0, i)
+ *   j = [0,i)
+ *     if dp[j] = true and the substring [j,i) contains in the dictionary
+ *     then it means the substring [0,i) can be divided into multiple
  */
 public class WordBreak {
     public boolean wordBreak(String s, List<String> wordDict) {
@@ -35,16 +37,13 @@ public class WordBreak {
         return dp[s.length()];
     }
 
-
     /**
      * recursively check substring
      * this will fail if the string is to long
      * aaaaaaaaaaaaaaaaaaaaaaaaaa...,[a,aa,aa,aaa]
      */
     public boolean wordBreak1(String s, List<String> wordDict) {
-        if (s == null || s.length() == 0) {
-            return true;
-        }
+        if (s == null || s.length() == 0) return true;
         return helper(s, 0, wordDict);
     }
 

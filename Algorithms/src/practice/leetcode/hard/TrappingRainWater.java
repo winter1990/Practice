@@ -7,8 +7,16 @@ package practice.leetcode.hard;
  * Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much
  * water it is able to trap after raining.
  *
- * at each bar in the graph, the water can be trapped depends on min(max left, max right)
- * water can be trapped = min(lmax, rmax) - a[i]
+ * at each bar in the graph, whether the water can be trapped depends on:
+ *   the lower bar on max(left bars) and max(right bars)
+ *   min(max left, max right)
+ * amount of water that can be trapped = min(lmax, rmax) - a[i]
+ * two pointers:
+ *   left = 0, right = n - 1
+ *   like the bucket effect, the amount of water can be trapped is limited by the lower bar in graph
+ *     if lmax < rmax, move left pointer
+ *     if      >     , move the right pointer
+ *     if      =     , move either is good
  */
 public class TrappingRainWater {
     public int trap(int[] height) {

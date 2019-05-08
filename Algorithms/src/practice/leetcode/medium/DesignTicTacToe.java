@@ -28,15 +28,12 @@ public class DesignTicTacToe {
 class TicTacToe {
 
     /** Initialize your data structure here. */
-    int[] rows;
-    int[] cols;
-    int len;
-    int diagonal1;
-    int diagonal2;
+    int[] rows, cols;
+    int n, diagonal1, diagonal2;
     public TicTacToe(int n) {
         rows = new int[n];
         cols = new int[n];
-        len = n;
+        this.n = n;
         diagonal1 = 0;
         diagonal2 = 0;
     }
@@ -53,14 +50,9 @@ class TicTacToe {
         int val = player == 1 ? 1 : -1;
         rows[row] += val;
         cols[col] += val;
-
-        if (row == col) {
-            diagonal1 += val;
-        }
-        if (row + col == len - 1) {
-            diagonal2 += val;
-        }
-        if (Math.abs(rows[row]) == len || Math.abs(cols[col]) == len || Math.abs(diagonal1) == len || Math.abs(diagonal2) == len) {
+        if (row == col) diagonal1 += val;
+        if (row + col == n - 1) diagonal2 += val;
+        if (Math.abs(rows[row]) == n || Math.abs(cols[col]) == n || Math.abs(diagonal1) == n || Math.abs(diagonal2) == n) {
             return player;
         }
         return 0;

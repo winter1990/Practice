@@ -8,8 +8,8 @@ package practice.leetcode.medium;
  * Add the two numbers and return it as a linked list.
  *
  * problem to solve:
- * 1. get sum, track and handle the carry
- * 2. two lists might be in different length, not getting null pointer
+ * 1. get value for the two nodes, calculate sum, keep track of the carry value for next
+ * 2. two lists might be in different length - handle null pointer
  * 3. might have 1 digit left over at the end
  */
 public class AddTwoNumbers {

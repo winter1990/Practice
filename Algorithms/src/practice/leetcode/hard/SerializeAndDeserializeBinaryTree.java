@@ -15,10 +15,15 @@ import java.util.*;
  *  5    6
  *        7
  * 1 2 5 # # # 3 6 # 7 # # #
- * serialization:
+ *
+ * options to traverse a tree:
  * preorder, inorder, postorder
- * use preorder, because the other two, we do not know which is the root (not BST)
- * define separator (,) and null node (as long as not number, use a special character)
+ * from top to bottom, which is easier for assigning the left and right child
+ *
+ * serialization:
+ * when traversing down the tree, a separator and identifier of null node are needed
+ *   , as separator
+ *   # or any special char as null node
  * recursively traverse down
  * if null, append # and separator
  * otherwise append node value and separator
@@ -26,19 +31,19 @@ import java.util.*;
  * deserialization:
  * split by separator -> string[]
  * recursively recover the tree
- * base case: if #, return null
- * create new tree node
- * recursively assign left & right child -> which one to assign, not index based
- * put all ndoes in a queue, poll from it 1 by 1
+ * base case:
+ *   if #, return null
+ * recursion:
+ *   store all the strings in a queue
+ *   create new tree node poll from queue
+ *   recursively assign left & right child
  */
 public class SerializeAndDeserializeBinaryTree {
     public class Codec {
         final String N = "#";
         final String separator = ",";
         public String serialize(TreeNode root) {
-            if (root == null) {
-                return null;
-            }
+            if (root == null) return null;
             StringBuilder sb = new StringBuilder();
             buildTree(root, sb);
             return sb.toString();
@@ -56,13 +61,11 @@ public class SerializeAndDeserializeBinaryTree {
 
         // Decodes your encoded data to tree.
         public TreeNode deserialize(String data) {
-            if (data == null) {
-                return null;
-            }
+            if (data == null) return null;
             String[] nodes = data.split(separator);
             Queue<String> q = new LinkedList<>();
-            for (String s : nodes) {
-                q.offer(s);
+            for (String n : nodes) {
+                q.offer(n);
             }
             return helper(q);
         }

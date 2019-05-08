@@ -24,14 +24,11 @@ import java.util.Arrays;
  */
 public class WordSearch {
     public boolean exist(char[][] board, String word) {
-        int m = board.length;
-        int n = board[0].length;
+        int m = board.length, n = board[0].length;
         boolean[][] visited = new boolean[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (word.charAt(0) == board[i][j] && findWord(board, word, 0, i, j, visited)) {
-                    return true;
-                }
+                if (word.charAt(0) == board[i][j] && findWord(board, word, 0, i, j, visited)) return true;
                 initializeChecker(visited);
             }
         }
@@ -39,9 +36,7 @@ public class WordSearch {
     }
 
     private void initializeChecker(boolean[][] visited) {
-        for (int i = 0; i < visited.length; i++) {
-            Arrays.fill(visited[i], false);
-        }
+        for (boolean[] arr : visited) Arrays.fill(arr, false);
     }
 
     private boolean findWord(char[][] board, String word, int index, int i, int j, boolean[][] visited) {

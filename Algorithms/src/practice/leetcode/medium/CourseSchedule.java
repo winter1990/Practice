@@ -6,7 +6,7 @@ import java.util.*;
  * @dfs
  * @bfs
  * @graph
- * @topological
+ * @topologicalsort
  *
  * There are a total of n courses you have to take, labeled from 0 to n-1.
  * Some courses may have prerequisites, for example to take course 0 you have to first take course 1,
@@ -16,6 +16,10 @@ import java.util.*;
  * one course may depend on one or multiple courses
  * total courses [0, n - 1]
  *
+ * problems to solve:
+ * 1. schedule a sequence of tasks based on the dependencies
+ * 2. build up the relationship between the courses/prerequisites
+ *
  * build the graph first
  * map is ok, key is id, value is a list of courses
  * but for this problem, course is [0,n-1], so we can List[]
@@ -23,8 +27,7 @@ import java.util.*;
  * start with the courses that have no dependency
  */
 public class CourseSchedule {
-    // BFS thinking
-    // topological sort
+    // topological sort (BFS thinking)
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         List<Integer>[] graph = new ArrayList[numCourses];
         for (int i = 0; i < graph.length; i++) graph[i] = new ArrayList<>();
@@ -53,7 +56,7 @@ public class CourseSchedule {
      * [0 1] [0 2] [1 3] [2 3] [3 4]
      *
      *   /-> 1 -> 3 -> 4
-     * 0         /
+     *  0         /
      *   \-> 2 --
      * 0, empty
      * 1, 0
@@ -67,7 +70,6 @@ public class CourseSchedule {
     public boolean canFinish1(int numCourses, int[][] prerequisites) {
         ArrayList[] graph = new ArrayList[numCourses];
         for (int i = 0; i < numCourses; i++) graph[i] = new ArrayList();
-
         for (int i = 0; i < prerequisites.length; i++) {
             graph[prerequisites[i][1]].add(prerequisites[i][0]);
         }
@@ -94,6 +96,9 @@ public class CourseSchedule {
         return true;
     }
 
+    /**
+     * @dfs
+     */
     public boolean canFinish3(int numCourses, int[][] prerequisites) {
         ArrayList[] graph = new ArrayList[numCourses];
         for (int i = 0; i < numCourses; i++)
@@ -106,18 +111,17 @@ public class CourseSchedule {
         }
 
         for (int i = 0; i < numCourses; i++) {
-            if (!dfs(graph, visited, i, dp))
-                return false;
+            if (!dfs(graph, visited, i, dp)) return false;
         }
         return true;
     }
 
     private boolean dfs(ArrayList[] graph, boolean[] visited, int course, boolean[] dp) {
-        if (visited[course])
+        if (visited[course]) {
             return dp[course];
-        else
+        } else {
             visited[course] = true;
-
+        }
         for (int i = 0; i < graph[course].size(); i++) {
             if (!dfs(graph, visited, (int) graph[course].get(i), dp)) {
                 dp[course] = false;

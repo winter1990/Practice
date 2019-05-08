@@ -14,45 +14,44 @@ import java.util.*;
  */
 public class WordSearch_II {
     public List<String> findWords(char[][] board, String[] words) {
-        List<String> res = new ArrayList<>();
         TrieNode root = buildTrie(words);
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                dfs(board, i, j, root, res);
+        List<String> res = new ArrayList<>();
+        if (words == null || words.length == 0) return res;
+        int m = board.length, n = board[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                dfs(board, root, i, j, m, n, res);
             }
         }
         return res;
     }
 
-    public void dfs(char[][] board, int i, int j, TrieNode p, List<String> res) {
+    private void dfs(char[][] board, TrieNode node, int i, int j, int m, int n, List<String> res) {
         char c = board[i][j];
-        if (c == '#' || p.children[c - 'a'] == null) {
-            return;
+        if (c == '#' || node.children[c - 'a'] == null) return;
+        node = node.children[c - 'a'];
+        if (node.word != null) {
+            res.add(node.word);
+            node.word = null;
         }
-        p = p.children[c - 'a'];
-        if (p.word != null) {   // found one
-            res.add(p.word);
-            p.word = null;     // de-duplicate
-        }
-
         board[i][j] = '#';
-        if (i > 0) dfs(board, i - 1, j ,p, res);
-        if (j > 0) dfs(board, i, j - 1, p, res);
-        if (i < board.length - 1) dfs(board, i + 1, j, p, res);
-        if (j < board[0].length - 1) dfs(board, i, j + 1, p, res);
+        if (i > 0) dfs(board, node, i - 1, j, m, n, res);
+        if (i < m - 1) dfs(board, node, i + 1, j, m, n, res);
+        if (j > 0) dfs(board, node, i, j - 1, m, n, res);
+        if (j < n - 1) dfs(board, node, i, j + 1, m, n, res);
         board[i][j] = c;
     }
 
-    public TrieNode buildTrie(String[] words) {
+    private TrieNode buildTrie(String[] words) {
         TrieNode root = new TrieNode();
         for (String w : words) {
             TrieNode cur = root;
             for (char c : w.toCharArray()) {
-                int i = c - 'a';
-                if (cur.children[i] == null) {
-                    cur.children[i] = new TrieNode();
+                int index = c - 'a';
+                if (cur.children[index] == null) {
+                    cur.children[index] = new TrieNode();
                 }
-                cur = cur.children[i];
+                cur = cur.children[index];
             }
             cur.word = w;
         }
@@ -60,7 +59,10 @@ public class WordSearch_II {
     }
 
     class TrieNode {
-        TrieNode[] children = new TrieNode[26];
         String word;
+        TrieNode[] children;
+        public TrieNode() {
+            children = new TrieNode[26];
+        }
     }
 }

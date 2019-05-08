@@ -2,7 +2,6 @@ package practice.leetcode.medium;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 /**
  * @tree
@@ -37,13 +36,16 @@ as "[1,2,3,null,null,4,5]"
  *
  * for deserialization:
  * split by separator to get string array
+ * recursively assign child:
  *
  */
 public class SerializeAndDeserializeBST {
+    public static void main(String[] args) {
+
+    }
 }
 
 class Codec3 {
-    // Encodes a tree to a single string.
     final String N = "#";
     final String separator = ",";
     public String serialize(TreeNode root) {
@@ -65,27 +67,25 @@ class Codec3 {
         buildTree(root.right, sb);
     }
 
-    // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         if (data == null) {
             return null;
         }
         String[] nodes = data.split(separator);
         Queue<String> q = new LinkedList<>();
-        for (String s : nodes) {
-            q.offer(s);
-        }
-        return helper(q);
+        for (String s : nodes) q.offer(s);
+        return deserialize(q);
     }
 
-    private TreeNode helper(Queue<String> q) {
+    private TreeNode deserialize(Queue<String> q) {
+        if (q.isEmpty()) return null;
         String val = q.poll();
         if (val.equals(N)) {
             return null;
         }
         TreeNode node = new TreeNode(Integer.valueOf(val));
-        node.left = helper(q);
-        node.right = helper(q);
+        node.left = deserialize(q);
+        node.right = deserialize(q);
         return node;
     }
 }
