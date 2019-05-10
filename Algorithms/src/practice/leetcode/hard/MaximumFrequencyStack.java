@@ -27,6 +27,20 @@ import java.util.PriorityQueue;
  * [4 4 1]
  * [5 5 3]
  * comparator: order by arr[2], if freq same order by index arr[1], return arr[0]
+ *
+ * problems to solve:
+ * 1. keep track of the element and frequency
+ * 2. if there is a tie of frequency, get the latest
+ *
+ * use a map value + frequency
+ * we need sort based on frequency - max heap - sort by frequency first, then sort by index
+ * push()
+ *   map - put new entry or update frequency
+ *   pq - add {value, index, freq}
+ * pop()
+ *   poll from heap
+ *   update map
+ *   return value
  */
 public class MaximumFrequencyStack {
     public static void main(String[] args) {

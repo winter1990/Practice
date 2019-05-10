@@ -6,6 +6,26 @@ import java.util.List;
 /**
  * @tree
  *
+ * Input:
+ *   1
+ *    \
+ *     2
+ *    / \
+ *   3   4
+ * Ouput:
+ * [1, 3, 4, 2]
+ *
+ * Input:
+ *     ____1_____
+ *    /           \
+ *   2            3
+ *  / \          /
+ * 4   5        6
+ *    / \      / \
+ *   7   8    9  10
+ * Ouput:
+ * [1,2,4,7,8,9,10,6,3]
+ *
  * intuition:
  * the boundary consists of left most nodes for each level + right most nodes for each level + all leaves
  * level order traversal -> redundant

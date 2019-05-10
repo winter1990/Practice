@@ -3,6 +3,7 @@ package practice.leetcode.hard;
 import java.util.*;
 
 /**
+ * @search
  * @string
  * @bfs
  *
@@ -30,40 +31,35 @@ import java.util.*;
  */
 public class WordLadder {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Set<String> dict = new HashSet<>(wordList);
         Set<String> beginSet = new HashSet<>();
         Set<String> endSet = new HashSet<>();
         beginSet.add(beginWord);
         endSet.add(endWord);
-
+        Set<String> dict = new HashSet<>(wordList);
+        if (!dict.contains(endWord)) return 0;
         int step = 1;
-        Set<String> visited = new HashSet<>();
-        while (!beginSet.isEmpty() && !endSet.isEmpty()) {
+        while (!beginSet.isEmpty()) {
             if (beginSet.size() > endSet.size()) {
                 Set<String> tmp = beginSet;
                 beginSet = endSet;
                 endSet = tmp;
             }
-            Set<String> temp = new HashSet<>();
-            for (String word : beginSet) {
-                char[] cs = word.toCharArray();
+            Set<String> set = new HashSet<>();
+            for (String w : beginSet) {
+                char[] cs = w.toCharArray();
                 for (int i = 0; i < cs.length; i++) {
+                    char oldChar = cs[i];
                     for (char c = 'a'; c <= 'z'; c++) {
-                        char old = cs[i];
+                        if (c == oldChar) continue;
                         cs[i] = c;
-                        String str = new String(cs);
-                        if (endSet.contains(str)) {
-                            return step + 1;
-                        }
-                        if (!visited.contains(str) && dict.contains(str)) {
-                            temp.add(str);
-                            visited.add(str);
-                        }
-                        cs[i] = old;
+                        String s = new String(cs);
+                        if (endSet.contains(s)) return step + 1;
+                        if (dict.contains(s)) set.add(s);
                     }
+                    cs[i] = oldChar;
                 }
             }
-            beginSet = temp;
+            beginSet = set;
             step++;
         }
         return 0;

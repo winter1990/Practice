@@ -11,9 +11,18 @@ package practice.leetcode.medium;
  * version1 = "1.01", version2 = "1.001", Output: 0 ignore the leading 0s
  * version1 = "1.0", version2 = "1.0.0", Output: 0
  *
- * split the string by dot -> two arrays
- * start with index 0, if longer than any of them make it 0
- * get the value of string
+ * problems to solve:
+ * 1. find the mechanism to compare two versions - how to compare values
+ * 2. corner cases - leading 0, extra fields with 0
+ *
+ * split the string by dot
+ *   get two string array
+ *   they may have different lengths
+ * start with index 0, if over the length for any of them, make it zero
+ * get the value of string and compare
+ *   if any of them is larger than other, no need to continue comparing
+ *     if v1 > v2, return 1
+ *     if v1< v2, return -1
  */
 public class CompareVersionNumbers {
     public int compareVersion(String version1, String version2) {
