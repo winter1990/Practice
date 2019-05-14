@@ -25,9 +25,7 @@ import java.util.List;
 public class RestoreIPAddresses {
     public List<String> restoreIpAddresses(String s) {
         List<String> res = new LinkedList<>();
-        if (s == null || s.length() < 4) {
-            return res;
-        }
+        if (s == null || s.length() < 4) return res;
         dfs(s, 0, 1, "", res);
         return res;
     }

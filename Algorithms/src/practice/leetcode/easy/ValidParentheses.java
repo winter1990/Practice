@@ -41,12 +41,8 @@ public class ValidParentheses {
     // a little optimization:
     // ) ] } must be paired with the peek() of the stack
     public boolean isValid1(String s) {
-        if (s == null || s.length() == 0) {
-            return true;
-        }
-        if (s.length() % 2 == 1) {
-            return false;
-        }
+        if (s == null || s.length() == 0) return true;
+        if (s.length() % 2 == 1) return false;
         Stack<Character> stack = new Stack<>();
         for (char c : s.toCharArray()) {
             if (c == '(') {

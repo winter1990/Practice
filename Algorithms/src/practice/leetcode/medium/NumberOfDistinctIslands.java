@@ -11,10 +11,15 @@ result 3
 import java.util.*;
 
 /**
- * need a special identifier to check each island
+ * @string
+ * @search
+ *
+ * problems to solve:
+ * 1. need a special identifier to track each island and its shape
+ * 2. remove the duplicates
+ *
  * 11,10 11 11 01,11
  * maintaining the whole rectangle is hard, need extra or a copy of original array
- * <p>
  * add the identifier when searching up down left right
  */
 public class NumberOfDistinctIslands {
@@ -30,7 +35,6 @@ public class NumberOfDistinctIslands {
                 }
             }
         }
-        for (String s : set) System.out.println(s);
         return set.size();
     }
 

@@ -1,7 +1,6 @@
 package practice.leetcode.medium;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -18,23 +17,23 @@ import java.util.Stack;
  */
 public class ExclusiveTimeOfFunctions {
     public int[] exclusiveTime(int n, List<String> logs) {
-        int[] time = new int[n];
+        int[] res = new int[n];
         Stack<Integer> stack = new Stack<>();
         int last = 0;
-        for (String log : logs) {
-            String[] s = log.split(":");
-            if (s[1].equals("start")) {
+        for (String l : logs) {
+            String[] log = l.split(":");
+            if (log[1].equals("start")) {
                 if (!stack.isEmpty()) {
-                    time[stack.peek()] += Integer.valueOf(s[2]) - last;
+                    res[stack.peek()] += Integer.valueOf(log[2]) - last;
                 }
-                stack.push(Integer.valueOf(s[0]));
-                last = Integer.valueOf(s[2]);
+                stack.push(Integer.valueOf(log[0]));
+                last = Integer.valueOf(log[2]);
             } else {
-                time[stack.pop()] += Integer.valueOf(s[2]) - last + 1;
-                last = Integer.valueOf(s[2]) + 1;
+                res[stack.pop()] += Integer.valueOf(log[2]) - last + 1;
+                last = Integer.valueOf(log[2]) + 1;
             }
         }
-        return time;
+        return res;
     }
 
     public static void main(String[] args) {

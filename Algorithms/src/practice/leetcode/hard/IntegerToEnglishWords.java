@@ -1,9 +1,14 @@
 package practice.leetcode.hard;
 
 /**
+ * @math
+ * @string
+ *
  * billion, million, thousand
  * ten twenty thirty forth fifty sixty...ninety
  * zero one...nine
+ *
+ * 102,934,789
  */
 public class IntegerToEnglishWords {
     final String[] digits = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
@@ -11,19 +16,17 @@ public class IntegerToEnglishWords {
     final String[] tens = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
     final String[] units = {"", "Thousand", "Million", "Billion"};
     public String numberToWords(int num) {
-        if (num == 0) {
-            return "Zero";
-        }
-        StringBuilder sb = new StringBuilder();
+        if (num == 0) return "Zero";
+        StringBuilder res = new StringBuilder();
         int i = 0;
         while (num > 0) {
             if (num % 1000 != 0) {
-                sb.insert(0, units[i] + " ").insert(0, getNumber(num % 1000));
+                res.insert(0, units[i] + " ").insert(0, getNumber(num % 1000));
             }
             num /= 1000;
             i++;
         }
-        return sb.toString().trim();
+        return res.toString().trim();
     }
 
     private String getNumber(int n) {

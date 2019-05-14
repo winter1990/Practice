@@ -4,15 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @@dp
+ * @dp
  *
  * You are given coins of different denominations and a total amount of money amount. Write a function to compute the
  * fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any
  * combination of the coins, return -1.
  *
- * dp
- * create a dp array with size amount+1, start from 1
- * dp[i] represents minimum ways to reach amount of i
+ * intuition:
+ * greedy? the denominations may not be like the real life 1 2 5 10 and there will be always a solution for any amount
+ * dynamic programming to track the fewest number of coins for each value
+ *
+ * dp array with size amount+1, start from 1
+ * dp[i] represents minimum number of coins to reach amount of i
+ * states:
+ *   can be reached - get minimum number of coins
+ *   can not be reached
  * if not possible -> dp[i] = -1
  * transition function:
  * for each coin
@@ -25,12 +31,14 @@ public class CoinChange {
     public int coinChange(int[] coins, int amount) {
         int dp[] = new int[amount + 1];
         for (int i = 1; i <= amount; i++) {
-            int min = Integer.MAX_VALUE;
+            int min = -1;
             for (int coin : coins) {
-                if (i - coin >= 0 && dp[i - coin] != -1) min = dp[i - coin] < min ? dp[i - coin] : min;
+                if (i - coin >= 0 && dp[i - coin] != -1) {
+                    int tmp = dp[i - coin] + 1;
+                    min = min == -1 ? tmp : Math.min(min, tmp);
+                }
             }
-            // Set dp[i] to -1 if i (current amount) can not be reach by  coins array
-            dp[i] = min == Integer.MAX_VALUE ? -1 : 1 + min;
+            dp[i] = min;
         }
         return dp[amount];
     }

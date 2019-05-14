@@ -1,8 +1,5 @@
 package practice.leetcode.easy;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @hash
  * @string
@@ -16,21 +13,12 @@ import java.util.Map;
  */
 public class FirstUniqueCharacterInAString {
     public int firstUniqChar(String s) {
-        Map<Character, Integer> map = new HashMap<>();
-        if (s == null || s.length() == 0) {
-            return -1;
-        }
+        if (s == null || s.length() == 0) return -1;
+        int[] freq = new int[26];
+        for (int i = 0; i < s.length(); i++) freq[s.charAt(i) - 'a']++;
         for (int i = 0; i < s.length(); i++) {
-            if (!map.containsKey(s.charAt(i))) {
-                map.put(s.charAt(i), i);
-            } else {
-                map.put(s.charAt(i), -1);
-            }
+            if (freq[s.charAt(i) - 'a'] == 1) return i;
         }
-        int index = -1;
-        for (int i : map.values()) {
-            if (i != -1) index = index == -1 ? i : Math.min(index, i);
-        }
-        return index;
+        return -1;
     }
 }

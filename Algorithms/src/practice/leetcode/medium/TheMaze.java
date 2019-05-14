@@ -27,11 +27,8 @@ import java.util.Queue;
  */
 public class TheMaze {
     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
-        int m = maze.length;
-        int n = maze[0].length;
-        if (start[0] == destination[0] && start[1] == destination[1]) {
-            return true;
-        }
+        int m = maze.length, n = maze[0].length;
+        if (start[0] == destination[0] && start[1] == destination[1]) return true;
         int[][] dirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
         boolean[][] isVisited = new boolean[m][n];
         Queue<Point> q = new LinkedList<>();
