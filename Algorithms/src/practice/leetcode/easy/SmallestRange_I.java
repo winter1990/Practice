@@ -7,7 +7,13 @@ package practice.leetcode.easy;
  * After this process, we have some array B.
  * Return the smallest possible difference between the maximum value of B and the minimum value of B.
  *
- * find the largest and smallest number in the array
+ * we can choose any value [-k,k] and add to A[i]:
+ * to handle each value, we need to:
+ *   make the small value increase
+ *   make the large value decrease
+ * we can get the largest and smallest numbers in the array and compare the different:
+ *   larger than 2K, max-min-2K
+ *   smaller than 2K, 0
  */
 public class SmallestRange_I {
     public int smallestRangeI(int[] A, int K) {
