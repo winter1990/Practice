@@ -1,5 +1,9 @@
 package practice.leetcode.hard;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @string
  *
@@ -34,86 +38,64 @@ package practice.leetcode.hard;
  */
 public class FindTheClosestPalindrome {
     public String nearestPalindromic(String n) {
-        if (n == null || n.length() == 0) {
-            return "";
-        }
+        if (n == null || n.length() == 0) return "";
         long val = Long.valueOf(n);
-        // single digit
-        if (val < 10) {
-            return String.valueOf(val - 1);
-        }
-        // number of digits will decrease
-        if ((n.charAt(0) == '1') && Long.valueOf(n.substring(1)) == 0) {
-            return String.valueOf(val - 1);
-        }
-        // number of digits will increase
-        while (val != 0) {
-            if (val % 10 != 9) {
-                break;
-            }
-            val /= 10;
-        }
-        if (val == 0) {
-            return String.valueOf(Long.valueOf(n) + 2);
-        }
+        if (val < 10) return String.valueOf(val - 1);
+        if ((n.charAt(0) == '1') && Long.valueOf(n.substring(1)) == 0) return String.valueOf(val - 1);
+        int len = n.length(), halfLength = (len + 1) / 2;
+        long half = Long.valueOf(n.substring(0, halfLength));
 
-        int len = n.length();
-        int i1 = len / 2 - 1;
-        int i2 = len % 2 == 0 ? len / 2 : len / 2 + 1;
-        while (n.charAt(i1) == n.charAt(i2)) {
-            i1--;
-            i2++;
-            if (i1 < 0) {
-                break;
-            }
-        }
-        // palindrome already
-        if (i1 < 0) {
-            if (Long.valueOf(n) == 11 || (n.charAt(0) == '1' && Long.valueOf(n.substring(1, len - 1)) == 0)) {
-                return String.valueOf(Long.valueOf(n) - 2);
-            } else {
+        List<Long> candidates = new ArrayList<>();
+        candidates.add(allNine(len - 1));
+        candidates.add(getOneZeroOne(len + 1));
 
+        getCandidates(candidates, half, len);
+        long diff = Long.MAX_VALUE;
+        String res = "";
+        Collections.sort(candidates);
+        for (long l : candidates) {
+            if (l == val) continue;
+            if (Math.abs(l - val) < diff) {
+                diff = Math.abs(l - val);
+                res = String.valueOf(l);
             }
         }
-        if (Math.abs(i1 - i2) > 2) {
-            return n.substring(0, i2) + n.charAt(i1) + n.substring(i2 + 1);
-        }
-        StringBuilder sb = new StringBuilder(n.substring(0, i1));
-        return n.substring(0, i1) + getClosest(n.substring(i1, i2 + 1)) + sb.reverse().toString();
+        return res;
     }
 
-    private String getClosest(String s) {
-        char[] cs = s.toCharArray();
-        int n = cs.length;
-        if (Math.abs(cs[0] - cs[n - 1]) <= 5) {
-            if (cs.length % 2 == 0) {
-                cs[1] = cs[0];
+    private void getCandidates(List<Long> candidates, long half, int len) {
+        List<Long> list = new ArrayList<>();
+        list.add(half);
+        list.add(half + 1);
+        list.add(half - 1);
+        for (long l : list) {
+            if (len % 2 == 0) {
+                String s = String.valueOf(l);
+                s += new StringBuilder(s).reverse().toString();
+                candidates.add(Long.valueOf(s));
             } else {
-                cs[2] = cs[0];
-            }
-        } else {
-            if (cs.length % 2 == 1) {
-                if (cs[0] > cs[2]) { //921 919, 129 232
-                    cs[2] = cs[0];
-                    cs[1] += 1;
-                } else {
-                    cs[2] = cs[0];
-                }
-            } else {
-                if (cs[0] > cs[1]) {
-                    cs[0]--;
-                    cs[1] = cs[0];
-                } else {
-                    cs[0]++;
-                    cs[1] = cs[0];
-                }
+                String s = String.valueOf(l);
+                s += new StringBuilder(s.substring(0, s.length() - 1)).reverse().toString();
+                candidates.add(Long.valueOf(s));
             }
         }
-        return new String(cs);
+    }
+
+    private Long allNine(int len) {
+        long res = 0;
+        for (int i = 1; i <= len; i++) {
+            res *= 10;
+            res += 9;
+        }
+        return res;
+    }
+
+    private Long getOneZeroOne(int len) {
+        return (long) Math.pow(10, len - 1) + 1;
     }
 
     public static void main(String[] args) {
         FindTheClosestPalindrome f = new FindTheClosestPalindrome();
-        System.out.println(f.nearestPalindromic("202"));
+        System.out.println(f.nearestPalindromic("997"));
     }
 }

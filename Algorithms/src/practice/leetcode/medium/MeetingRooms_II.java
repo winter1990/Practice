@@ -42,6 +42,22 @@ public class MeetingRooms_II {
         return pq.size();
     }
 
+    public int minMeetingRooms1(Interval[] intervals) {
+        if (intervals == null || intervals.length == 0) return 0;
+        TreeMap<Integer, Integer> times = new TreeMap<>();
+        for (Interval i : intervals) {
+            times.put(i.start, times.getOrDefault(i.start, 0) + 1);
+            times.put(i.end, times.getOrDefault(i.end, 0) - 1);
+        }
+        int count = 0, res = 0;
+        for (int c : times.values()) {
+            count += c;
+            res = Math.max(res, count);
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
         Interval i1 = new Interval(1,5);
         Interval i2 = new Interval(8,9);
