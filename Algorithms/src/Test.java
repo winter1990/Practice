@@ -2,9 +2,14 @@ import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.util.TreeMap;
 
 public class Test {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        map.put(1,1);
+        System.out.println(map.floorKey(0));
+
         int INF = 0x3F3F3F3F;
         System.out.println("INF - " + INF);
 
@@ -45,12 +50,6 @@ public class Test {
         String[] strs = str.split(" ");
         for (String s : strs) {
             System.out.println("->" + s + "<-");
-        }
-
-        String s1 = "Hello world ";
-        char[] cs1 = s1.toCharArray();
-        for (char cc : cs1) {
-            System.out.print(cc);
         }
     }
 }
