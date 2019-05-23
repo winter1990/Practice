@@ -1,4 +1,4 @@
-package practice.leetcode.question;
+package practice.leetcode.medium;
 
 import java.util.ArrayList;
 import java.util.List;
