@@ -2,31 +2,34 @@ package practice.leetcode.easy;
 
 /**
  * @array
+ *
+ * Given an array nums and a value val, remove all instances of that value in-place and return the new length.
+ *
+ * two pointers:
+ * i = 0, j = 0
+ * if (a[j] != target) a[i++] = a[j++]
  */
 public class RemoveElement {
-    public int removeElement(int[] nums, int val) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-        int i = 0;
-        int j = nums.length - 1;
-        int tmp = 0;
-        while (i < j) {
-            if (nums[i] != val) {
-                i++;
-            } else {
-                tmp = nums[i];
-                nums[i] = nums[j];
-                nums[j] = tmp;
-                j--;
+    public int removeElement2(int[] nums, int val) {
+        int n = nums.length, i = 0, j = 0;
+        while (j < n) {
+            if (nums[j] != val) {
+                nums[i++] = nums[j];
             }
+            j++;
         }
-        return nums[i] == val ? i : i + 1;
+        return i;
     }
 
+    /**
+     * another im-place method:
+     * [1 0 2 1 3 4 1] target = 1
+     * i = 0, j = len
+     * if (a[i] = target) a[i] = a[j-1], j--
+     * else i++
+     */
     public int removeElement1(int[] nums, int val) {
-        int i = 0;
-        int n = nums.length;
+        int i = 0, n = nums.length;
         while (i < n) {
             if (nums[i] == val) {
                 nums[i] = nums[n - 1];
