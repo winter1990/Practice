@@ -22,14 +22,10 @@ public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
     }
 
     private TreeNode buildTree(int[] inorder, int is, int ie, int[] postorder, int ps, int pe) {
-        if (is > ie || ps > pe) {
-            return null;
-        }
-        int i;
-        for (i = 0; i < inorder.length; i++) {
-            if (postorder[pe] == inorder[i]) {
-                break;
-            }
+        if (is > ie || ps > pe) return null;
+        int i = 0;
+        for (; i < inorder.length; i++) {
+            if (postorder[pe] == inorder[i]) break;
         }
         TreeNode node = new TreeNode(inorder[i]);
         node.left = buildTree(inorder, is, i - 1, postorder, ps, ps + i - is - 1);

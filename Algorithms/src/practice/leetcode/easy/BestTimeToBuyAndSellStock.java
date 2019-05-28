@@ -21,4 +21,47 @@ public class BestTimeToBuyAndSellStock {
         }
         return profit;
     }
+
+    /**
+     * follow up:
+     * what if we want to find the minimum window for maximum profit
+     * return [profit days]
+     *
+     * profit, min price & index, days
+     * min = price[0], days = MAX, index = 0, profit = 0
+     * scan through element from [1, n)
+     *
+     * keep track of the smallest price
+     * when current price is larger, calculate profit
+     *   new pro > profit, update days
+     *   new pro = profit, compare and update days
+     * [1 2 3 1 3 5]
+     */
+    public int[] getProfitAndDays(int[] a) {
+        int profit = 0, min = a[0], pre = 0, days = Integer.MAX_VALUE;
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] <= min) {
+                min = a[i];
+                pre = i;
+            } else {
+                int p = a[i] - min;
+                if (p == profit) {
+                    days = Math.min(days, i - pre);
+                }
+                if (p > profit) {
+                    profit = p;
+                    days = i - pre;
+                }
+            }
+        }
+        return new int[]{profit, days};
+    }
+
+    public static void main(String[] args) {
+        BestTimeToBuyAndSellStock b = new BestTimeToBuyAndSellStock();
+        int[] in = {1,2,3,1,3,5};
+        int[] res = b.getProfitAndDays(in);
+        System.out.println(res[0] + " " + res[1]);
+    }
+
 }

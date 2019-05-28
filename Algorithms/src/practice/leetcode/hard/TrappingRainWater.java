@@ -8,9 +8,10 @@ package practice.leetcode.hard;
  * water it is able to trap after raining.
  *
  * at each bar in the graph, whether the water can be trapped depends on:
- *   the lower bar on max(left bars) and max(right bars)
- *   min(max left, max right)
- * amount of water that can be trapped = min(lmax, rmax) - a[i]
+ *   there is a bar higher on left side and right side
+ *   the amount of water trapped at i depends on the lower bar of max of [0,i) and max of (i,n-1]
+ *   conclusion - amount of water that can be trapped = min(lmax, rmax) - a[i]
+ *
  * two pointers:
  *   left = 0, right = n - 1
  *   like the bucket effect, the amount of water can be trapped is limited by the lower bar in graph

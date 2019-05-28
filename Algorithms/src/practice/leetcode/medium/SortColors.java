@@ -8,19 +8,21 @@ package practice.leetcode.medium;
  * Input: [2,0,2,1,1,0], Output: [0,0,1,1,2,2]
  * 0 1 2 -> red white blue
  *
- * brute force: one pass and count all colors
- * in place method:
+ * brute force
+ * one pass and count all 3 colors
+ * scan through again to set values
+ *
+ * in-place
  * 3 pointers, 0, n - 1 and one in the middle starting from 0 to n - 1
- * if a[i2] = 1 continue, 0 swap with a[i1] i1++ i2++, 2 swap with i3 i3-- do not update i2 (0 1 2 all possible)
- * what if all 0/1/2
+ * move the pointer in the middle (i2 <= i3):
+ *   if 0, swap with left pointer, i1++ i2++
+ *   if 1, continue, i2++
+ *   if 2, swap with right pointer, i3--
  */
 public class SortColors {
     public void sortColors(int[] nums) {
-        if (nums == null || nums.length <= 1) {
-            return;
-        }
-        int n = nums.length;
-        int i1 = 0, i2 = 0, i3 = n - 1;
+        if (nums == null || nums.length <= 1) return;
+        int n = nums.length, i1 = 0, i2 = 0, i3 = n - 1;
         while (i2 <= i3) {
             if (nums[i2] == 1) {
                 i2++;

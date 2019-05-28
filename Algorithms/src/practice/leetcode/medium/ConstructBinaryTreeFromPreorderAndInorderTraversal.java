@@ -25,14 +25,10 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
     }
 
     private TreeNode helper(int[] preorder, int ps, int pe, int[] inorder, int is, int ie) {
-        if (ps > pe || is > ie) {
-            return null;
-        }
-        int i;
-        for (i = 0; i < inorder.length; i++) {
-            if (inorder[i] == preorder[ps]) {
-                break;
-            }
+        if (ps > pe || is > ie) return null;
+        int i = 0;
+        for (; i < inorder.length; i++) {
+            if (inorder[i] == preorder[ps]) break;
         }
         TreeNode node = new TreeNode(inorder[i]);
         node.left = helper(preorder, ps + 1, ps + i - is, inorder, is, i - 1);
