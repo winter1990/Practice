@@ -8,9 +8,7 @@ import java.util.Map;
  */
 public class TwoSum_II_InputArrayIsSorted {
     public int[] twoSum(int[] numbers, int target) {
-        if (numbers == null || numbers.length <= 1) {
-            return new int[2];
-        }
+        if (numbers == null || numbers.length <= 1) return new int[2];
         int[] res = new int[2];
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < numbers.length; i++) {
@@ -47,7 +45,8 @@ public class TwoSum_II_InputArrayIsSorted {
         }
         return res;
     }
-    // O(nlog) time, O(1) space
+
+    // O(nlogn) time, O(1) space
     public int[] twoSum1(int[] numbers, int target) {
         for (int i = 0; i < numbers.length - 1; i++) {
             int s = i + 1;

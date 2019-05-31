@@ -1,55 +1,57 @@
 package practice.leetcode.medium;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * [0, 1, 3, 50, 75], lower = 0 and upper = 99, return ["2", "4->49", "51->74", "76->99"]
- * two formats: single number & range
- * for single number,i-j=2
- * for range,numbers+->
- * lower&upper - i=0,i=len-1
+ * @array
+ *
+ * Given a sorted integer array nums, where the range of elements are in the inclusive range [lower, upper],
+ * return its missing ranges.
+ *
+ * Example:
+ * Input: nums = [0, 1, 3, 50, 75], lower = 0 and upper = 99,
+ * Output: ["2", "4->49", "51->74", "76->99"]
+ *
+ * problems to solve:
+ * 1. find the non-consecutive ranges
+ * 2. two format of outputs: single number or a->b
+ * 3. bound is defined in input
+ *
+ * format of input - provide range [a,b], a == b single digit, otherwise a->b
+ * start with lower bound, for each n in nums:
+ *   s < n [lo,n) lo = n+1
+ *   s = n continue lo++
+ *   s > n impossible
  */
 public class MissingRanges {
-    public List<String> findMissingRanges(int[] nums, int lower, int upper) {
-        List<String> res = new LinkedList<>();
+    public List<String> findMissingRanges(int[] nums, int lo, int hi) {
+        List<String> res = new ArrayList<>();
         if (nums == null || nums.length == 0) {
-            addToResult(lower - 1, upper + 1, res);
+            addRange(lo, hi, res);
             return res;
         }
-        int l;
-        int r;
-        for (int i = 0; i <= nums.length; i++) {
-            if (i == 0) {
-                l = lower;
-            } else {
-                if (nums[i - 1] == Integer.MAX_VALUE) {
-                    continue;
-                }
-                l = nums[i - 1] + 1;
+        int s = lo;
+        for (int n : nums) {
+            if (n == Integer.MIN_VALUE) {
+                s = n + 1;
+                continue;
             }
-
-            if (i == nums.length) {
-                r = upper;
-            } else {
-                if (nums[i] == Integer.MIN_VALUE) {
-                    continue;
-                }
-                r = nums[i] - 1;
+            if (s == n) {
+                s++;
+                continue;
             }
-            addToResult(l, r, res);
+            addRange(s, n - 1, res);
+            if (n == Integer.MAX_VALUE) return res;
+            s = n + 1;
         }
+        addRange(s, hi, res);
         return res;
     }
 
-    private void addToResult(int i, int j, List<String> res) {
-        if (i > j) {
-            return;
-        } else if (i == j) {
-            res.add(i + "");
-        } else {
-            res.add(i + "->" + j);
-        }
+    private void addRange(int a, int b, List<String> res) {
+        if (a > b) return;
+        res.add(a == b ? "" + a : a + "->" + b);
     }
 
     public static void main(String[] args) {

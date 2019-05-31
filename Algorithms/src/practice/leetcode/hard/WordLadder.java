@@ -19,6 +19,11 @@ import java.util.*;
  * As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
  * return its length 5.
  *
+ * problems to solve:
+ * 1. find the shortest transformation: BFS
+ * 2. transformation method
+ * 3. one letter at a time
+ *
  * find the next step first:
  * start with begin word, for each character, replace it with other chars in [a,z] (skip the original char)
  * and see whether it exists in the dictionary

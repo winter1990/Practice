@@ -6,15 +6,21 @@ package practice.leetcode.medium;
  *
  * Given an array nums of n integers where n > 1,  return an array output such that output[i] is equal to the
  * product of all the elements of nums except nums[i].
- *
  * Note: Please solve it without division and in O(n).
  * Follow up:
  * Could you solve it with constant space complexity?
  * (The output array does not count as extra space for the purpose of space complexity analysis.)
  *
- * define result array, res[i] represents the product value without the nums[i] element
- * for i = [1, n-1], res[i] = res[i-1]*nums[i-1]
- * for i = [
+ * method 1 - with extra space
+ * define two dp array
+ *   product of the elements from left to right
+ *   product of the elements from right to left
+ * res[i] = ltr[i] * rtl[i]
+ * O(3N), O(2N)
+ *
+ * optimization
+ * only define result array, and use the result to keep track of the product from left to right
+ * use one single variable to track the product from right to left
  */
 public class ProductOfArrayExceptSelf {
     public int[] productExceptSelf(int[] nums) {

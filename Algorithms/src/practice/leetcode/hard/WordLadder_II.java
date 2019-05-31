@@ -8,8 +8,29 @@ import java.util.*;
  * sequence(s) from beginWord to endWord
  *
  * problems to solve:
- * 1. bfs all the words that in the word list that can be transformed
- * 2.
+ * 1. start -> end
+ * 2. must be shortest path, or multiple paths
+ * 3. change one char at a time
+ * 4. each transformation should be in the wprd list
+ *
+ * given list of words, to improve look up time, put all words in set
+ * build up the relationship between each word -> next potential steps/words
+ *   there might be multiple words in next step - map string->list of words, all words must be in the dictionary
+ *   need a method to provide all potential word list, given a word and dictionary
+ *     for each char in the word, change it to [a,z] and check if exists in the dict (skip original word)
+ *     return a list of words
+ *   two set of words
+ *     begin set and end set
+ *     bi-directional search -> compare the size of two set and start with the smaller one
+ *   use a set to store visited words
+ *   for each word in the start set
+ *     mark as visited
+ *     get the list of words for next level
+ *     for each in next level list
+ *       if not visited
+ *       add to the set as next level
+ *       add to the map
+ *     start = next level set
  */
 public class WordLadder_II {
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
@@ -85,7 +106,8 @@ public class WordLadder_II {
 
     public static void main(String[] args) {
         WordLadder_II w = new WordLadder_II();
-        List<String> in = new ArrayList<>(Arrays.asList("hot","dot","dog","lot","log","cog"));
-        System.out.println(w.findLadders("hit", "cog", in));
+//        List<String> in = new ArrayList<>(Arrays.asList("hot","dot","dog","lot","log","cog"));
+        List<String> in = new ArrayList<>(Arrays.asList("hgt","hot","dot","dog","lot","log","cog","cot"));
+        System.out.println(w.findLadders("hit", "cot", in));
     }
 }
