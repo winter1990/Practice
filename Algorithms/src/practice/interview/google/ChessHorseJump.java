@@ -26,24 +26,16 @@ import java.util.Set;
  */
 public class ChessHorseJump {
     int[][] dirs1 = {{1, 2}, {-1, 2}, {-1, -2}, {1, -2}, {2, 1}, {-2, -1}, {-2, 1}, {2, -1}};
-    int[][] dirs2 = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
-    int MAX_LEVEL;
-    public boolean canReach(int[] target, int[][] stones) {
-        return false;
-    }
-
     public boolean canBeat(int[] target, int[][] stones) {
         int x = target[0], y = target[1];
         Set<String> obstacles = new HashSet<>();
         for (int[] s : stones) obstacles.add(s[0] + " " + s[1]);
         String end = x + " " + y;
-        MAX_LEVEL = 3 * (x + y);
         int level = 0;
         Queue<int[]> q = new LinkedList<>();
         q.offer(new int[]{0, 0});
         while (!q.isEmpty()) {
             ++level;
-            if (level > MAX_LEVEL) return false;
             int size = q.size();
             while (size-- > 0) {
                 int[] cur = q.poll();

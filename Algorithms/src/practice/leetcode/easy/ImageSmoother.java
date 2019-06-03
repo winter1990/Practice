@@ -22,18 +22,18 @@ package practice.leetcode.easy;
  */
 public class ImageSmoother {
     public int[][] imageSmoother(int[][] M) {
-        int row = M.length;
-        int col = M[0].length;
-        int[][] res = new int[row][col];
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
+        int m = M.length;
+        int n = M[0].length;
+        int[][] res = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 int count = 0;
                 int sum = 0;
-                for (int m = i - 1; m <= i + 1; m++) {
-                    for (int n = j - 1; n <= j + 1; n++) {
-                        if (m >= 0 && m < row && n >= 0 && n < col) {
+                for (int x = i - 1; x <= i + 1; x++) {
+                    for (int y = j - 1; y <= j + 1; y++) {
+                        if (x >= 0 && x < m && y >= 0 && y < n) {
                             count++;
-                            sum += M[m][n];
+                            sum += M[x][y];
                         }
                     }
                 }

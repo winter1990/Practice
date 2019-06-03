@@ -3,24 +3,31 @@ package practice.leetcode.easy;
 /**
  * @array
  * @slidingwindow
- * @max
+ *
+ * Given an array consisting of n integers, find the contiguous subarray of given length k that has the maximum
+ * average value. And you need to output the maximum average value.
+ *
+ * translation:
+ * get the maximum sum of k contiguous elements in array
+ * because if sum is maximized, the sum/k must be maximized, for both positive and negative value
+ *
+ * get the first k elements sum, as the maximum
+ * for i = [k, n-1]
+ *   sum -= a[i-k]
+ *   sum += a[i]
+ *   update max value
+ * return max/k
  */
 public class MaximumAverageSubarray_I {
     public double findMaxAverage(int[] nums, int k) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
+        if (nums == null || nums.length == 0) return 0;
         double sum = 0;
-        for (int i = 0; i < k; i++) {
-            sum += nums[i];
-        }
+        for (int i = 0; i < k; i++) sum += nums[i];
         double max = sum;
-        int i = k;
-        while (i < nums.length) {
+        for (int i = k; i < nums.length; i++) {
             sum -= nums[i - k];
             sum += nums[i];
             max = Math.max(max, sum);
-            i++;
         }
         return max / k;
     }

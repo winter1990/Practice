@@ -13,19 +13,26 @@ package practice.leetcode.medium;
  *
  * problem to solve:
  * 1. find the circle in the array
- * 2. deal with positive and negative, the loop can be either pos or neg
- * 3. when reach tail, need to move the index to head
- * 4. infinite loop [1 2 2 2] -> slow & fast runner method
+ * 2. deal with positive and negative, all numbers in the loop can only be pos OR neg
+ * 3. the cycle can start from any element in the array
  *
- * the circle can start from any point in the array
- * if start point is +/- then all the elements in the circle must be +/-
- * so for each element in arr:
- *   start = i, next = i + arr[start], check whether same by arr[i]*arr[next]
- *     if < 0 continue
- *     if > 0 while () keep moving forward until same index
- * to heal with tail <-> head
- *   i+a[i] >= 0 (i+a[i])%len
- *   i+a[i] < 0 len+((i+a[i])%len)
+ * to find the circle - slow & fast runner
+ * to make sure two pointers have the same sign a * b >= 0
+ *
+ * for i = [0, n-1]
+ *   slow = i, fast = i + a[i]
+ *     for the next step, there are three cases:
+ *       1. in the range [0 n-1]
+ *       2. < 0 (i + a[i]) % n + n
+ *       3. > len (i + a[i]) % n
+ *   check if same sign
+ *
+ *   the direction of two steps for fast pointer must both be the same as slow
+ *     slow pointer moves to nextIndex(num, slow)
+ *     fast pointer moves to nextIndex(nums, nextIndex(nums, fast))
+ *     one corner case:
+ *       [3 2 1] the loop only consists of single element
+ *       so when circle found (slow = fast), check if the circle is single element
  */
 public class CircularArrayLoop {
     public boolean circularArrayLoop(int[] nums) {
@@ -34,14 +41,10 @@ public class CircularArrayLoop {
         for (int i = 0; i < len; i++) {
             int slow = i;
             int fast = getNextIndex(nums, i);
-            if (nums[slow] * nums[fast] <= 0) {
-                continue;
-            }
+            if (nums[slow] * nums[fast] <= 0) continue;
             while (nums[slow] * nums[fast] > 0 && nums[fast] * nums[getNextIndex(nums, fast)] > 0) {
                 if (slow == fast) {
-                    if (fast == getNextIndex(nums, fast)) {
-                        break;
-                    }
+                    if (fast == getNextIndex(nums, fast)) break;
                     return true;
                 }
                 slow = getNextIndex(nums, slow);
@@ -51,9 +54,9 @@ public class CircularArrayLoop {
         return false;
     }
 
-    private int getNextIndex(int[] nums, int i) {
-        int len = nums.length;
-        return (i + nums[i]) >= 0 ? (i + nums[i]) % len : len + ((i + nums[i]) % len);
+    private int getNextIndex(int[] a, int i) {
+        int n = a.length;
+        return (i + a[i]) >= 0 ? (i + a[i]) % n : n + ((i + a[i]) % n);
     }
 
     public static void main(String[] args) {

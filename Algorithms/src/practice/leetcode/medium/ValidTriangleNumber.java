@@ -5,7 +5,9 @@ import java.util.Arrays;
 /**
  * @array
  * @math
- * @pointer
+ *
+ * Given an array consists of non-negative integers, your task is to count the number of triplets chosen from the
+ * array that can make triangles if we take them as side lengths of a triangle.
  *
  * Input: [2,2,3,4] Output: 3
  * Explanation:
@@ -15,19 +17,28 @@ import java.util.Arrays;
  * 2,2,3
  *
  * condition to make triangle:
- * for the sides a < b < c, a + b > c
+ *   for the sides a < b < c, a + b > c
+ * one element can only be used for on triangle
  *
- * to design the loop:
- * i=[0,n-3] l=i+1 r=n-1, if i+l>r, then all the elements from l to r-1 are ok, r-- and reset l to i + 1
+ * compared with the 3 sum, we have 3 pointers i < j < l, and fix the i and check j & k
+ *   target = a[i] + a[j] + a[k]
+ *   if larger than target, then k--, otherwise j++
+ *
+ * the difference of this problem is:
+ *   if we fix i, a[i] + a[j] > a[k], then all the values between j = [j, k-1] are valid combinations
+ *   but if a[i] + a[j] <= a[k], there are two options move j to right and move k to left
+ *   if we do not know which pointer to move, we can only use brute force method which is O(N^3)
+ *
+ * instead, we fix a[k]:
+ *   if a[i] + a[j] <= a[k], we can only move i to right
+ *   if a[i] + a[j] > a[k], then all the elements between [i, j-1] are valid
  */
 public class ValidTriangleNumber {
     public int triangleNumber(int[] nums) {
         Arrays.sort(nums);
-        int count = 0;
-        int n = nums.length;
+        int n = nums.length, count = 0;
         for (int i = n - 1; i > 1; i--) {
-            int l = 0;
-            int r = i - 1;
+            int l = 0, r = i - 1;
             while (l < r) {
                 if (nums[l] + nums[r] > nums[i]) {
                     count += r - l;
@@ -39,9 +50,22 @@ public class ValidTriangleNumber {
         }
         return count;
     }
-    /* biggest problem of the solution is if i + l < r
-     * how we should move the pointer, we can move both left and right
-    public int triangleNumber(int[] nums) {
+
+    /**
+     * because of the condition of a + b > c, we need to sort the array first
+     * find the triplets
+     *   i = [0, n-3]
+     *   j = i + 1
+     *   k = n - 1
+     *   if i + j > k, then all the elements from j to k-1 meet the condition
+     *   r-- and reset l to i + 1
+     *
+     * wrong solution:
+     * biggest problem of the solution is if i + l < r
+     * we can move both left and right pointers
+     * [3 22 19 24 35 82 84]
+     */
+    public int triangleNumber1(int[] nums) {
         Arrays.sort(nums);
         int count = 0;
         int n = nums.length;
@@ -60,11 +84,10 @@ public class ValidTriangleNumber {
         }
         return count;
     }
-    */
 
     public static void main(String[] args) {
         ValidTriangleNumber v = new ValidTriangleNumber();
         int[] in = {24,3,82,22,35,84,19};
-        System.out.println(v.triangleNumber(in));
+        System.out.println(v.triangleNumber1(in));
     }
 }

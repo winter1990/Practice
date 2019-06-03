@@ -9,11 +9,23 @@ import java.util.Map;
  * Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose
  * sum equals to k.
  *
+ * our target is to total number of subarrays
+ *
+ * brute force
+ * i = [0 n-2]
+ *   j = [i+1 n-1]
+ *     get sum and check if equals to k
+ *
+ * optimization
+ * we are calculate the sum of sub array multiple times
+ * if we calculate the pre sum
  * [1 3 2 -1 4 -2 6] target = 4, [1 3] [3 2 -1] [4] [-2 6]
- *  1 4 6  5 9 7 13
- * 1. sum up previous elements
- * 2. use a map to track sum, and frequency
- * 3. for new element lookup target-currentsum in map
+ *  1 4 6  5 9  7 13
+ * we are looking for the number of pairs of (i,j) where i < j
+ *   so that sum[j]-sum[i]=target
+ *   sum[j]-target=sum[i]
+ * keep track of sum[i] when traversing the array, and count the pre sum
+ * find if map has (sum - target), res += value, add sum to map
  */
 public class SubarraySumEqualsK {
     public int subarraySum(int[] nums, int k) {

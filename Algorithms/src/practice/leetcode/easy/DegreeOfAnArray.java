@@ -11,14 +11,24 @@ import java.util.Map;
  * Your task is to find the smallest possible length of a (contiguous) subarray of nums,
  * that has the same degree as nums.
  *
- * potentially, there might be multiple elements that have the same largest frequency, and we need to get the smallest window
- * need a map to track the leftmost index of all the elements in array
- * need a map to track the occurrence of the numbers
- * current degree - max occurrences
- * result -> minimum length
- * i = [0,n-1] if new element (not exists) in leftmost map, put value-index
- * if counter >= degree, update result
- * else update occurrence value
+ * problems to solve:
+ * 1. find the maximum frequency number(s) in the array
+ * 2. find the minimum window that contains at least on maximum frequency number
+ *
+ * method 1
+ * use a map to track the leftmost index of all elements
+ * use a map to track the rightmost index of all elements
+ * use a map to track the occurrence of the numbers and get the max frequency
+ * for each number
+ *   if it has the maximum frequency, get from left and right map to calculate length
+ *
+ * method 2
+ * update the maximum and rightmost element at the same time
+ * use a map to track the leftmost element and index
+ * keep track of the occurrence for each number
+ * keep track of the max frequency
+ * if larger update freq and max
+ * if same, compare and get smaller
  */
 
 public class DegreeOfAnArray {
@@ -42,21 +52,15 @@ public class DegreeOfAnArray {
         Map<Integer, Integer> l = new HashMap<>();
         Map<Integer, Integer> r = new HashMap<>();
         Map<Integer, Integer> count = new HashMap<>();
-
         for (int i = 0; i < nums.length; i++) {
-            if (l.get(nums[i]) == null) {
-                l.put(nums[i], i);
-            }
+            if (!l.containsKey(nums[i])) l.put(nums[i], i);
             r.put(nums[i], i);
             count.put(nums[i], count.getOrDefault(nums[i], 0) + 1);
         }
-
         int res = Integer.MAX_VALUE;
         int max = Collections.max(count.values());
-        for (int i : count.keySet()) {
-            if (count.get(i) == max) {
-                res = Math.min(res, r.get(i) - l.get(i) + 1);
-            }
+        for (int n : count.keySet()) {
+            if (count.get(n) == max) res = Math.min(res, r.get(n) - l.get(n) + 1);
         }
         return res;
     }

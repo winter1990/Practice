@@ -8,14 +8,25 @@ package practice.leetcode.medium;
  * Input: prices = [1, 3, 2, 8, 4, 9], fee = 2, Output: 8
  * [1, 8] and [4, 9] -> 7-2 + 5-2 = 8
  *
- * for each day, two actions can be take:
- *   buy
- *   sell
- * buy[i] represents max profit if we can buy at day i, it depends on previous sell status
- * sell[i] represents max profit if we can sell at day i, it depends on previous buy status
- * initial status:
- *   buy at index 0, buy[0] = -price[0]
+ * at each day, we can perform two operations:
+ *   1. buy
+ *   2. sell
+ * if we want to buy at day i, we need to sell by i
+ * if we want to sell at day i, we have to buy before i
+ * the status of each depends on the other
+ * use two array to store the maximum profit to make at day i
+ * buy[i] represents the max money to get if we are in buy status
+ *   bought already
+ *   buy at day i
+ * sell[i] represents the max money to get if we are in sell status
+ *   sell at day i
+ *   sold already
  *
+ * initial status
+ *   buy[0] = -price[0]
+ * transition function
+ *   sell[i] = max(sell[i - 1], buy[i - 1] + price[i] - fee)
+ *   buy[i] = max(buy[i - 1], sell[i - 1] - prices[i])
  */
 public class BestTimeToBuyAndSellStockWithTransactionFee {
     public int maxProfit(int[] prices, int fee) {

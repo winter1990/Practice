@@ -11,28 +11,33 @@ import java.util.Arrays;
  * For each interval, CPU could finish one task or just be idle.
  * return the least number of intervals the CPU will take to finish all the given tasks
  *
- * method 1
- * greedy thinking, the highest frequency number determines how many interval there are in the result
- * start highest freq number(s)then insert less freq in the empty slots or the tail
- * AAAABBBEEFFGG 3
- * A...A...A...A
- * AB..AB..AB..A
- * ABE.ABE.AB..A
- * ABEFABE.ABF.A start with third AB
- * ABEFABEGABFGA
+ * AAABBB, 2 -> AB.AB.AB    the dot means idle status
+ * AAABBC, 2 -> ABCAB.A
+ * AAABBCD, 2 -> ABCABDA
+ * AAABBBCCDD, 2 -> ABCDABCABD
  *
+ * two scenarios:
+ *   1. result has idle status
+ *   2. result not has idle status
+ * X...X...X...X...X..
+ *  |n| |n|...      |other... [0,n-1]
+ *
+ * to determine whether there is any idle status in the result
+ *   depends on the task with highest frequency
+ *   if there is at least 0 idles, size of the frame is (#ofHighestFreqElements-1)*(N+1)+#ofHighestFreqElements
+ *   if there is no idle status, size of the frame is number of total tasks
+ * get the frequency for each task
+ *   count the number of tasks with highest frequency
+ *   use array to count
+ *   sort and get the last elements with same value
  */
 public class TaskScheduler {
     public int leastInterval(char[] tasks, int n) {
         int[] count = new int[26];
-        for (char task : tasks) {
-            count[task - 'A']++;
-        }
+        for (char task : tasks) count[task - 'A']++;
         Arrays.sort(count);
         int i = 25;
-        while (i >= 0 && count[i] == count[25]) {
-            i--;
-        }
+        while (i >= 0 && count[i] == count[25]) i--;
         return Math.max(tasks.length, (count[25] - 1) * (n + 1) + 25 - i);
     }
 
@@ -42,12 +47,11 @@ public class TaskScheduler {
      * start from the highest frequency element
      * [A..A..A], after arranging all the As, we consider B using the same method
      * [AB.AB.A]
-     * [ABCAB_A]
+     * [ABCAB.A]
      *
      * 3A3B3C3D, n = 2
      * ABCDABCDABCD
      * using greedy thinking to arrange the highest freq first, then second...
-     * now we need to count the total number of idle slots
      */
     public int leastInterval1(char[] tasks, int n) {
         int[] count = new int[26];

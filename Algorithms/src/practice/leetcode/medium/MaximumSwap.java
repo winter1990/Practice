@@ -4,53 +4,35 @@ package practice.leetcode.medium;
  * @array
  * @math
  *
+ * Given a non-negative integer, you could swap two digits at most once to get the maximum valued number.
+ * Return the maximum valued number you could get.
+ *
+ * problems to solve:
+ * 1. to get the maximum, largest number at head, second largest at second place...
+ * 2. if duplicates maximum digits can be chosen, choose the right most one
+ *
  * 2736 -> 7236
  * 9973 -> 9973
  * 9793 -> 9973
- * convert to string
- * check if it is sorted in descending order
- * find largest digit:
- *   if the largest is not at most significant digit, swap with first
- *   if the largest is at leftmost digit:
- *     second largest, another string in descending order
- *
+ * number -> string -> char array
+ * find largest digit
+ *   from right to left
+ *   if same with the number at 0, continue to next digit
+ *   use an array to track the RIGHTMOST index for each digit
+ *   for each digit in number from left to right, search the index array from right to left
+ *     stop searching if index[right] > left
  */
 public class MaximumSwap {
     public int maximumSwap(int num) {
         char[] cs = (num + "").toCharArray();
-        maxSwap(cs, 0);
-        return Integer.valueOf(new String(cs));
-    }
-
-    private void maxSwap(char[] cs, int start) {
-        if (start == cs.length) return;
-        int maxIndex = start;
-        for (int i = start + 1; i < cs.length; i++) {
-            if (cs[i] > cs[start] && cs[i] >= cs[maxIndex]) maxIndex = i;
-        }
-        if (maxIndex != start) {
-            char tmp = cs[start];
-            cs[start] = cs[maxIndex];
-            cs[maxIndex] = tmp;
-            return;
-        }
-        maxSwap(cs, start + 1);
-    }
-
-    /**
-     * optimization:
-     * track the index of each digit - for the same digit,
-     */
-    public int maximumSwap1(int num) {
-        char[] cs = (num + "").toCharArray();
-        int[] idx = new int[10];
-        for (int i = 0; i < cs.length; i++) idx[cs[i] - '0'] = i;
+        int[] index = new int[10];
+        for (int i = 0; i < cs.length; i++) index[cs[i] - '0'] = i;
         for (int i = 0; i < cs.length; i++) {
             for (int j = 9; j > cs[i] - '0'; j--) {
-                if (idx[j] > i) {
+                if (index[j] > i) {
                     char tmp = cs[i];
-                    cs[i] = cs[idx[j]];
-                    cs[idx[j]] = tmp;
+                    cs[i] = cs[index[j]];
+                    cs[index[j]] = tmp;
                     return Integer.valueOf(new String(cs));
                 }
             }
