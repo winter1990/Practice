@@ -30,18 +30,17 @@ import java.util.Arrays;
  */
 public class MissingNumber {
     public int missingNumber(int[] nums) {
-        int n = nums.length, total = 0;
-        for (int i = 0; i < n; i++) total += nums[i];
-        return (1 + n) * n / 2 - total;
+        int total = 0;
+        for (int n : nums) total += n;
+        return (1 + nums.length) * nums.length / 2 - total;
     }
 
     public int missingNumber1(int[] a) {
         Arrays.sort(a);
-        int i = 0;
-        while (i < a.length) {
-            if (a[i] != i) break;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] != i) return i;
         }
-        return i;
+        return a.length;
     }
 
     public int missingNumber2(int[] a) {

@@ -12,6 +12,19 @@ package practice.leetcode.easy;
  * 4. for the rest part, add each substring in k
  */
 public class LicenseKeyFormatting {
+    public String licenseKeyFormatting1(String S, int K) {
+        String s = S.replaceAll("-", "");
+        s = s.toUpperCase();
+        if (s.length() == 0 || K >= s.length()) return s;
+        StringBuilder sb = new StringBuilder();
+        int i = s.length() % K;
+        if (i != 0) sb.append(s.substring(0, i)).append("-");
+        for (; i < s.length(); i += K) {
+            sb.append(s.substring(i, i + K)).append("-");
+        }
+        return sb.substring(0, sb.length() - 1);
+    }
+
     public String licenseKeyFormatting(String S, int K) {
         S = S.replaceAll("-", "");
         S = S.toUpperCase();

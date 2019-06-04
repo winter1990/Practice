@@ -33,25 +33,23 @@ import java.util.Arrays;
  */
 public class ShortestUnsortedContinuousSubarray {
     public int findUnsortedSubarray1(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
-        int n = nums.length, start = 0, end = -1, max = nums[0], min = nums[n - 1];
-        for (int i = 1; i < n; i++) {
+        int n = nums.length, r = -1, l = 0, max = nums[0], min = nums[n - 1];
+        for (int i = 0; i < n; i++) {
             max = Math.max(max, nums[i]);
-            if (nums[i] < max) end = i;
-            min = Math.min(min, nums[n - i - 1]);
-            if (nums[n - 1 - i] > min) start = n - 1 - i;
+            min = Math.min(min, nums[n - 1 - i]);
+            if (nums[i] < max) r = i;
+            if (nums[n - 1 - i] > min) l = n - 1 - i;
         }
-        return end - start + 1;
+        return r - l + 1;
     }
 
     public int findUnsortedSubarray(int[] nums) {
-        if (nums == null || nums.length <= 1) return 0;
         int[] copy = nums.clone();
         Arrays.sort(copy);
-        int left = 0, right = nums.length - 1;
-        while (left <= right && nums[left] == copy[left]) left++;
-        while (left <= right && nums[right] == copy[right]) right--;
-        return right - left + 1;
+        int l = 0, r = nums.length - 1;
+        while (l <= r && nums[l] == copy[l]) l++;
+        while (l <= r && nums[r] == copy[r]) r--;
+        return r - l + 1;
     }
 
     public static void main(String[] args) {

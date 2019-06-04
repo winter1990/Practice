@@ -46,18 +46,15 @@ import java.util.Map;
 public class MajorityElement {
     public int majorityElement(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (!map.containsKey(nums[i])) {
-                map.put(nums[i], 1);
-            } else {
-                int freq = map.get(nums[i]);
-                map.put(nums[i], freq + 1);
-            }
-            if (map.get(nums[i]) > nums.length / 2) {
-                return nums[i];
+        int res = 0;
+        for (int n : nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+            if (map.get(n) > nums.length / 2) {
+                res = n;
+                break;
             }
         }
-        return Integer.MIN_VALUE;
+        return res;
     }
 
     public int majorityElement2(int[] nums) {
@@ -66,16 +63,18 @@ public class MajorityElement {
     }
 
     public int majorityElement1(int[] nums) {
-        int count = 0, major = 0;
+        int c = 0, candidate = 0;
         for (int n : nums) {
-            if (count == 0) major = n;
-            if (n == major) {
-                count++;
+            if (c == 0) {
+                candidate = n;
+                c = 1;
+            } else if (n == candidate) {
+                c++;
             } else {
-                count--;
+                c--;
             }
         }
-        return major;
+        return candidate;
     }
 
 }

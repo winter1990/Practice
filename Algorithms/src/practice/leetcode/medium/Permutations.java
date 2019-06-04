@@ -1,6 +1,6 @@
 package practice.leetcode.medium;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,45 +16,43 @@ import java.util.List;
  */
 public class Permutations {
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> res = new LinkedList<>();
-        if (nums == null || nums.length == 0) {
-            return res;
-        }
-        List<Integer> init = new LinkedList<>();
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums.length == 0) return res;
+        List<Integer> init = new ArrayList<>();
         init.add(nums[0]);
         res.add(init);
         for (int i = 1; i < nums.length; i++) {
-            int val = res.size();
-            for (int j = 0; j < val; j++) {
-                List<Integer> list = res.get(0);
-                for (int k = 0; k <= list.size(); k++) {
-                    list.add(k, nums[i]);
-                    res.add(new LinkedList<>(list));
-                    list.remove(k);
+            int size = res.size();
+            List<List<Integer>> tmp = new ArrayList<>();
+            for (int j = 0; j < size; j++) {
+                List<Integer> list = res.get(j);
+                for (int pos = 0; pos <= list.size(); pos++) {
+                    list.add(pos, nums[i]);
+                    tmp.add(new ArrayList<>(list));
+                    list.remove(pos);
                 }
-                res.remove(0);
             }
+            res = tmp;
         }
         return res;
     }
 
     public List<List<Integer>> permute1(int[] nums) {
-        List<List<Integer>> res = new LinkedList<>();
-        if (nums == null || nums.length == 0) {
-            return res;
-        }
-        helper(nums, new LinkedList<>(), res);
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums.length == 0) return res;
+        permutation(nums, new ArrayList<>(), res);
         return res;
     }
 
-    private void helper(int[] nums, LinkedList<Integer> list, List<List<Integer>> res) {
-        if (list.size() == nums.length) {
-            res.add(new LinkedList<>(list));
+    private void permutation(int[] a, List<Integer> list, List<List<Integer>> res) {
+        if (list.size() == a.length) {
+            res.add(new ArrayList<>(list));
+            return;
         }
-        for (int i = 0; i < nums.length; i++) {
-            if (list.contains(nums[i])) continue;
-            list.add(nums[i]);
-            helper(nums, list, res);
+        for (int i = 0; i < a.length; i++) {
+            if (list.contains(a[i])) continue;
+            list.add(a[i]);
+            permutation(a, list, res);
             list.remove(list.size() - 1);
         }
     }

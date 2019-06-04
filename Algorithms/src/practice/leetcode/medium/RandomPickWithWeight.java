@@ -1,6 +1,7 @@
 package practice.leetcode.medium;
 
 import java.util.Random;
+import java.util.TreeMap;
 
 /**
  * @binarysearch
@@ -25,31 +26,72 @@ import java.util.Random;
  */
 public class RandomPickWithWeight {
     class Solution {
-        int[] wsum;
-        Random rand;
+        int[] preSum;
+        Random random;
         public Solution(int[] w) {
-            rand = new Random();
-            wsum = w;
-            for (int i = 1; i < wsum.length; i++) wsum[i] += wsum[i - 1];
+            preSum = w;
+            for (int i = 1; i < w.length; i++) preSum[i] += preSum[i - 1];
+            random = new Random();
         }
 
         public int pickIndex() {
-            int n = wsum.length;
-            int index = rand.nextInt(wsum[n - 1]) + 1;
-            int l = 0, r = n - 1;
-            while (l < r) {
-                int mid = (l + r) / 2;
-                if (wsum[mid] == index) {
+            int rand = random.nextInt(preSum[preSum.length - 1]) + 1; // [1, total]
+            int s = 0, e = preSum.length - 1;
+            while (s < e) {
+                int mid = s + (e - s) / 2;
+                if (preSum[mid] == rand) {
                     return mid;
-                } else if (wsum[mid] < index) {
-                    l = mid + 1;
+                } else if (preSum[mid] > rand) {
+                    e = mid;
                 } else {
-                    r = mid;
+                    s = mid + 1;
                 }
             }
-            return l;
+            return s;
         }
     }
 
+    // intuitive solution
+    // not efficient enough with linear search
+    class Solution1 {
+        int[] w;
+        int total = 0;
+        Random random;
+        public Solution1(int[] w) {
+            this.w = w;
+            for (int i : w) total += i;
+            random = new Random();
+        }
+
+        public int pickIndex() {
+            int r = random.nextInt(total) + 1; // [1, total]
+            int i = 0;
+            while (r > w[i]) {
+                r -= w[i++];
+            }
+            return i;
+        }
+    }
+
+    class Solution2 {
+        TreeMap<Integer, Integer> map;
+        Random random;
+        int sum;
+        public Solution2(int[] w) {
+            map = new TreeMap<>();
+            sum = 0;
+            for (int i = 0; i < w.length; i++) {
+                sum += w[i];
+                map.put(sum, i);
+            }
+            random = new Random();
+        }
+
+        public int pickIndex() {
+            int rand = random.nextInt(sum) + 1;
+            Integer key = map.ceilingKey(rand);
+            return map.get(key);
+        }
+    }
 }
 

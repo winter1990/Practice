@@ -49,43 +49,37 @@ public class EvaluateDivision {
         return 0;
     }
 
-    public double[] calcEquation1(String[][] equations, double[] values, String[][] queries) {
-        HashMap<String, List<String>> pairs = new HashMap<>();
-        HashMap<String, List<Double>> valuesPair = new HashMap<>();
-        for (int i = 0; i < equations.length; i++) {
-            String[] equation = equations[i];
-            if (!pairs.containsKey(equation[0])) {
-                pairs.put(equation[0], new ArrayList<>());
-                valuesPair.put(equation[0], new ArrayList<>());
-            }
-            if (!pairs.containsKey(equation[1])) {
-                pairs.put(equation[1], new ArrayList<>());
-                valuesPair.put(equation[1], new ArrayList<>());
-            }
-            pairs.get(equation[0]).add(equation[1]);
-            pairs.get(equation[1]).add(equation[0]);
-            valuesPair.get(equation[0]).add(values[i]);
-            valuesPair.get(equation[1]).add(1 / values[i]);
+    // input param changed to list
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        if (equations.size() == 0) return new double[]{};
+        Map<String, Map<String, Double>> map = new HashMap<>();
+        for (int i = 0; i < equations.size(); i++) {
+            String from = equations.get(i).get(0);
+            String to = equations.get(i).get(1);
+            map.putIfAbsent(from, new HashMap<>());
+            map.get(from).put(to, values[i]);
+            map.putIfAbsent(to, new HashMap<>());
+            map.get(to).put(from, 1 / values[i]);
         }
-
-        double[] result = new double[queries.length];
-        for (int i = 0; i < queries.length; i++) {
-            double val = dfs(queries[i][0], queries[i][1], pairs, valuesPair, new HashSet<>());
-            result[i] = val == 0 ? -1 : val;
+        double[] res = new double[queries.size()];
+        for (int i = 0; i < queries.size(); i++) {
+            String from = queries.get(i).get(0);
+            String to = queries.get(i).get(1);
+            double val = findPath(map, from, to, new HashSet<>());
+            res[i] = val == 0 ? -1 : val;
         }
-        return result;
+        return res;
     }
-    private double dfs(String s, String e, Map<String, List<String>> pairs, Map<String, List<Double>> values, HashSet<String> visited) {
-        if (visited.contains(s)) return 0;
-        if (!pairs.containsKey(s)) return 0;
-        if (s.equals(e)) return 1;
 
-        visited.add(s);
-        for (int i = 0; i < pairs.get(s).size(); i++) {
-            String next = pairs.get(s).get(i);
-            if (visited.contains(next)) continue;
-            double v = dfs(next, e, pairs, values, visited);
-            if (v != 0) return v * values.get(s).get(i);
+    private double findPath(Map<String, Map<String, Double>> map, String from, String to, Set<String> visited) {
+        if (!map.containsKey(from) || !map.containsKey(to)) return 0;
+        if (from.equals(to)) return 1;
+        visited.add(from);
+        for (String next : map.get(from).keySet()) {
+            if (!visited.contains(next)) {
+                double val = findPath(map, next, to, visited);
+                if (val != 0) return val * map.get(from).get(next);
+            }
         }
         return 0;
     }

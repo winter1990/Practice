@@ -18,14 +18,10 @@ package practice.leetcode.easy;
  */
 public class RemoveDuplicatesFromSortedArray {
     public int removeDuplicates(int[] nums) {
-        if (nums == null) return 0;
-        if (nums.length < 2) return nums.length;
-        int i = 0, j = 1;
-        while (j < nums.length) {
-            if (nums[i] != nums[j]) {
-                nums[++i] = nums[j];
-            }
-            j++;
+        if (nums.length < 1) return nums.length;
+        int i = 0;
+        for (int j = 1; j < nums.length; j++) {
+            if (nums[i] != nums[j]) nums[++i] = nums[j];
         }
         return i + 1;
     }

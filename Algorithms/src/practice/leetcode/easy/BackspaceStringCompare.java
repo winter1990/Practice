@@ -27,26 +27,26 @@ import java.util.Stack;
 public class BackspaceStringCompare {
     public boolean backspaceCompare2(String S, String T) {
         int c1 = 0, c2 = 0;
-        for (int p1 = S.length() -1, p2 = T.length() - 1; p1 >= 0 || p2 >= 0; p1--, p2--) {
-            while (p1 >= 0 && (c1 != 0 || S.charAt(p1) == '#')) {
-                if (S.charAt(p1) == '#') {
+        for (int i1 = S.length() - 1, i2 = T.length() - 1; i1 >= 0 || i2 >= 0; i1--, i2--) {
+            while (i1 >= 0 && (c1 > 0 || S.charAt(i1) == '#')) {
+                if (S.charAt(i1) == '#') {
                     c1++;
                 } else {
                     c1--;
                 }
-                p1--;
+                i1--;
             }
-            while (p2 >= 0 && (c2 != 0 || T.charAt(p2) == '#')) {
-                if (T.charAt(p2) == '#') {
+            while (i2 >= 0 && (c2 > 0 || T.charAt(i2) == '#')) {
+                if (T.charAt(i2) == '#') {
                     c2++;
                 } else {
                     c2--;
                 }
-                p2--;
+                i2--;
             }
-            if (p1 < 0 && p2 < 0) return true;
-            if (p1 < 0 || p2 < 0) return false;
-            if (S.charAt(p1) != T.charAt(p2)) return false;
+            if (i1 < 0 && i2 < 0) return true;
+            if (i1 < 0 || i2 < 0) return false;
+            if (S.charAt(i1) != T.charAt(i2)) return false;
         }
         return true;
     }
@@ -83,7 +83,6 @@ public class BackspaceStringCompare {
         return s;
     }
 
-
     /**
      * @stack
      * use two stacks and if # then check if stack is empty and pop()
@@ -92,37 +91,22 @@ public class BackspaceStringCompare {
      * time O(m+n), space O(m+n)
      */
     public boolean backspaceCompare1(String S, String T) {
-        Stack<Character> stack1 = new Stack<>();
-        Stack<Character> stack2 = new Stack<>();
-        for (char c : S.toCharArray()) {
-            if (c != '#') {
-                stack1.push(c);
+        S = trim(S);
+        T = trim(T);
+        return S.equals(T);
+    }
+
+    private String trim(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isLetter(s.charAt(i))) {
+                stack.push(s.charAt(i));
             } else {
-                if (!stack1.isEmpty()) {
-                    stack1.pop();
-                }
+                if (!stack.isEmpty()) stack.pop();
             }
         }
-        for (char c : T.toCharArray()) {
-            if (c != '#') {
-                stack2.push(c);
-            } else {
-                if (!stack2.isEmpty()) {
-                    stack2.pop();
-                }
-            }
-        }
-        if (stack1.size() != stack2.size()) {
-            return false;
-        }
-        StringBuilder sb1 = new StringBuilder();
-        StringBuilder sb2 = new StringBuilder();
-        while (!stack1.isEmpty()) {
-            sb1.append(stack1.pop());
-        }
-        while (!stack2.isEmpty()) {
-            sb2.append(stack2.pop());
-        }
-        return sb1.toString().equals(sb2.toString());
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) sb.insert(0, stack.pop());
+        return sb.toString();
     }
 }

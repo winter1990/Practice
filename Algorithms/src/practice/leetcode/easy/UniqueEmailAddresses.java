@@ -32,4 +32,21 @@ public class UniqueEmailAddresses {
         }
         return set.size();
     }
+
+    public int numUniqueEmails1(String[] emails) {
+        Set<String> set = new HashSet<>();
+        for (String email : emails) {
+            String[] st = email.split("\\@");
+            String[] local = st[0].split("\\+");
+            local[0] = local[0].replaceAll("\\.", "");
+            set.add(local[0] + "@" + st[1]);
+        }
+        return set.size();
+    }
+
+    public static void main(String[] args) {
+        String[] s = {"test.em.ail@leetcode.com","testem.a.i.l@leetcode.com","testemail+david@lee.tcode.com"};
+        UniqueEmailAddresses u = new UniqueEmailAddresses();
+        System.out.println(u.numUniqueEmails(s));
+    }
 }

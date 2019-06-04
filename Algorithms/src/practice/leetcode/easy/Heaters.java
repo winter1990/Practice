@@ -30,10 +30,10 @@ public class Heaters {
     public int findRadius(int[] houses, int[] heaters) {
         Arrays.sort(houses);
         Arrays.sort(heaters);
-        int index = 0, res = 0;
-        for (int house : houses) {
-            while (index < heaters.length - 1 && heaters[index + 1] - house <= house - heaters[index]) index++;
-            res = Math.max(res, Math.abs(heaters[index] - house));
+        int res = 0, i = 0;
+        for (int h : houses) {
+            while (i < heaters.length - 1 && heaters[i] + heaters[i + 1] <= h * 2) i++;
+            res = Math.max(res, Math.abs(heaters[i] - h));
         }
         return res;
     }

@@ -6,6 +6,11 @@ import java.util.List;
 /**
  * @design
  *
+ * In an exam room, there are N seats in a single row, numbered 0, 1, 2, ..., N-1.
+ *
+ * When a student enters the room, they must sit in the seat that maximizes the distance to the closest person.
+ * If there are multiple such seats, they sit in the seat with the lowest number
+ *
  * problems to solve:
  * 1. maximizes the distance to the closest person
  * 2. if there are multiple such seats, they sit in the seat with the lowest index

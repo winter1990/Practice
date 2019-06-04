@@ -7,21 +7,15 @@ package practice.leetcode.easy;
  * start from the last element, two pointers from 0 and n - 1
  */
 public class SquaresOfASortedArray {
-    public int[] sortedSquares(int[] A) {
-        if (A == null || A.length == 0) {
-            return null;
-        }
-        int l = 0;
-        int r = A.length - 1;
-        int[] res = new int[A.length];
-        int index = A.length - 1;
-        while (l <= r) {
-            if (Math.abs(A[l]) < Math.abs(A[r])) {
-                res[index] = A[r] * A[r];
-                r--;
+    public int[] sortedSquares(int[] a) {
+        int n = a.length, i = 0, j = n - 1;
+        int[] res = new int[n];
+        int index = n - 1;
+        while (i <= j) {
+            if (Math.abs(a[i]) < Math.abs(a[j])) {
+                res[index] = a[j] * a[j--];
             } else {
-                res[index] = A[l] * A[l];
-                l++;
+                res[index] = a[i] * a[i++];
             }
             index--;
         }
