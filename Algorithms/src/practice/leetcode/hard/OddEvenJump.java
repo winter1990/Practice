@@ -30,23 +30,20 @@ import java.util.TreeMap;
  */
 public class OddEvenJump {
     public int oddEvenJumps(int[] A) {
-        int n = A.length;
-        boolean[][] dp = new boolean[n][2];
-        TreeMap<Integer, Integer> map = new TreeMap<>();
+        int n = A.length, res = 1;
+        boolean[][] dp = new boolean[n][2]; // dp[i][0] odd, dp[i][1] even
         dp[n - 1][0] = true;
         dp[n - 1][1] = true;
+        TreeMap<Integer, Integer> map = new TreeMap<>();
         map.put(A[n - 1], n - 1);
-        int count = 1;
         for (int i = n - 2; i >= 0; i--) {
             Integer nextLarger = map.ceilingKey(A[i]);
             if (nextLarger != null) dp[i][0] = dp[map.get(nextLarger)][1];
-
             Integer nextSmaller = map.floorKey(A[i]);
             if (nextSmaller != null) dp[i][1] = dp[map.get(nextSmaller)][0];
-
             map.put(A[i], i);
-            count += dp[i][0] ? 1 : 0;
+            if (dp[i][0]) res++;
         }
-        return count;
+        return res;
     }
 }

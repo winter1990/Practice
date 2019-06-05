@@ -34,33 +34,30 @@ import java.util.Set;
  */
 public class SlidingPuzzle {
     public int slidingPuzzle(int[][] board) {
-        String target = "123450";
-        String start = "";
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                start += board[i][j];
+        String s = "";
+        String e = "123450";
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 3; j++) {
+                s += board[i][j];
             }
         }
+        int[][] dirs = {{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
         Set<String> visited = new HashSet<>();
-        // all the positions 0 can be swapped to
-        // when at 0, can be swapped to 1 (right) or 3 (down)
-        int[][] dirs = new int[][]{{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
+        visited.add(s);
         Queue<String> q = new LinkedList<>();
-        q.offer(start);
-        visited.add(start);
+        q.offer(s);
         int res = 0;
         while (!q.isEmpty()) {
             int size = q.size();
-            for (int i = 0; i < size; i++) {
+            for (int k = 0; k < size; k++) {
                 String cur = q.poll();
-                if (cur.equals(target)) return res;
-                int zero = cur.indexOf('0');
-                // swap if possible
-                for (int dir : dirs[zero]) {
-                    String next = swap(cur, zero, dir);
-                    if (visited.contains(next)) continue;
-                    visited.add(next);
-                    q.offer(next);
+                if (cur.equals(e)) return res;
+                int i0 = cur.indexOf('0');
+                for (int d : dirs[i0]) {
+                    String next = swap(cur, i0, d);
+                    if (visited.add(next)) {
+                        q.offer(next);
+                    }
                 }
             }
             res++;
@@ -68,10 +65,11 @@ public class SlidingPuzzle {
         return -1;
     }
 
-    private String swap(String str, int i, int j) {
-        StringBuilder sb = new StringBuilder(str);
-        sb.setCharAt(i, str.charAt(j));
-        sb.setCharAt(j, str.charAt(i));
-        return sb.toString();
+    private String swap(String s, int i, int j) {
+        char[] cs = s.toCharArray();
+        char tmp = cs[i];
+        cs[i] = cs[j];
+        cs[j] = tmp;
+        return new String(cs);
     }
 }
