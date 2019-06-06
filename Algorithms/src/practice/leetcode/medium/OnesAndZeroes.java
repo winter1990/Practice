@@ -1,12 +1,9 @@
 package practice.leetcode.medium;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
 /**
- * m 0s and n 1s, find the maximum number of strings that you can form with given m and n
+ * @knapsack
  *
- * knapsack
+ * m 0s and n 1s, find the maximum number of strings that you can form with given m and n
  */
 public class OnesAndZeroes {
     // dfs

@@ -1,7 +1,8 @@
 package practice.leetcode.medium;
 
 /**
- * knapsack problem
+ * @knapsack
+ *
  * whether some of the elements in array can sum up to some value.
  * if we can pick some numbers from array 0-i and sum up to j, then its true
  * initial state (0,0)=true

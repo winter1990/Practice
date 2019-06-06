@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * @math
- * @reservoirsampling
+ * @reservoir
  */
 public class RandomPickIndex {
     class Solution {
