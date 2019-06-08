@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @tring
+ *
  * 69 88 1 818 => 1 8 6...9
  * 69 in pair, 0, 1, 8
  * scan through string, check symmetric char

@@ -5,6 +5,7 @@ import java.util.Stack;
 
 /**
  * @string
+ * @travellingsalesman
  *
  * Given an array A of strings, find any smallest string that contains each string in A as a substring.
  *
@@ -14,13 +15,20 @@ import java.util.Stack;
  * 3. a string may consist of other multiple strings: cat fish catfish
  *
  * https://leetcode.com/problems/find-the-shortest-superstring/discuss/194932/Travelling-Salesman-Problem
- * graph[i][j] means the length of string to append when A[i] followed by A[j]. eg. A[i] = abcd, A[j] = bcde,
- * then graph[i][j] = 1
+ * graph[i][j] means the length of string to append when A[i] followed by A[j].
+ * eg. A[i] = abcd, A[j] = bcde, then graph[i][j] = 1
+ *
  * Then the problem becomes to: find the shortest path in this graph which visits every node exactly once.
  * This is a Travelling Salesman Problem.
  * Apply TSP DP solution. Remember to record the path.
  */
 public class FindTheShortestSuperstring {
+
+    public static void main(String[] args) {
+        String[] s = {"iamzihan","hiiam","zihanwang","coding"};
+        FindTheShortestSuperstring f = new FindTheShortestSuperstring();
+        System.out.println(f.shortestSuperstring(s));
+    }
     public String shortestSuperstring(String[] A) {
         int n = A.length;
         int[][] graph = new int[n][n];
@@ -35,7 +43,7 @@ public class FindTheShortestSuperstring {
         int[][] path = new int[1 << n][n];
         int last = -1, min = Integer.MAX_VALUE;
 
-        // start TSP DP
+        // start TSP
         for (int i = 1; i < (1 << n); i++) {
             Arrays.fill(dp[i], Integer.MAX_VALUE);
             for (int j = 0; j < n; j++) {

@@ -28,12 +28,21 @@ import java.util.Map;
  * Input: (let a1 3 b2 (add a1 1) b2) Output 4
  * Explanation: Variable names can contain digits after the first character.
  *
+ * three cases
+ * 1. integer (+ -)
+ * 2. let
+ * 3. add
+ * 4. mult
+ * 5. variable
+ *
+ *
  * use a map to store variable string -> integer
  * possible substring:
  * symbol -> ( or )
- * digit -> 0 - 9
+ * digit -> [0, 9]
  * letter -> variable name
  *        -> operator (add mult)
+ *        -> let
  */
 public class ParseLispExpression {
     public int evaluate(String expression) {
@@ -47,13 +56,13 @@ public class ParseLispExpression {
         }
         Map<String, Integer> map = new HashMap<>();
         map.putAll(parent);
-        // mult, add or let
+
         List<String> tokens = parse(exp.substring(exp.charAt(1) == 'm' ? 6 : 5, exp.length() - 1));
-        if (exp.startsWith("(a")) { // add
+        if (exp.startsWith("(a")) {
             return eval(tokens.get(0), map) + eval(tokens.get(1), map);
-        } else if (exp.startsWith("(m")) { // mult
+        } else if (exp.startsWith("(m")) {
             return eval(tokens.get(0), map) * eval(tokens.get(1), map);
-        } else { // let
+        } else {
             for (int i = 0; i < tokens.size() - 2; i += 2) map.put(tokens.get(i), eval(tokens.get(i + 1), map));
             return eval(tokens.get(tokens.size() - 1), map);
         }

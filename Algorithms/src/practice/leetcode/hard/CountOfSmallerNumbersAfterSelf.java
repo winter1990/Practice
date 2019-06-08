@@ -67,8 +67,8 @@ public class CountOfSmallerNumbersAfterSelf {
 
     public static void main(String[] args) {
         CountOfSmallerNumbersAfterSelf c = new CountOfSmallerNumbersAfterSelf();
-        int[] arr = {5,2,6,1};
-        System.out.println(c.countSmaller(arr));
+        int[] arr = {3,2,2,4,1,};
+        System.out.println(c.countSmaller1(arr));
     }
 
     /**
