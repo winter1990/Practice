@@ -1,5 +1,6 @@
 package practice.leetcode.medium;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -17,24 +18,38 @@ import java.util.PriorityQueue;
  * need to consider all the possible paths
  */
 public class CheapestFlightsWithinKStops {
-    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
-        for (int[] flight : flights) {
-            if (!map.containsKey(flight[0])) map.put(flight[0], new HashMap<>());
-            map.get(flight[0]).put(flight[1], flight[2]);
-        }
+        for (int[] f : flights) map.computeIfAbsent(f[0], m -> new HashMap<>()).put(f[1], f[2]);
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-        pq.offer(new int[]{0, src, K + 1});
+        pq.offer(new int[]{0, src, 0});
         while (!pq.isEmpty()) {
             int[] cur = pq.poll();
             if (cur[1] == dst) return cur[0];
-            if (cur[2] > 0) {
-                Map<Integer, Integer> next = map.getOrDefault(cur[1], new HashMap<>());
-                for (int nextStop : next.keySet()) {
-                    pq.offer(new int[]{cur[0] + next.get(nextStop), nextStop, cur[2] - 1});
+            if (cur[2] <= k) {
+                Map<Integer, Integer> neighbors = map.getOrDefault(cur[1], new HashMap<>());
+                for (int next : neighbors.keySet()) {
+                    pq.offer(new int[]{cur[0] + neighbors.get(next), next, cur[2] + 1});
                 }
             }
         }
         return -1;
+    }
+
+    public int findCheapestPrice1(int n, int[][] flights, int src, int dst, int k) {
+        int[] cost = new int[n];
+        Arrays.fill(cost, Integer.MAX_VALUE);
+        cost[src] = 0;
+        int ans = cost[dst];
+        for (int i = k; i >= 0; i--) {
+            int[] cur = new int[n];
+            Arrays.fill(cur, Integer.MAX_VALUE);
+            for (int[] f : flights) {
+                cur[f[1]] = Math.min(cur[f[1]], cost[f[0]] + f[2]);
+            }
+            cost = cur;
+            ans = Math.min(ans, cost[dst]);
+        }
+        return ans == Integer.MAX_VALUE ? -1 : ans;
     }
 }

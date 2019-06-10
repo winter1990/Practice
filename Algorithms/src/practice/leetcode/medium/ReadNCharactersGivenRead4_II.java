@@ -8,6 +8,11 @@ public class ReadNCharactersGivenRead4_II {
  *
  * Your method read may be called multiple times.
  *
+ * we are reading the same file with multiple calls of read(buf[], n)
+ * need to keep track of the index for buf, the value of index is the count we have read
+ * keep track of the count we want to read, each time we call read(), add to the count
+ * to determine we should continue reading, compare index and count - whether file is ended
+ *
  *
  */
 class Solution2 extends Reader4 {
@@ -16,21 +21,24 @@ class Solution2 extends Reader4 {
      * @param n   Maximum number of characters to read
      * @return    The number of characters read
      */
-    private int buffIdx = 0;
-    private int buffCnt = 0;
-    private char[] buff = new char[4];
+    char[] prevBuf = new char[4];
+    int prevSize = 0;
+    int prevIndex = 0;
+
     public int read(char[] buf, int n) {
-        int index = 0;
-        while (index < n) {
-            if (buffIdx == 0) {
-                buffCnt = read4(buff);
+        int counter = 0;
+        while (counter < n) {
+            if (prevIndex < prevSize) {
+                buf[counter++] = prevBuf[prevIndex++];
+            } else {
+                prevSize = read4(prevBuf);
+                prevIndex = 0;
+                if (prevSize == 0) break;
             }
-            while (index < n && buffIdx < buffCnt) {
-                buf[index++] = buff[buffIdx++];
-            }
-            if (buffIdx == buffCnt) buffIdx = 0;
-            if (buffCnt < 4) break;
         }
-        return index;
+        return counter;
     }
+
+    char[] tmp = new char[4];
+
 }

@@ -4,6 +4,7 @@ import java.util.Stack;
 
 /**
  * @stack
+ *
  */
 public class RemoveAllAdjacentDuplicatesInString {
     public String removeDuplicates(String S) {

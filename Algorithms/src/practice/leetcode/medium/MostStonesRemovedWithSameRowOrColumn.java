@@ -13,33 +13,34 @@ import java.util.Map;
  * Input: stones = [[0,0],[0,1],[1,0],[1,2],[2,1],[2,2]], Output: 5
  * Input: stones = [[0,0],[0,2],[1,1],[2,0],[2,2]], Output: 3
  *
- * similar with counting island
- * the stones that share the row or column is counted as one island, not necessarily adjacent
- * union find:
- * if two nodes are "adjacent", set them as the same root
- * total n stones, if two stones have the different root, count-- (original value is n)
- * number of islands = n - count
+ * translation:
+ *   divide all the stones into groups
+ *   count the number of groups
+ *
+ * the stones with same row OR col are in the same group
+ * we need to mark the same group of stones with some id
+ * the same group of stones are similar with a graph, if row / col same, then it is connected to the graph
+ *
+ * union find
+ *   if two nodes are "adjacent", set them as the same root
+ *   total n stones, if two stones have the different root, count-- (original value is n)
+ *   number of islands = n - count
+ *
+ * initial status parent[i] = i, i = [0, n]
  */
 public class MostStonesRemovedWithSameRowOrColumn {
-    /**
-     * if two stones have the same row or column, connect them and count as one island
-     * for each island, we can remove each element in it until there is only one left
-     * most stones can be removed = total stones - number of islands
-     */
     public int removeStones(int[][] stones) {
         int n = stones.length;
-        int[] root = new int[n];
-        for (int i = 0; i < n; i++) {
-            root[i] = i;
-        }
+        int[] parent = new int[n];
+        for (int i = 0; i < n; i++) parent[i] = i;
         int count = n;
         for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
                 if (stones[i][0] != stones[j][0] && stones[i][1] != stones[j][1]) continue;
-                int root1 = find(root, i);
-                int root2 = find(root, j);
-                if (root1 != root2) {
-                    root[root1] = root2;
+                int p1 = find(parent, i);
+                int p2 = find(parent, j);
+                if (p1 != p2) {
+                    parent[p2] = p1;
                     count--;
                 }
             }
@@ -47,10 +48,9 @@ public class MostStonesRemovedWithSameRowOrColumn {
         return n - count;
     }
 
-    private int find(int[] root, int i) {
-        while (root[i] != i) {
-//            root[i] = root[root[i]];
-            i = root[i];
+    private int find(int[] parent, int i) {
+        while (parent[i] != i) {
+            i = parent[i];
         }
         return i;
     }

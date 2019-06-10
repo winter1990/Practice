@@ -8,24 +8,32 @@ import java.util.Queue;
  *
  * Given a complete binary tree, count the number of nodes.
  *
- * 1.full on all levels, except last level
- * 2.in last level, as far left as possible
+ * In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last
+ * level are as far left as possible.
+ * It can have between 1 and 2^h nodes inclusive at the last level h.
  *
- * level by level - use queue to store nodes
- * determine last level - left/right child null
- * if null found - all the rest nodes' children null
- * at last check q is empty
+ * brute force
+ * level order traversal - use queue to store nodes
+ * each time we poll() a node from the queue, count++
  *
- * above process is to 'check if tree is complete tree'
+ * the properties of the tree
+ * only last level not full
+ * all the leaf nodes are as far left as possible
+ *            1
+ *      2          3
+ *   4     5    6     7
+ * 8  8  10
  *
- * Given a complete binary tree, count the number of nodes
- * compare the height of left and right subtree -> O(NlogN)
- * what if only compare left most and right most depth
- * for a tree, if left most and right most depth are the same, then it is full -> number of nodes (2^n-1)
- * recursively get leftmost and rightmost
- * if same, return (1 << depth) - 1
- * return 1+count(left)+count(right)
- * logN * logN
+ * we want to skip traversing down the tree if a sub tree is full already
+ * getting height of left and right sub tree is not enough to check if the tree is full
+ * need to get the depth of left most and right most
+ *
+ * define two methods to get the depth of leftmost and rightmost
+ * if left == right, then it means the tree is full, (1<<left)-1
+ * otherwise
+ *   return 1 + getCount(left child) + getCount(right child)
+ *
+ * time O(logN * logN)
  */
 public class CountCompleteTreeNodes {
     public int countNodes(TreeNode root) {
@@ -56,7 +64,7 @@ public class CountCompleteTreeNodes {
     }
 
     /**
-     * brute force / initial method
+     * brute force
      * level order traversal
      * because we know that this is a complete tree, so traverse down the tree level by level and count the # of nodes
      *

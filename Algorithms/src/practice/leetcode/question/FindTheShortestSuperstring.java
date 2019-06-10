@@ -15,12 +15,27 @@ import java.util.Stack;
  * 3. a string may consist of other multiple strings: cat fish catfish
  *
  * https://leetcode.com/problems/find-the-shortest-superstring/discuss/194932/Travelling-Salesman-Problem
- * graph[i][j] means the length of string to append when A[i] followed by A[j].
+ * graph[i][j] means the length of string to append to A[i] followed by A[j].
  * eg. A[i] = abcd, A[j] = bcde, then graph[i][j] = 1
  *
  * Then the problem becomes to: find the shortest path in this graph which visits every node exactly once.
- * This is a Travelling Salesman Problem.
- * Apply TSP DP solution. Remember to record the path.
+ *
+ * The i of dp[i][j] and path[i][j] represents the set of nodes we want to travel
+ * Assume we want to travel nodes: {n1, n2, n3, n4}
+ * i = 2 ^ n1 + 2 ^ n2 + 2 ^ n3 + 2 ^ n4;
+ * In other words, we use every bit of a binary number(this number is i) to represent the status of each node
+ * if i = 10011 (binary number), it means the node set = {0,1,4});
+ * j of dp[i][j] and path[i][j] means the last node we travelled.
+ * dp[i][j] = the min length if we travel all nodes in the node set i and the last travelled node is j.
+ * path[i][j] = the node before j (j is the last one).
+ *
+ * Example:
+ * Assume we want to travel points:{0,2,3,5}
+ * i = (2^0+ 2^2 +2^3 + 2^5) = 44;
+ * dp[44][2] means "the min length when we travel the points{0,2,3,5} and the last one is 2";
+ * path[44][2] means "the last node before we travelled 2. In other words,the last node when travelling{0,3,5}"
+ * Assume path[44][2] = 3, then path[44 - 2^2][3] = "the last node before we travelled 3.
+ * Also, the last one of {0,5}"
  */
 public class FindTheShortestSuperstring {
 
@@ -44,25 +59,25 @@ public class FindTheShortestSuperstring {
         int last = -1, min = Integer.MAX_VALUE;
 
         // start TSP
-        for (int i = 1; i < (1 << n); i++) {
+        for (int i = 1; i < (1 << n); i++) { // for all the combinations of the nodes
             Arrays.fill(dp[i], Integer.MAX_VALUE);
-            for (int j = 0; j < n; j++) {
-                if ((i & (1 << j)) > 0) {
-                    int prev = i - (1 << j);
-                    if (prev == 0) {
-                        dp[i][j] = A[j].length();
+            for (int j = 0; j < n; j++) { //for each node
+                if ((i & (1 << j)) > 0) {      // if the node is in the set. Assume i = 10010(18), j = 100(4), then set={1,4}, the node is 2. The node is not in this set
+                    int prev = i - (1 << j);      // the set without j. Assume i = 10010, j = 10 then pre = 10000
+                    if (prev == 0) {            // if j is the only one
+                        dp[i][j] = A[j].length();  // the whole word
                     } else {
-                        for (int k = 0; k < n; k++) {
-                            if (dp[prev][k] < Integer.MAX_VALUE && dp[prev][k] + graph[k][j] < dp[i][j]) {
-                                dp[i][j] = dp[prev][k] + graph[k][j];
-                                path[i][j] = k;
+                        for (int k = 0; k < n; k++) {    //try all the possible nodes before j
+                            if (dp[prev][k] < Integer.MAX_VALUE && dp[prev][k] + graph[k][j] < dp[i][j]) { // if k is valid and the length could be reduced
+                                dp[i][j] = dp[prev][k] + graph[k][j];   //update the result
+                                path[i][j] = k; // update the node before j
                             }
                         }
                     }
                 }
-                if (i == (1 << n) - 1 && dp[i][j] < min) {
-                    min = dp[i][j];
-                    last = j;
+                if (i == (1 << n) - 1 && dp[i][j] < min) {  // if i == 11...1111 means the node set contains all the nodes, and the length is smaller
+                    min = dp[i][j];  //update the result
+                    last = j;   //update the last node
                 }
             }
         }

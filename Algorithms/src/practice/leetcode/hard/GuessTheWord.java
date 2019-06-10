@@ -1,7 +1,6 @@
 package practice.leetcode.hard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -22,15 +21,16 @@ import java.util.Random;
 public class GuessTheWord {
     public void findSecretWord(String[] wordlist, Master master) {
         List<String> words = new ArrayList<>();
-        words.addAll(Arrays.asList(wordlist));
-        for (int k = 0, count = 0; k < 10 && count < 6; k++) {
+        for (String w : wordlist) words.add(w);
+        for (int k = 0, count = 0; count < 6 && k < 10; k++) {
             String guess = words.get(new Random().nextInt(words.size()));
             count = master.guess(guess);
-            List<String> tmp = new ArrayList<>();
+            List<String> next = new ArrayList<>();
             for (String w : words) {
-                if (countSameChars(w, guess) == count) tmp.add(w);
+                if (w.equals(guess)) continue;
+                if (count == countSameChars(guess, w)) next.add(w);
             }
-            words = tmp;
+            words = next;
         }
     }
 
@@ -43,13 +43,15 @@ public class GuessTheWord {
     }
 
     public void findSecretWord2(String[] wordlist, Master master) {
-        for (int i = 0, x = 0; i < 10 && x < 6; ++i) {
+        for (int i = 0, x = 0; i < 10 && x < 6; i++) {
             String guess = wordlist[new Random().nextInt(wordlist.length)];
             x = master.guess(guess);
             List<String> wordlist2 = new ArrayList<>();
-            for (String w : wordlist)
-                if (countSameChars(guess, w) == x)
+            for (String w : wordlist) {
+                if (countSameChars(guess, w) == x) {
                     wordlist2.add(w);
+                }
+            }
             wordlist = wordlist2.toArray(new String[wordlist2.size()]);
         }
     }

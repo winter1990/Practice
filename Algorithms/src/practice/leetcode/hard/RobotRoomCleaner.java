@@ -3,32 +3,53 @@ package practice.leetcode.hard;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The robot cleaner with 4 given APIs can move forward, turn left or turn right. Each turn it made is 90 degrees.
+ *
+ * When it tries to move into a blocked cell, its bumper sensor detects the obstacle and it stays on the current cell.
+ *
+ * Design an algorithm to clean the entire room using only the 4 given APIs shown below.
+ *
+ * Input:
+ * room = [
+ *   [1,1,1,1,1,0,1,1],
+ *   [1,1,1,1,1,0,1,1],
+ *   [1,0,1,1,1,1,1,1],
+ *   [0,0,0,1,0,0,0,0],
+ *   [1,1,1,1,1,1,1,1]
+ * ],
+ *
+ * 1 means accessible, 0 means block
+ * searching method:
+ * bfs - go to one cell, come back to original cell and then next. time complexity high
+ * dfs - go to one direction first and clean all the cells in that direction, and then come back to original cell
+ * the order of directions matter
+ */
 public class RobotRoomCleaner {
     public void cleanRoom(Robot robot) {
-        Set<String> hs = new HashSet<>();
-        dfs(robot, 0, 0, 0, hs);
+        Set<String> visited = new HashSet<>();
+        dfs(robot, 0, 0, 0, visited); // start at (0,0), direction - index 0 in dirs
     }
 
-    int[] dx = {0, 1, 0, -1};
-    int[] dy = {1, 0, -1, 0};
+    int[][] dirs = {{1,0}, {0,1}, {-1,0}, {0, -1}}; // anti-clock wise
     public void dfs(Robot robot, int x, int y, int curDir, Set<String> visited) {
-        visited.add(x + "#" + y);
+        String s = x + " " + y;
+        if (visited.contains(s)) return;
+        visited.add(s);
         robot.clean();
         for (int i = 0; i < 4; i++) {
-            int nextDir = (curDir + i) % 4; //moving direction, let's say we are facing right (1), nextDir will be 1 as well.
-            int nextX = x + dx[nextDir];
-            int nextY = y + dy[nextDir];
-            if (!visited.contains(nextX + "#" + nextY) && robot.move()) { //robot.move() not only checks wall but also moves
-                dfs(robot, nextX, nextY, nextDir, visited);
-                //go back to start cell
-                robot.turnRight();
-                robot.turnRight();
+            if (robot.move()) {
+                int nextX = x + dirs[curDir][0];
+                int nextY = y + dirs[curDir][1];
+                dfs(robot, nextX, nextY, curDir, visited);
+                robot.turnLeft();
+                robot.turnLeft();
                 robot.move();
-                //go back to the original direction
-                robot.turnRight();
-                robot.turnRight();
+                robot.turnLeft();
+                robot.turnLeft();
             }
-            robot.turnRight(); //because we purposely arranged dx, dy to be clockwise. If we are facing right, we will be facing down in the next iteration
+            robot.turnRight();
+            curDir = (curDir + 1) % 4;
         }
     }
 }

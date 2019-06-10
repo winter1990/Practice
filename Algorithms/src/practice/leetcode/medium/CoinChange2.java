@@ -8,17 +8,23 @@ package practice.leetcode.medium;
  * number of combinations that make up that amount.
  * You may assume that you have infinite number of each kind of coin.
  *
+ * Input: amount = 5, coins = [1, 2, 5]
+ * Output: 4
+ * [1 1 1 1 1][1 1 1 2][1 2 2][5]
+ *
  * dp[i][j] number of combinations that make up j using i types of coins
+ *
  * initial status
  *   0 ways to make 0
  * transition function
- *   two scenarios for ith coin
- *   1. not use ith coin - only use i-1 to make up j, number of combinations dp[i-1][j]
- *   2. use ith coin - we need to make up j-coins[i-1], dp[i][j-coins[i-1]]
+ *   two options for ith coin
+ *   not use ith coin - only use i-1 to form value j, number of combinations dp[i-1][j]
+ *   use ith coin - we need to make up j-coins[i-1], dp[i][j-coins[i-1]]
  */
 public class CoinChange2 {
     public int change(int amount, int[] coins) {
         int[][] dp = new int[coins.length + 1][amount + 1];
+        dp[0][0] = 1;
         for (int i = 1; i <= coins.length; i++) {
             dp[i][0] = 1;
             for (int j = 1; j <= amount; j++) {
@@ -28,7 +34,7 @@ public class CoinChange2 {
         return dp[coins.length][amount];
     }
 
-    // as it only replies on the previous loop, we can optimize it to 1d array
+    // optimization to 1d dp array
     public int change1(int amount, int[] coins) {
         int[] dp = new int[amount + 1];
         dp[0] = 1;
@@ -38,5 +44,11 @@ public class CoinChange2 {
             }
         }
         return dp[amount];
+    }
+
+    public static void main(String[] args) {
+        int[] in = {1,2,5};
+        CoinChange2 c = new CoinChange2();
+        System.out.println(c.change1(5, in));
     }
 }

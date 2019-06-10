@@ -27,30 +27,41 @@ import java.util.Set;
  * some translation:
  * all combinations should exist in string
  * each combination appears only once
+ * n - length of the pwd
+ * k - numbers in pwd [0 1 2...k-1]
+ *
+ * n = 2, k = 2, 001
  */
 public class CrackingTheSafe {
     public String crackSafe(int n, int k) {
-        Set<String> seen = new HashSet<>();
-        StringBuilder res = new StringBuilder();
-        StringBuilder st = new StringBuilder();
-        for (int i = 1; i < n; i++) st.append("0");
-        dfs(st.toString(), k, seen, res);
-        res.append(st);
-        return res.toString();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) sb.append("0");
+        Set<String> visited = new HashSet<>();
+        visited.add(sb.toString());
+        int allCombo = (int) Math.pow(k, n);
+        dfs(sb, n, k, visited, allCombo);
+        return sb.toString();
     }
 
-    private void dfs(String start, int k, Set<String> set, StringBuilder res) {
+    private boolean dfs(StringBuilder pwd, int n, int k, Set<String> visited, int allCombo) {
+        if (visited.size() == allCombo) {
+            return true;
+        }
+        String pre = pwd.substring(pwd.length() - n + 1);
         for (int i = 0; i < k; i++) {
-            String next = start + i;
-            if (set.add(next)) {
-                dfs(next.substring(1), k, set, res);
-                res.append(i);
+            String next = pre + i;
+            if (visited.add(next)) {
+                pwd.append(i);
+                if (dfs(pwd, n, k, visited, allCombo)) return true;
+                pwd.deleteCharAt(pwd.length() - 1);
+                visited.remove(next);
             }
         }
+        return false;
     }
 
     public static void main(String[] args) {
         CrackingTheSafe c = new CrackingTheSafe();
-        System.out.println(c.crackSafe(1,1));
+        System.out.println(c.crackSafe(2,2));
     }
 }

@@ -27,7 +27,7 @@ import java.util.Set;
 public class MinimumAreaRectangle {
     public int minAreaRect(int[][] points) {
         Map<Integer, Set<Integer>> map = new HashMap<>();
-        for (int[] p :  points) {
+        for (int[] p : points) {
             if (!map.containsKey(p[0])) map.put(p[0], new HashSet<>());
             map.get(p[0]).add(p[1]);
         }

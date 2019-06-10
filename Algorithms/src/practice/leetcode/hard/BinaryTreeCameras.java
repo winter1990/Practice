@@ -30,10 +30,9 @@ package practice.leetcode.hard;
  *   leaf, then need to add camera to its parent
  *   parent, add camera at the node
  *   parent, the parent of parent which has camera
- * return 0 - child, need to be covered
- * return 1 - parent, with a camera
- * return 2 - parent, covered by child
- *
+ * return 0 - need to be covered by parent
+ * return 1 - has a camera on it
+ * return 2 - covered by its child
  */
 public class BinaryTreeCameras {
     int res = 0;
