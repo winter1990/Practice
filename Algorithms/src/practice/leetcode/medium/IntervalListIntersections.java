@@ -10,28 +10,24 @@ import java.util.List;
  *
  */
 public class IntervalListIntersections {
-    public Interval[] intervalIntersection(Interval[] A, Interval[] B) {
-        if (A == null || B == null || A.length == 0 || B.length == 0) {
-            return new Interval[]{};
+    public int[][] intervalIntersection(int[][] A, int[][] B) {
+        if (A.length == 0 || B.length == 0) return new int[][]{};
+        // Arrays.sort(A, (a, b) -> (a[0] - b[0]));
+        // Arrays.sort(B, (a, b) -> (a[0] - b[0]));
+        int i = 0, j = 0;
+        List<int[]> res = new ArrayList<>();
+        while (i < A.length && j < B.length) {
+            int[] a = A[i], b = B[j];
+            int end = Math.min(a[1], b[1]);
+            int start = Math.max(a[0], b[0]);
+            if (start <= end) {
+                res.add(new int[]{start, end});
+            }
+            if (end == a[1]) i++;
+            if (end == b[1]) j++;
         }
-        List<Interval> res = new ArrayList<>();
-        int indexA = 0, indexB = 0;
-        while (indexA < A.length && indexB < B.length) {
-            Interval i1 = A[indexA];
-            Interval i2 = B[indexB];
-
-            int st = Math.max(i1.start, i2.start);
-            int end = Math.min(i1.end, i2.end);
-            if (st <= end) {
-                res.add(new Interval(st, end));
-            }
-            if (end == i1.end) {
-                indexA++;
-            }
-            if (end == i2.end) {
-                indexB++;
-            }
-        }
-        return res.toArray(new Interval[res.size()]);
+        int[][] arr = new int[res.size()][2];
+        for (int k = 0; k < res.size(); k++) arr[k] = res.get(k);
+        return arr;
     }
 }

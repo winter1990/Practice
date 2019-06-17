@@ -8,7 +8,7 @@ import java.util.Queue;
 /**
  * @search
  * @graph
- * @sort
+ * @topological
  *
  * Given the total number of courses and a list of prerequisite pairs, return the ordering of courses you should take
  * to finish all courses.
@@ -26,31 +26,27 @@ import java.util.Queue;
  */
 public class CourseSchedule_II {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        int[] degree = new int[numCourses], res = new int[numCourses];
         List<Integer>[] graph = new ArrayList[numCourses];
+        int[] degree = new int[numCourses];
         for (int i = 0; i < numCourses; i++) graph[i] = new ArrayList<>();
-        for (int i = 0; i < prerequisites.length; i++) {
-            degree[prerequisites[i][0]]++;
-            graph[prerequisites[i][1]].add(prerequisites[i][0]);
+        for (int[] p : prerequisites) {
+            degree[p[0]]++;
+            graph[p[1]].add(p[0]);
         }
-        int index = 0;
         Queue<Integer> q = new LinkedList<>();
         for (int i = 0; i < numCourses; i++) {
-            if (degree[i] == 0) {
-                q.offer(i);
-                res[index++] = i;
-            }
+            if (degree[i] == 0) q.offer(i);
         }
+        int[] res = new int[numCourses];
+        int i = 0;
         while (!q.isEmpty()) {
-            int cur = q.poll();
-            for (int nei : graph[cur]) {
-                if (--degree[nei] == 0) {
-                    q.offer(nei);
-                    res[index++] = nei;
-                }
+            int c = q.poll();
+            res[i++] = c;
+            for (int next : graph[c]) {
+                if (--degree[next] == 0) q.offer(next);
             }
         }
-        return index == numCourses ? res : new int[0];
+        return i == numCourses ? res : new int[]{};
     }
 
     public static void main(String[] args) {

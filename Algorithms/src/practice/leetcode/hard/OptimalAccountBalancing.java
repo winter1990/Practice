@@ -89,7 +89,8 @@ public class OptimalAccountBalancing {
 
     public static void main(String[] args) {
         OptimalAccountBalancing op = new OptimalAccountBalancing();
-        int[][] in = {{0,1,10}, {1,0,1}, {1,2,5}, {2,0,5}};
+//        int[][] in = {{0,1,10}, {1,0,1}, {1,2,5}, {2,0,5}};
+        int[][] in = {{0,1,10}, {1,2,5}, {1,3,3}, {3,1,4}};
         System.out.println(op.minTransfers(in));
     }
 }

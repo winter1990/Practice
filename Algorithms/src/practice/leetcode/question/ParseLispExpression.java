@@ -35,7 +35,6 @@ import java.util.Map;
  * 4. mult
  * 5. variable
  *
- *
  * use a map to store variable string -> integer
  * possible substring:
  * symbol -> ( or )
@@ -87,7 +86,7 @@ public class ParseLispExpression {
     }
 
     public static void main(String[] args) {
-        String s = "(mult 3 (add 2 3))";
+        String s = "(let x 1 y 2 x (add x y) (add x y))";
         ParseLispExpression p = new ParseLispExpression();
         System.out.println(p.evaluate(s));
     }

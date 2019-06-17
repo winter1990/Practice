@@ -1,6 +1,8 @@
 package practice.leetcode.hard;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -40,5 +42,24 @@ public class LongestConsecutiveSequence {
             res = Math.max(res, count);
         }
         return res;
+    }
+
+    /**
+     * optimization
+     */
+    public int longestConsecutive1(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int max = 0;
+        for (int n : nums) {
+            if (!map.containsKey(n)) {
+                int left = map.get(n - 1) == null ? 0 : map.get(n - 1);
+                int right = map.get(n + 1) == null ? 0 : map.get(n + 1);
+                int len = left + right + 1;
+                max = Math.max(max, len);
+                map.put(n - left, len);
+                map.put(n + right, len);
+            }
+        }
+        return max;
     }
 }

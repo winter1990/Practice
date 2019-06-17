@@ -3,105 +3,81 @@ package practice.leetcode.hard;
 import java.util.Stack;
 
 /**
- * use stack to store values and operators
- * if * or /,calculate
- * if ),pop until (
- * if +-,push to stack
- * if digit
+ * @stack
+ *
+ * The expression string contains only non-negative integers, +, -, *, / operators , open ( and closing parentheses )
+ * and empty spaces . The integer division should truncate toward zero.
+ *
+ * You may assume that the given expression is always valid. All intermediate results will be in the range of
+ * [-2147483648, 2147483647].
+ *
+ * need to keep track of:
+ *   sign + -
+ *   current number 12
+ *   previous result
+ *   operand * /
+ *
+ * priority
+ *   () has the highest, 1+(-1+(2-3)) inner one
+ *   multi and division
+ *   + - lowest priority
+ *
+ * -1+2*(-1+(2+3*4))
  */
 public class BasicCalculator_III {
-    /* wrong. did not think about the diff combinations before hand
-       when * or /, cannot calculate immediately 3*(1+2) */
     public int calculate(String s) {
-        s = s.replace(" ","");
-        if (s == null || s.length() == 0) {
-            return 0;
-        }
-        Stack<String> stack = new Stack<>();
-        int len = s.length();
-        int i = 0;
-        while (i < len) {
-            char cur = s.charAt(i);
-            if (cur == '(' || cur == '+' || cur == '-') {
-                stack.push(cur + "");
-                i++;
-            } else if (Character.isDigit(cur)) {
-                String num = getNextInt(s, i);
-                stack.push(num);
-                i += num.length();
-            } else if (cur == '*' || cur == '/') {
-                if (!Character.isDigit(s.charAt(i + 1))) {
-                    stack.push(cur + "");
-                    i++;
-                    continue;
+        s = s.replaceAll(" ", "");
+        Stack<Integer> stack = new Stack<>();
+        char sign = '+';
+        for(int i = 0 ; i < s.length();) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                // find the block and use the recursive to solve
+                int l = 1;
+                int j = i + 1;
+                while (j < s.length() && l > 0) {
+                    if(s.charAt(j) == '(') l ++;
+                    else if(s.charAt(j) == ')') l --;
+                    j++;
                 }
-                int pre = Integer.valueOf(stack.pop());
-                String ss = getNextInt(s, i + 1);
-                int next = Integer.valueOf(ss);
-                i += (1 + ss.length());
-                if (cur == '*') {
-                    stack.push(pre * next + "");
+                int blockValue = calculate(s.substring(i + 1, j-1));
+                i = j;
+                if (sign == '+') {
+                    stack.push(blockValue);
+                } else if (sign == '-') {
+                    stack.push(-blockValue);
+                } else if (sign == '*') {
+                    stack.push(stack.pop() * blockValue);
+                } else if (sign == '/') {
+                    stack.push(stack.pop() / blockValue);
                 }
-                if (cur == '/') {
-                    stack.push(pre / next + "");
+            } else if (Character.isDigit(c)) {
+                int j = i;
+                int value = 0;
+                while (j < s.length() && Character.isDigit(s.charAt(j))) {
+                    value = 10 * value + (s.charAt(j) - '0');
+                    j++;
                 }
-            } else if (cur == ')') {
-                int tmp = 0;
-                while (!stack.isEmpty()) {
-                    int val = Integer.valueOf(stack.pop());
-                    if (stack.peek().equals("(")) {
-                        tmp += val;
-                        stack.pop();
-                        break;
-                    } else if (stack.peek().equals("+")) {
-                        tmp += val;
-                        stack.pop();
-                    } else if (stack.peek().equals("-")) {
-                        tmp -= val;
-                        stack.pop();
-                    } else if (stack.peek().equals("*")) {
-                        stack.pop();
-                        stack.push(val * Integer.valueOf(stack.pop()) + "");
-                    } else if (stack.peek().equals("/")) {
-                        stack.pop();
-                        stack.push(Integer.valueOf(stack.pop()) / val + "");
-                    }
+                i = j;
+                if (sign == '+') {
+                    stack.push(value);
+                } else if (sign == '-') {
+                    stack.push(-value);
+                } else if (sign == '*') {
+                    stack.push(stack.pop() * value);
+                } else if (sign == '/') {
+                    stack.push(stack.pop() / value);
                 }
-                stack.push(tmp + "");
+            } else {
+                sign = c;
                 i++;
             }
         }
         int res = 0;
         while (!stack.isEmpty()) {
-            int val = Integer.valueOf(stack.pop());
-            if (!stack.isEmpty() && stack.peek().equals("-")) {
-                res -= val;
-                stack.pop();
-            } else if (!stack.isEmpty() && stack.peek().equals("+")) {
-                res += val;
-                stack.pop();
-            } else if (!stack.isEmpty() && stack.peek().equals("*")) {
-                stack.pop();
-                stack.push(Integer.valueOf(stack.pop()) * val + "");
-            } else if (!stack.isEmpty() && stack.peek().equals("/")) {
-                stack.pop();
-                stack.push(Integer.valueOf(stack.pop()) / val + "");
-            }
-            if (stack.isEmpty()) {
-                res += val;
-            }
+            res += stack.pop();
         }
         return res;
-    }
-
-    private String getNextInt(String s, int i) {
-        int num = s.charAt(i) - '0';
-        while (i < s.length() - 1 && Character.isDigit(s.charAt(i + 1))) {
-            num *= 10;
-            num += (s.charAt(i + 1) - '0');
-            i++;
-        }
-        return num + "";
     }
 
     public static void main(String[] args) {

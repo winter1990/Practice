@@ -6,78 +6,54 @@ import java.util.*;
  * @search
  * @graph
  *
+ * Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the
+ * itinerary in order. All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
+ *
+ * If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when
+ * read as a single string.
+ *
+ * problems to solve:
+ * 1. build the map
+ * 2. lexi order
+ * 3. handle the dead end [a c][a b][c d][d a]
+ *
  * build up the map
- * use map - string,queue
- * as lexical order, so use priority queue
+ *   one from may map to multiple destination and the destinations should be ordered by lexi, use a heap/pq
+ *   string, pq
+ * the itinerary should consists all the [from to] pair
+ *
+ * [a c][a b][c d][d a] -> [a c d a b]
+ * a [b c]
+ * c [d]
+ * d [a]
+ * if we start with [a b], there will be dead end and will not continue
+ * however, this dead end path is valid and should be the end of the whole itinerary
+ *
+ * use greedy thinking to build the path backward, from tail to head
+ *
+ * keep building the path starting from first destination in heap until we reach the end of that sub-path
+ * continue building the remaining sub-path and add it to the head of the main path
+ * so, we are building the whole itinerary from the tail to head
  */
 public class ReconstructItinerary {
-    /*
-    Map<String, PriorityQueue<String>> map = new HashMap<>();
-    LinkedList<String> res = new LinkedList<>();
-    public List<String> findItinerary(String[][] tickets) {
-        if (tickets == null || tickets.length == 0) {
-            res.add("");
-            return res;
+    public List<String> findItinerary(List<List<String>> tickets) {
+        Map<String, PriorityQueue<String>> map = new HashMap<>();
+        for (int i = 0; i < tickets.size(); i++) {
+            String from = tickets.get(i).get(0);
+            String to = tickets.get(i).get(1);
+            if (!map.containsKey(from)) map.put(from, new PriorityQueue<>());
+            map.get(from).offer(to);
         }
-        for (String[] ite : tickets) {
-            if (!map.containsKey(ite[0])) {
-                PriorityQueue<String> q = new PriorityQueue<>();
-                q.offer(ite[1]);
-                map.put(ite[0], q);
-            }
-        }
-        dfs("JFK");
+        LinkedList<String> res = new LinkedList<>();
+        dfs("JFK", map, res);
         return res;
     }
 
-    private void dfs(String start) {
-        PriorityQueue<String> pq = map.get(start);
-        while (pq != null && !pq.isEmpty()) {
-            dfs(pq.poll());
+    private void dfs(String from, Map<String, PriorityQueue<String>> map, LinkedList<String> res) {
+        PriorityQueue<String> toList = map.get(from);
+        while (map.get(from) != null && map.get(from).size() > 0) {
+            dfs(map.get(from).poll(), map, res);
         }
-        res.addFirst(start);
-    }
-    */
-
-    /* dead end happens [a,d][a,f][f,a]
-    private void dfs(String start, Map<String, PriorityQueue<String>> map, List<String> res) {
-        String s = start;
-        while (s != null) {
-            res.add(s);
-            if (map.containsKey(s)) {
-                s = map.get(s).poll();
-            } else {
-                s = null;
-            }
-        }
-    }
-    */
-
-    public static void main(String[] args) {
-        String[][] in = {{"JFK","KUL"},{"JFK","NRT"},{"NRT","JFK"}};
-                //{{"MUC", "LHR"}, {"JFK", "MUC"}, {"SFO", "SJC"}, {"LHR", "SFO"}};
-        ReconstructItinerary r = new ReconstructItinerary();
-        System.out.println(r.findItinerary(in));
-    }
-
-    Map<String, PriorityQueue<String>> flights;
-    LinkedList<String> path;
-
-    public List<String> findItinerary(String[][] tickets) {
-        flights = new HashMap<>();
-        path = new LinkedList<>();
-        for (String[] ticket : tickets) {
-            flights.putIfAbsent(ticket[0], new PriorityQueue<>());
-            flights.get(ticket[0]).add(ticket[1]);
-        }
-        dfs("JFK");
-        return path;
-    }
-
-    public void dfs(String departure) {
-        PriorityQueue<String> arrivals = flights.get(departure);
-        while (arrivals != null && !arrivals.isEmpty())
-            dfs(arrivals.poll());
-        path.addFirst(departure);
+        res.addFirst(from);
     }
 }

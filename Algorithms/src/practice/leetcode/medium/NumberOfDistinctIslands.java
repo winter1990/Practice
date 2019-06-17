@@ -18,9 +18,8 @@ import java.util.*;
  * 1. need a special identifier to track each island and its shape
  * 2. remove the duplicates
  *
- * 11,10 11 11 01,11
- * maintaining the whole rectangle is hard, need extra or a copy of original array
- * add the identifier when searching up down left right
+ * traverse the island - dfs
+ *
  */
 public class NumberOfDistinctIslands {
     public int numDistinctIslands(int[][] grid) {
@@ -29,8 +28,7 @@ public class NumberOfDistinctIslands {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != 0) {
                     StringBuilder sb = new StringBuilder();
-                    dfs(grid, i, j, sb, "o"); // origin
-                    grid[i][j] = 0;
+                    dfs(grid, i, j, sb, "");
                     set.add(sb.toString());
                 }
             }
@@ -42,18 +40,18 @@ public class NumberOfDistinctIslands {
         if (i < 0 || i == grid.length || j < 0 || j == grid[i].length || grid[i][j] == 0) return;
         sb.append(dir);
         grid[i][j] = 0;
-        dfs(grid, i - 1, j, sb, "u");   // up
-        dfs(grid, i + 1, j, sb, "d");   // down
-        dfs(grid, i, j - 1, sb, "l");   // left
-        dfs(grid, i, j + 1, sb, "r");   // right
-        sb.append("b");                        // back
+        dfs(grid, i - 1, j, sb, "u");
+        dfs(grid, i + 1, j, sb, "d");
+        dfs(grid, i, j - 1, sb, "l");
+        dfs(grid, i, j + 1, sb, "r");
+        sb.append("b"); // back
     }
 
     public static void main(String[] args) {
-        int[][] in = {  {1,1,0,0,0},
-                        {1,1,0,0,0},
+        int[][] in = {  {1,1,0,1,1},
+                        {1,1,0,1,0},
                         {0,0,0,1,1},
-                        {0,0,0,1,1}};
+                        {1,1,0,1,1}};
         NumberOfDistinctIslands n = new NumberOfDistinctIslands();
         System.out.println(n.numDistinctIslands(in));
     }

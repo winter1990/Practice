@@ -2,91 +2,90 @@ package practice.leetcode.hard;
 
 import java.util.*;
 
-/*
-  "wrt",
-  "wrf",
-  "er",
-  "ett",
-  "rftt"
-The correct order is: "wertf"
-
-  "z",
-  "x"
-The correct order is: "zx".
-
-  "z",
-  "x",
-  "z"
-The order is invalid, so return "".
- */
-
 /**
- * "wrt","wrf","er","ett","rftt" -> wertf
- *  111   112   21   222   3222
- *  t<f w<e r<t e<r
+ * @topological
+ *
+ * There is a new alien language which uses the latin alphabet. However, the order among letters are unknown to you.
+ * You receive a list of non-empty words from the dictionary, where words are sorted lexicographically by the rules
+ * of this new language. Derive the order of letters in this language.
+ *
+ * Input:
+ * [
+ *   "wrt",
+ *   "wrf",
+ *   "er",
+ *   "ett",
+ *   "rftt"
+ * ]
+ * Output: "wertf"
+ *
+ * Input:
+ * [
+ *   "z",
+ *   "x",
+ *   "z"
+ * ]
+ * Output: ""
+ *
+ * compare words [w1 w2], [w2 w3]
+ *   scan through two strings, index=[0, min(l1 l2)]
+ *   if same char continue
+ *   if not same, abk abf - k < f, ako azo, k<z, we cannot decide f and z, map char and set<char>
+ *
  */
 public class AlienDictionary {
     public String alienOrder(String[] words) {
-        if (words == null || words.length == 0) {
-            return "";
-        }
-        Map<Character, Integer> levelMap = new HashMap<>();
-        Map<Character, Set<Character>> neighborMap = new HashMap<>();
+        if (words == null || words.length == 0) return "";
+        Map<Character, Integer> degree = new HashMap<>();
+        Map<Character, Set<Character>> map = new HashMap<>();
         for (String w : words) {
-            for (char c : w.toCharArray()) {
-//                neighborMap.put(c, new HashSet<>());
-                levelMap.put(c, 0);
-            }
+            for (char c : w.toCharArray()) degree.put(c, 0);
         }
-
         for (int i = 0; i < words.length - 1; i++) {
             String word1 = words[i];
             String word2 = words[i + 1];
             for (int j = 0; j < Math.min(word1.length(), word2.length()); j++) {
                 if (word1.charAt(j) != word2.charAt(j)) {
-                    Set<Character> set = new HashSet<Character>();
-                    if (neighborMap.containsKey(word1.charAt(j))) {
-                        set = neighborMap.get(word1.charAt(j));
-                    }
-                    if(!set.contains(word2.charAt(j))){
+                    Set<Character> set = map.containsKey(word1.charAt(j)) ? map.get(word1.charAt(j)) : new HashSet<>();
+//                    if (map.containsKey(word1.charAt(j))) {
+//                        set = map.get(word1.charAt(j));
+//                    }
+                    if (!set.contains(word2.charAt(j))) {
                         set.add(word2.charAt(j));
-                        neighborMap.put(word1.charAt(j), set);
-                        levelMap.put(word2.charAt(j), levelMap.get(word2.charAt(j)) + 1);
+                        map.put(word1.charAt(j), set);
+                        degree.put(word2.charAt(j), degree.get(word2.charAt(j)) + 1);
                     }
                     break;
                 }
             }
         }
-
         Queue<Character> q = new LinkedList<>();
-        for (char c : levelMap.keySet()) {
-            if (levelMap.get(c) == 0) {
-                q.offer(c);
-            }
+        for (char c : degree.keySet()) {
+            if (degree.get(c) == 0) q.offer(c);
         }
-
         StringBuilder sb = new StringBuilder();
         while (!q.isEmpty()) {
             char cur = q.poll();
             sb.append(cur);
-            if (neighborMap.containsKey(cur)) {
-                for (char c : neighborMap.get(cur)) {
-                    levelMap.put(c, levelMap.get(c) - 1);
-                    if (levelMap.get(c) == 0) {
+            if (map.containsKey(cur)) {
+                for (char c : map.get(cur)) {
+                    degree.put(c, degree.get(c) - 1);
+                    if (degree.get(c) == 0) {
                         q.offer(c);
                     }
                 }
             }
         }
 
-        return sb.length() == levelMap.size() ? sb.toString() : "";
+        return sb.length() == degree.size() ? sb.toString() : "";
     }
 
     public static void main(String[] args) {
-        String[] str = {"ri","xz","qxf","jhsguaw","dztqrbwbm","dhdqfb","jdv","fcgfsilnb","ooby"};
+//        String[] str = {"ri","xz","qxf","jhsguaw","dztqrbwbm","dhdqfb","jdv","fcgfsilnb","ooby"};
         // r<x x<q q<j j<d z<h d<j j<f f<o
                 // {"za","zb","ca","cb"};// a<b z<c a<b
                 //{"wrt", "wrf", "er", "ett", "rftt"};
+        String[] str = {"c", "b", "a"};
         AlienDictionary ad = new AlienDictionary();
         System.out.println(ad.alienOrder(str));
     }

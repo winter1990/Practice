@@ -13,18 +13,18 @@ package practice.leetcode.easy;
  */
 public class SymmetricTree {
     public boolean isSymmetric(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
+        if (root == null) return true;
         return isSymmetric(root.left, root.right);
     }
 
-    public boolean isSymmetric(TreeNode l, TreeNode r) {
-        if (l == null && r == null) {
+    private boolean isSymmetric(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
             return true;
-        } else if (l == null || r == null) {
+        } else if (p == null || q == null) {
+            return false;
+        } else if (p.val != q.val) {
             return false;
         }
-        return l.val == r.val && isSymmetric(l.left, r.right) && isSymmetric(l.right, r.left);
+        return isSymmetric(p.left, q.right) && isSymmetric(p.right, q.left);
     }
 }

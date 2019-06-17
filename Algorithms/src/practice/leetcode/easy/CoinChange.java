@@ -1,8 +1,5 @@
 package practice.leetcode.easy;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @dp
  *
@@ -29,13 +26,13 @@ import java.util.Map;
  */
 public class CoinChange {
     public int coinChange(int[] coins, int amount) {
-        int dp[] = new int[amount + 1];
+        int[] dp = new int[amount + 1];
         for (int i = 1; i <= amount; i++) {
             int min = -1;
             for (int coin : coins) {
-                if (i - coin >= 0 && dp[i - coin] != -1) {
-                    int tmp = dp[i - coin] + 1;
-                    min = min == -1 ? tmp : Math.min(min, tmp);
+                if (i >= coin && dp[i - coin] != -1) {
+                    int count = 1 + dp[i - coin];
+                    min = min  == -1 ? count : Math.min(min, count);
                 }
             }
             dp[i] = min;
@@ -43,30 +40,23 @@ public class CoinChange {
         return dp[amount];
     }
 
-    Map<Integer, Integer> map = new HashMap<>();
     public int coinChange1(int[] coins, int amount) {
-        if (amount == 0) {
-            return 0;
-        }
-        if (map.containsKey(amount)) {
-            return map.get(amount);
-        }
-        int count = amount + 1;
+        if (amount < 1) return 0;
+        return helper(coins, amount, new int[amount]);
+    }
+
+    private int helper(int[] coins, int rem, int[] count) {
+        if (rem < 0) return -1;
+        if (rem == 0) return 0;
+        if (count[rem - 1] != 0) return count[rem - 1]; // already computed, so reuse
+        int min = Integer.MAX_VALUE;
         for (int coin : coins) {
-            int cur = 0;
-            if (amount >= coin) {
-                int next = coinChange(coins, amount - coin);
-                if (next >= 0) {
-                    cur = next + 1;
-                }
-            }
-            if (cur > 0) {
-                count = Math.min(count, cur);
-            }
+            int res = helper(coins, rem - coin, count);
+            if (res >= 0 && res < min)
+                min = 1 + res;
         }
-        int finalCount = count == amount + 1 ? -1 : count;
-        map.put(amount, finalCount);
-        return finalCount;
+        count[rem - 1] = (min == Integer.MAX_VALUE) ? -1 : min;
+        return count[rem - 1];
     }
 
     // tle as well

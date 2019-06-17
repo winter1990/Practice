@@ -9,6 +9,16 @@ import java.util.TreeMap;
  * @array
  * @binarysearch
  *
+ * A triple booking happens when three events have some non-empty intersection
+ * (ie., there is some time that is common to all 3 events.)
+ *
+ * MyCalendar.book(10, 20); // returns true
+ * MyCalendar.book(50, 60); // returns true
+ * MyCalendar.book(10, 40); // returns true
+ * MyCalendar.book(5, 15); // returns false
+ * MyCalendar.book(5, 10); // returns true
+ * MyCalendar.book(25, 55); // returns true
+ *
  * cannot have triple overlap area
  * so, if there are two intervals overlap, it is ok
  * so we need to keep track of the existing overlapped intervals, and all the intervals
@@ -35,13 +45,15 @@ public class MyCalendar_II {
         }
 
         public boolean book(int start, int end) {
-            for (int[] overlap : overlaps) {
-                if (Math.max(overlap[0], start) < Math.min(overlap[1], end)) return false;
+            for (int[] i : overlaps) {
+                if (Math.max(start, i[0]) < Math.min(end, i[1])) return false;
             }
-            for (int[] interval : cal) {
-                int s = Math.max(interval[0], start);
-                int e = Math.min(interval[1], end);
-                if (s < e) overlaps.add(new int[]{s, e});
+            for (int[] i : cal) {
+                int s = Math.max(i[0], start);
+                int e = Math.min(i[1], end);
+                if (s < e) {
+                    overlaps.add(new int[]{s, e});
+                }
             }
             cal.add(new int[]{start, end});
             return true;
@@ -65,10 +77,10 @@ public class MyCalendar_II {
         public boolean book(int start, int end) {
             map.put(start, map.getOrDefault(start, 0) + 1);
             map.put(end, map.getOrDefault(end, 0) - 1);
-            int booked = 0;
-            for (Map.Entry<Integer,Integer> entry : map.entrySet()) {
-                booked += entry.getValue();
-                if (booked == 3) {
+            int count = 0;
+            for (Map.Entry<Integer, Integer> e : map.entrySet()) {
+                count += e.getValue();
+                if (count == 3) {
                     map.put(start, map.get(start) - 1);
                     map.put(end, map.get(end) + 1);
                     return false;

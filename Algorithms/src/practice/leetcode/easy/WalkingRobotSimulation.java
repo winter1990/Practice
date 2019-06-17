@@ -6,10 +6,12 @@ import java.util.Set;
 /**
  * @array
  *
- * A robot on an infinite grid starts at point (0, 0) and faces north.  The robot can receive one of three possible types of commands:
- * -2: turn left 90 degrees
- * -1: turn right 90 degrees
- * 1 <= x <= 9: move forward x units
+ * A robot on an infinite grid starts at point (0, 0) and faces north.
+ *
+ * The robot can receive one of three possible types of commands:
+ *   -2: turn left 90 degrees
+ *   -1: turn right 90 degrees
+ *   1 <= x <= 9: move forward x units
  * Return the square of the maximum Euclidean distance that the robot will be from the origin.
  *
  * input:

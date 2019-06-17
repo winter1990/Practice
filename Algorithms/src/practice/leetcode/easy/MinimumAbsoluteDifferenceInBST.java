@@ -5,7 +5,6 @@ import java.util.TreeSet;
 
 /**
  * @tree
- * @recursion
  *
  * inorder traversal
  * pass the previous value in recursive call

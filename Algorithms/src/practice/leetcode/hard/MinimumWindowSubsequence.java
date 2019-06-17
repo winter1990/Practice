@@ -21,8 +21,6 @@ package practice.leetcode.hard;
  * if all chars in t are matched, need to go back:
  *   to check previous chars for both string & substring to find the min window -> until j = 0
  *   keep track of the last position in S, and start from there next
- *
- *
  */
 public class MinimumWindowSubsequence {
     public String minWindow(String S, String T) {

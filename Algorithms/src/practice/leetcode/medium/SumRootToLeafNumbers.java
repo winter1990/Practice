@@ -2,7 +2,6 @@ package practice.leetcode.medium;
 
 /**
  * @tree
- * @recursion
  *
  * base case:
  * reach the leaf node (left & right child null) add to sum
@@ -11,7 +10,7 @@ package practice.leetcode.medium;
  * sum up all paths - global param
  */
 public class SumRootToLeafNumbers {
-    int sum;
+    int sum = 0;
     public int sumNumbers(TreeNode root) {
         if (root == null) return 0;
         helper(root, 0);

@@ -2,7 +2,6 @@ package practice.leetcode.easy;
 
 /**
  * @tree
- * @recursion
  *
  * a height-balanced binary tree is defined as a binary tree
  * in which the depth of the two subtrees of every node never differ by more than 1
@@ -38,30 +37,22 @@ public class BalancedBinaryTree {
      * we define the helper method with int, return the level value and compare, if it's not balanced, then return -1
      */
     public boolean isBalanced(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
-        return dfs(root) != Integer.MIN_VALUE;
+        return isBalancedTree(root) != -1;
     }
 
-    public int dfs(TreeNode node) {
+    private int isBalancedTree(TreeNode node) {
         if (node == null) {
             return 0;
         }
-        int left = dfs(node.left);
-        if (left == Integer.MIN_VALUE) {
-            return Integer.MIN_VALUE;
+        int left = isBalancedTree(node.left);
+        int right = isBalancedTree(node.right);
+        if (left == -1 || right == -1) {
+            return -1;
         }
-
-        int right = dfs(node.right);
-        if (right == Integer.MIN_VALUE) {
-            return Integer.MIN_VALUE;
-        }
-
         int diff = Math.abs(left - right);
         if (diff > 1) {
-            return Integer.MIN_VALUE;
+            return -1;
         }
-        return Math.max(left, right) + 1;
+        return 1 + Math.max(left, right);
     }
 }

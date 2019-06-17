@@ -26,6 +26,29 @@ package practice.leetcode.easy;
  */
 public class LowestCommonAncestorOfABinarySearchTree {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
+        if (p.val > q.val) {
+            TreeNode tmp = p;
+            p = q;
+            q = tmp;
+        }
+        return findLCA(root, p, q);
+    }
+
+    private TreeNode findLCA(TreeNode node, TreeNode p, TreeNode q) {
+        if (node == null) {
+            return null;
+        } else if (node == p || node == q) {
+            return node == p ? p : q;
+        } else if (node.val > p.val && node.val < q.val) {
+            return node;
+        }
+        return node.val > q.val ? findLCA(node.left, p, q) : findLCA(node.right, p, q);
+    }
+
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q) {
             return root;
         }
@@ -37,23 +60,7 @@ public class LowestCommonAncestorOfABinarySearchTree {
         return left == null ? right : left;
     }
 
-    public static void main(String[] args) {
-        TreeNode n1 = new TreeNode(1);
-        TreeNode n2 = new TreeNode(2);
-        TreeNode n3 = new TreeNode(3);
-        TreeNode n4 = new TreeNode(4);
-        TreeNode n5 = new TreeNode(5);
-        TreeNode n6 = new TreeNode(6);
-        n1.left=n2;
-        n1.right=n3;
-        n2.left=n4;
-        n2.right=n5;
-        n5.right=n6;
-        LowestCommonAncestorOfABinarySearchTree l = new LowestCommonAncestorOfABinarySearchTree();
-        l.lowestCommonAncestor(n1,n4,n6);
-    }
-
-    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) {
             return null;
         }
@@ -77,36 +84,21 @@ public class LowestCommonAncestorOfABinarySearchTree {
         }
     }
 
-    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
-        if (!containsNode(root, p) || !containsNode(root, q)) {
-            return null;
-        }
-        return helper(root, p, q);
+
+    public static void main(String[] args) {
+        TreeNode n1 = new TreeNode(1);
+        TreeNode n2 = new TreeNode(2);
+        TreeNode n3 = new TreeNode(3);
+        TreeNode n4 = new TreeNode(4);
+        TreeNode n5 = new TreeNode(5);
+        TreeNode n6 = new TreeNode(6);
+        n1.left=n2;
+        n1.right=n3;
+        n2.left=n4;
+        n2.right=n5;
+        n5.right=n6;
+        LowestCommonAncestorOfABinarySearchTree l = new LowestCommonAncestorOfABinarySearchTree();
+        l.lowestCommonAncestor(n1,n4,n6);
     }
-
-    private TreeNode helper(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null || root == p || root == q) {
-            return root;
-        }
-        boolean pLeft = containsNode(root.left, p);
-        boolean qLeft = containsNode(root.left, q);
-        if (pLeft != qLeft) {
-            return root;
-        }
-        TreeNode node = pLeft ? root.left : root.right;
-        return helper(node, p, q);
-
-    }
-
-    private boolean containsNode(TreeNode root, TreeNode n) {
-        if (root == null) {
-            return false;
-        }
-        if (root == n) {
-            return true;
-        }
-        return containsNode(root.left, n) || containsNode(root.right, n);
-    }
-
 
 }

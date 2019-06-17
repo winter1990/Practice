@@ -1,8 +1,5 @@
 package practice.leetcode.easy;
 
-public class RangeSumQuery_Immutable {
-}
-
 /**
  * @array
  *
@@ -11,25 +8,27 @@ public class RangeSumQuery_Immutable {
  * sumRange(2, 5) -> -1
  * sumRange(0, 5) -> -3
  *
- * use an array to store the sum of all previous values, sum[i] = sum[0,1,...i]
- * sum[i to j] = sum[j] - sum[i - 1], i != 0 -> sum[j]-sum[i]+num[i]
+ * calculate pre sum of the give array
+ * we call sum(i,j) which means all the elements [i, j] inclusive
+ * preSum[n+1]
+ *   preSum[i] represents the sum of first i elements
+ *   preSum[i] = preSum[i-1]+arr[i-1]
+ *   sum[i,j] = preSum[j+1]-preSum[i] -> result to return
  */
-
-class NumArray {
-    int[] nums;
-    int[] sum;
-    public NumArray(int[] nums) {
-        this.nums = nums;
-        for (int i = 0; i < nums.length; i++) {
-            if (i == 0) {
-                sum[i] = nums[i];
-            } else {
-                sum[i] = (sum[i - 1] + nums[i]);
+public class RangeSumQuery_Immutable {
+    class NumArray {
+        int[] preSum;
+        public NumArray(int[] nums) {
+            int n = nums.length;
+            preSum = new int[n + 1];
+            for (int i = 1; i <= n; i++) {
+                preSum[i] = preSum[i - 1] + nums[i - 1];
             }
         }
-    }
 
-    public int sumRange(int i, int j) {
-        return nums[i] + sum[j] - sum[i];
+        public int sumRange(int i, int j) {
+            return preSum[j + 1] - preSum[i];
+        }
     }
 }
+

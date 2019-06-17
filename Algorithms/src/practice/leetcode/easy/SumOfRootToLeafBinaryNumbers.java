@@ -2,9 +2,6 @@ package practice.leetcode.easy;
 
 import practice.leetcode.medium.TreeNode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @tree
  *
@@ -12,32 +9,31 @@ import java.util.List;
  */
 public class SumOfRootToLeafBinaryNumbers {
     public int sumRootToLeaf(TreeNode root) {
-        return dfs(root, 0);
+        return getSum(root, 0);
     }
 
-    private int dfs(TreeNode node, int val) {
-        if (node == null) return 0;
-        val *= 2;
-        val += node.val;
-        return node.left == node.right ? val : dfs(node.left, val) + dfs(node.right, val);
+    private int getSum(TreeNode node, int path) {
+        if (node == null) {
+            return 0;
+        }
+        path *= 2;
+        path += node.val;
+        return node.left == node.right ? path : getSum(node.left, path) + getSum(node.right, path);
     }
 
+    int sum = 0;
     public int sumRootToLeaf1(TreeNode root) {
-        List<String> list = new ArrayList<>();
-        dfs(root, "", list);
-        int res = 0;
-        for (String s : list) res += Integer.parseInt(s, 2);
-        return res;
+        if (root == null) return 0;
+        getPathsSum(root, 0);
+        return sum;
     }
 
-    private void dfs(TreeNode node, String s, List<String> list) {
-        if (node == null) return;
+    private void getPathsSum(TreeNode node, int path) {
         if (node.left == null && node.right == null) {
-            s += node.val;
-            list.add(s);
+            sum += (path * 2 + node.val);
             return;
         }
-        dfs(node.left, s + node.val, list);
-        dfs(node.right, s + node.val, list);
+        if (node.left != null) getPathsSum(node.left, path * 2 + node.val);
+        if (node.right != null) getPathsSum(node.right, path * 2 + node.val);
     }
 }

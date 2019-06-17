@@ -2,7 +2,6 @@ package practice.leetcode.medium;
 
 /**
  * @linkedlist
- * @recursion
  *
  * head changed, need dummy node
  * .next and .next.next

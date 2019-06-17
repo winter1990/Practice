@@ -20,22 +20,23 @@ import java.util.*;
  */
 public class FrogJump {
     public boolean canCross(int[] stones) {
+        if (stones == null || stones.length == 0 || stones[0] != 0) return false;
         if (stones[1] != 1) return false;
-        int n = stones.length;
         Map<Integer, Set<Integer>> map = new HashMap<>();
+        int n = stones.length;
         for (int i = 0; i < n; i++) map.put(stones[i], new HashSet<>());
         map.get(1).add(1);
-        for (int i = 1; i < stones.length; i++) {
-            int index = stones[i];
-            if (map.keySet().contains(index)) {
-                for (int step : map.get(index)) {
-                    if (map.containsKey(index + step - 1) && step - 1 != 0) map.get(index + step - 1).add(step - 1);
-                    if (map.containsKey(index + step)) map.get(index + step).add(step);
-                    if (map.containsKey(index + step + 1)) map.get(index + step + 1).add(step + 1);
+        for (int i = 1; i < n; i++) {
+            int start = stones[i];
+            if (map.keySet().contains(start)) {
+                for (int step : map.get(start)) {
+                    if (map.containsKey(start + step - 1) && step - 1 > 0) map.get(start + step - 1).add(step - 1);
+                    if (map.containsKey(start + step)) map.get(start + step).add(step);
+                    if (map.containsKey(start + step + 1)) map.get(start + step + 1).add(step + 1);
                 }
             }
         }
-        return map.get(stones[stones.length - 1]).size() > 0;
+        return map.get(stones[n - 1]).size() != 0;
     }
 
     public static void main(String[] args) {

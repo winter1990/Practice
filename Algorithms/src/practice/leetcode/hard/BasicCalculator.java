@@ -8,12 +8,15 @@ import java.util.Stack;
  *
  * The expression string may contain ( and ), + or -, non-negative integers and empty spaces
  * "(1+(4+5+2)-3)+(6+8)" = 23
+ *
+ * -1+(-1-(2+1))
+ *
  * 5 cases:
- * digit, calculate (123)
- * +, number part is finished, add to result, update sign
- * -, same
- * (, need to calculate new result, so push pre result and sign to stack, reset the sign
- * ), pop the sign, pop again to get result before ()
+ *   digit
+ *   + two cases, () block is finished, or number if finished. add to result, update sign
+ *   - same, sign = -1
+ *   ( start to calculate a higher priority block, so push pre result and sign to stack, reset the sign
+ *   ) pop the sign, pop again to get result before ()
  */
 public class BasicCalculator {
     public int calculate(String s) {
@@ -21,9 +24,7 @@ public class BasicCalculator {
             return 0;
         }
         Stack<Integer> stack = new Stack<>();
-        int res = 0;
-        int n = 0;
-        int sign = 1;
+        int res = 0, n = 0, sign = 1;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (Character.isDigit(c)) {
@@ -45,7 +46,7 @@ public class BasicCalculator {
             } else if (c == ')') {
                 res += sign * n;
                 n = 0;
-                res *= stack.pop(); // the sign pushed before
+                res *= stack.pop();
                 res += stack.pop();
             }
         }

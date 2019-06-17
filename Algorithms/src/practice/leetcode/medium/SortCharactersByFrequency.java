@@ -1,34 +1,30 @@
 package practice.leetcode.medium;
 
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * bucket sort:
- * initialize a array of lists List<Char>[] - size is s.len
- * iterate s, user map to track freq
- * iterate from last to first, get freq and repeat
+ * @sort
+ * @bucketsort
+ *
+ * use can use a map to kee track of the frequency for each chr in str
+ * create a bucket array
+ *   to handle the multiple chars with same freq, use an array of list
+ *   length of list - s.length + 1
+ * for each character in the map, put chars in the array
+ * iterate from last to first
+ *   for each char in the list, append i times
  */
 public class SortCharactersByFrequency {
     public String frequencySort(String s) {
         Map<Character, Integer> freq = new HashMap<>();
-        for (char c : s.toCharArray()) {
-            if (!freq.containsKey(c)) {
-                freq.put(c, 1);
-            } else {
-                freq.put(c, freq.get(c) + 1);
-            }
-        }
+        for (char c : s.toCharArray()) freq.put(c, freq.getOrDefault(c, 0) + 1);
         List<Character>[] list = new List[s.length() + 1];
         for (char c : freq.keySet()) {
-            int fre = freq.get(c);
-            if (list[fre] == null) list[fre] = new LinkedList<>();
-            list[fre].add(c);
+            int f = freq.get(c);
+            if (list[f] == null) list[f] = new ArrayList<>();
+            list[f].add(c);
         }
-
         StringBuilder res = new StringBuilder();
         for (int i = list.length - 1; i >= 0; i--) {
             if (list[i] != null) {

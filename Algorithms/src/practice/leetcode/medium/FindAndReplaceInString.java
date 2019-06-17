@@ -1,8 +1,6 @@
 package practice.leetcode.medium;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @string
@@ -15,28 +13,48 @@ import java.util.List;
  */
 public class FindAndReplaceInString {
     public String findReplaceString(String S, int[] indexes, String[] sources, String[] targets) {
-        List<int[]> indexList = new LinkedList<>();
+        List<int[]> indexList = new ArrayList<>();
         for (int i = 0; i < indexes.length; i++) indexList.add(new int[]{indexes[i], i});
         Collections.sort(indexList, (a, b) -> (a[0] - b[0]));
         StringBuilder sb = new StringBuilder();
-        int last = 0;
+        int pre = 0;
         for (int[] index : indexList) {
             int strIndex = index[0];
-            int sourceIndex = index[1];
-            if (S.substring(strIndex).indexOf(sources[sourceIndex]) == 0) {
-                sb.append(S.substring(last, strIndex));
-                sb.append(targets[sourceIndex]);
-                last = strIndex + sources[sourceIndex].length();
+            int srcIndex = index[1];
+            if (S.substring(strIndex).indexOf(sources[srcIndex]) == 0) {
+                sb.append(S.substring(pre, strIndex));
+                sb.append(targets[srcIndex]);
+                pre = strIndex + sources[srcIndex].length();
             }
         }
-        if (last != S.length()) sb.append(S.substring(last));
+        if (pre != S.length()) sb.append(S.substring(pre));
+        return sb.toString();
+    }
+
+    public String findReplaceString1(String S, int[] indexes, String[] sources, String[] targets) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < indexes.length; i++) {
+            if (S.startsWith(sources[i], indexes[i])) {
+                map.put(indexes[i], i);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < S.length();) {
+            if (map.containsKey(i)) {
+                sb.append(targets[map.get(i)]);
+                i += sources[map.get(i)].length();
+            } else {
+                sb.append(S.charAt(i));
+                i++;
+            }
+        }
         return sb.toString();
     }
 
     public static void main(String[] args) {
         String s = "abcd";
         int[] ind = new int[]{0,2};
-        String[] sr = new String[]{"ab","ec"};
+        String[] sr = new String[]{"a","cd"};
         String[] ta = new String[]{"eee","fff"};
         FindAndReplaceInString fa = new FindAndReplaceInString();
         System.out.println(fa.findReplaceString(s,ind, sr, ta));

@@ -6,10 +6,14 @@ package practice.leetcode.medium;
  * You may assume that the secret number and your friend's guess only contain digits, and their lengths are always equal.
  * bulls - position & digit - A
  * cows - digit only - B
- * case 1: 1807 7810 -> 1A3B
- * case 2: 1123 0111 -> 1A1B
  *
- * for bulls: scan through the two strings, i = [0, n-1], if s(i) == t(i) bulls++
+ * 1870
+ * 7810
+ * checker[1]++
+ * checker[7]--
+ *
+ * scan through the two strings
+ * if s(i) == t(i) bulls++
  * for cows:
  *   numbers are range in [0,9] -> use map/int[10] to track occurrences
  *   for string s, checker[s[i]] < 0 cow++

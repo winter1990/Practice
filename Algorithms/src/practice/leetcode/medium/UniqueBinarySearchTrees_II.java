@@ -1,6 +1,6 @@
 package practice.leetcode.medium;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,8 +8,12 @@ import java.util.List;
  * @tree
  * @recursion
  *
- * how to build the tree?
- * start with root, we can select between [1, n]
+ * the process of building up a tree:
+ *   choose root node
+ *   divide the range [1,N] into two parts
+ *   left part is smaller, as left subtree
+ *   right part is larger, as right subtree
+ *
  * if we select 1, all rest of nodes are on right subtree
  * so we have another sub-set of numbers from [2, n]
  * recursively build the left and right subtree and pass the values can be selected
@@ -22,21 +26,19 @@ import java.util.List;
  */
 public class UniqueBinarySearchTrees_II {
     public List<TreeNode> generateTrees(int n) {
-        if (n <= 0) {
-            return new LinkedList<>();
-        }
-        return helper(1, n);
+        if (n == 0) return new ArrayList<>();
+        return buildTree(1, n);
     }
 
-    private List<TreeNode> helper(int start, int end) {
-        List<TreeNode> list = new LinkedList<>();
+    private List<TreeNode> buildTree(int start, int end) {
+        List<TreeNode> list = new ArrayList<>();
         if (start > end) {
             list.add(null);
             return list;
         }
         for (int i = start; i <= end; i++) {
-            List<TreeNode> left = helper(start, i - 1);
-            List<TreeNode> right = helper(i + 1, end);
+            List<TreeNode> left = buildTree(start, i - 1);
+            List<TreeNode> right = buildTree(i + 1, end);
             for (TreeNode l : left) {
                 for (TreeNode r : right) {
                     TreeNode node = new TreeNode(i);
@@ -47,15 +49,5 @@ public class UniqueBinarySearchTrees_II {
             }
         }
         return list;
-    }
-
-    public static void main(String[] args) {
-//        List<TreeNode> list = new LinkedList<>();
-//        System.out.println(list);
-//        list.add(null);
-//        list.add(null);
-//        System.out.println(list);
-        UniqueBinarySearchTrees_II uni = new UniqueBinarySearchTrees_II();
-        System.out.println(uni.generateTrees(0));
     }
 }

@@ -27,4 +27,29 @@ public class MinimumPathSum {
         }
         return dp[m - 1][n - 1];
     }
+
+    public int minPathSum1(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        int[] dp = new int[n];
+        dp[0] = grid[0][0];
+        for (int j = 1; j < n; j++) {
+            dp[j] = dp[j - 1] + grid[0][j];
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (j == 0) {
+                    dp[j] += grid[i][j];
+                } else {
+                    dp[j] = grid[i][j] + Math.min(dp[j], dp[j - 1]);
+                }
+            }
+        }
+        return dp[n - 1];
+    }
+
+    public static void main(String[] args) {
+        int[][] in = {{1,3,1},{1,5,1},{4,2,1}};
+        MinimumPathSum m = new MinimumPathSum();
+        System.out.println(m.minPathSum1(in));
+    }
 }

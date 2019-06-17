@@ -14,15 +14,15 @@ public class MinimumDepthOfBinaryTree {
         if (root == null) {
             return 0;
         }
-        return helper(root);
+        return getMin(root);
     }
 
-    public int helper(TreeNode node) {
+    private int getMin(TreeNode node) {
         if (node == null) {
             return Integer.MAX_VALUE;
         } else if (node.left == null && node.right == null) {
             return 1;
         }
-        return Math.min(helper(node.left), helper(node.right)) + 1;
+        return 1 + Math.min(getMin(node.left), getMin(node.right));
     }
 }

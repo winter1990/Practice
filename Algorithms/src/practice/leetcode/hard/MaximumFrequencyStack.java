@@ -3,6 +3,7 @@ package practice.leetcode.hard;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 /**
  * @stack
@@ -43,6 +44,56 @@ import java.util.PriorityQueue;
  *   return value
  */
 public class MaximumFrequencyStack {
+
+    static class FreqStack {
+        Map<Integer, Integer> freq;
+        Map<Integer, Stack<Integer>> map;
+        int maxFreq;
+        public FreqStack() {
+            freq = new HashMap<>();
+            map = new HashMap<>();
+            maxFreq = 0;
+        }
+
+        public void push(int x) {
+            freq.put(x, freq.getOrDefault(x, 0) + 1);
+            map.computeIfAbsent(freq.get(x), s -> new Stack<>()).push(x);
+            maxFreq = Math.max(maxFreq, freq.get(x));
+        }
+
+        public int pop() {
+            Stack<Integer> stack = map.get(maxFreq);
+            int i = stack.pop();
+            if (stack.isEmpty()) --maxFreq;
+            freq.put(i, freq.get(i) - 1);
+            return i;
+        }
+    }
+
+    // higher time complexity and limited number of push
+    class FreqStack1 {
+        PriorityQueue<int[]> pq;
+        Map<Integer, Integer> freq;
+        int index;
+        public FreqStack1() {
+            index = 0;
+            freq = new HashMap<>();
+            pq = new PriorityQueue<>((a, b) -> a[2] != b[2] ? b[2] - a[2] : b[1] - a[1]);
+        }
+
+        public void push(int x) {
+            freq.put(x, freq.getOrDefault(x, 0) + 1);
+            pq.offer(new int[]{x, index, freq.get(x)});
+            index++;
+        }
+
+        public int pop() {
+            int v = pq.poll()[0];
+            freq.put(v, freq.get(v) - 1);
+            return v;
+        }
+    }
+
     public static void main(String[] args) {
         FreqStack fs = new FreqStack();
         fs.push(1);
@@ -57,27 +108,5 @@ public class MaximumFrequencyStack {
         System.out.println(fs.pop());
         System.out.println(fs.pop());
         System.out.println(fs.pop());
-    }
-}
-class FreqStack {
-    PriorityQueue<int[]> pq;
-    Map<Integer, Integer> freq;
-    int index;
-    public FreqStack() {
-        index = 0;
-        freq = new HashMap<>();
-        pq = new PriorityQueue<>((a, b) -> a[2] != b[2] ? b[2] - a[2] : b[1] - a[1]);
-    }
-
-    public void push(int x) {
-        freq.put(x, freq.getOrDefault(x, 0) + 1);
-        pq.offer(new int[]{x, index, freq.get(x)});
-        index++;
-    }
-
-    public int pop() {
-        int v = pq.poll()[0];
-        freq.put(v, freq.get(v) - 1);
-        return v;
     }
 }

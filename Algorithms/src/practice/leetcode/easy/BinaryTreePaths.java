@@ -10,27 +10,23 @@ package practice.leetcode.easy;
  * 2. travel down - add current node and arrow sign
  */
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BinaryTreePaths {
     public List<String> binaryTreePaths(TreeNode root) {
-        List<String> res = new LinkedList<>();
-        if (root == null) {
-            return res;
-        }
-        dfs(res, root, "");
+        List<String> res = new ArrayList<>();
+        if (root == null) return res;
+        getPaths(root, "", res);
         return res;
     }
 
-    private void dfs(List<String> res, TreeNode root, String s) {
-        if (root == null) {
-            return;
-        } else if (root.left == null && root.right == null) {
-            res.add(s + root.val);
+    private void getPaths(TreeNode node, String cur, List<String> res) {
+        if (node.left == null && node.right == null) {
+            res.add(cur + node.val);
             return;
         }
-        dfs(res, root.left, s + root.val + "->");
-        dfs(res, root.right, s + root.val + "->");
+        if (node.left != null) getPaths(node.left, cur + node.val + "->", res);
+        if (node.right != null) getPaths(node.right, cur + node.val + "->", res);
     }
 }

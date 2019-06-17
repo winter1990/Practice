@@ -1,7 +1,9 @@
 package practice.leetcode.medium;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @dp
@@ -27,9 +29,11 @@ public class WordBreak {
     public boolean wordBreak(String s, List<String> wordDict) {
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
+        Set<String> set = new HashSet<>();
+        set.addAll(wordDict);
         for (int i = 1; i <= s.length(); i++) {
             for (int j = 0; j < i; j++) {
-                if (dp[j] && wordDict.contains(s.substring(j, i))) {
+                if (dp[j] && set.contains(s.substring(j, i))) {
                     dp[i] = true;
                 }
             }
@@ -38,29 +42,51 @@ public class WordBreak {
     }
 
     /**
-     * recursively check substring
-     * this will fail if the string is to long
-     * aaaaaaaaaaaaaaaaaaaaaaaaaa...,[a,aa,aa,aaa]
+     * followup
+     * what if we need to call search(string s) multiple times
+     *
+     * use a trie to build the dictionary so if we call search(word), we do not have to do O(N^2) search each time
      */
     public boolean wordBreak1(String s, List<String> wordDict) {
-        if (s == null || s.length() == 0) return true;
-        return helper(s, 0, wordDict);
-    }
-
-    private boolean helper(String s, int index, List<String> dict) {
-        if (index == s.length()) {
-            return true;
-        }
-        for (int i = index + 1; i <= s.length(); i++) {
-            if (dict.contains(s.substring(index, i))) {
-                if(helper(s, i, dict)) {
-                    return true;
+        TrieNode root = new TrieNode();
+        for (String word : wordDict) addToTree(root, word);
+        int n = s.length();
+        boolean[] checker = new boolean[n + 1];
+        checker[n] = true;
+        char[] cs = s.toCharArray();
+        for (int i = n - 1; i >= 0; i--) {
+            TrieNode cur = root;
+            for (int j = i; j < n && cur != null; j++) {
+                int index = (int) cs[j];
+                cur = cur.nodes[index];
+                if (cur != null && cur.isWord && checker[j + 1]) {
+                    checker[i] = true;
+                    break;
                 }
-            } else {
-                continue;
             }
         }
-        return false;
+        return checker[0];
+    }
+
+    private void addToTree(TrieNode root, String w) {
+        TrieNode node = root;
+        for (int i = 0; i < w.length(); i++) {
+            int index = (int) w.charAt(i);
+            if (node.nodes[index] == null) {
+                node.nodes[index] = new TrieNode();
+            }
+            node = node.nodes[index];
+        }
+        node.isWord = true;
+    }
+
+    class TrieNode {
+        boolean isWord;
+        TrieNode[] nodes;
+        public TrieNode() {
+            isWord = false;
+            nodes = new TrieNode[128];
+        }
     }
 
     public static void main(String[] args) {

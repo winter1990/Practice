@@ -6,7 +6,7 @@ import java.util.*;
  * @dfs
  * @bfs
  * @graph
- * @topologicalsort
+ * @topological
  *
  * There are a total of n courses you have to take, labeled from 0 to n-1.
  * Some courses may have prerequisites, for example to take course 0 you have to first take course 1,
@@ -21,31 +21,39 @@ import java.util.*;
  * 2. build up the relationship between the courses/prerequisites
  *
  * build the graph first
- * map is ok, key is id, value is a list of courses
- * but for this problem, course is [0,n-1], so we can List[]
- * scan all the prerequisites and create the dependency graph
+ *   map - course id is key, values is a list/set as multiple courses may depend on the same course
+ *   an array of list List[] is also feasible, as course is [0,n-1]
  * start with the courses that have no dependency
+ *   use an array to store the depth of the courses
+ *   degree[], if i depends on j, degree[i]++
+ *   so we can start from the degree of 0, means no dependency
+ * bfs courses
+ *   poll() from queue, which means we finish the course
+ *   update the degree - update all the courses that depend on this course
+ *   if the degree becomes 0, add to queue
+ * handle the circle
+ *   [a b][b c][c a] all have degree 1, so we will not start from any of them
  */
 public class CourseSchedule {
     // topological sort (BFS thinking)
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        List<Integer>[] graph = new ArrayList[numCourses];
-        for (int i = 0; i < graph.length; i++) graph[i] = new ArrayList<>();
         int[] degree = new int[numCourses];
-        for (int i = 0; i < prerequisites.length; i++) {
-            degree[prerequisites[i][0]]++;
-            graph[prerequisites[i][1]].add(prerequisites[i][0]);
+        Map<Integer, Set<Integer>> map = new HashMap<>();
+        for (int[] p : prerequisites) {
+            degree[p[0]]++;
+            map.computeIfAbsent(p[1], s -> new HashSet<>()).add(p[0]);
+        }
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (degree[i] == 0) q.offer(i);
         }
         int count = 0;
-        Queue<Integer> queue = new LinkedList<>();
-        for (int i = 0; i < degree.length; i++) {
-            if (degree[i] == 0) queue.offer(i);
-        }
-        while (!queue.isEmpty()) {
-            int course = queue.poll();
+        while (!q.isEmpty()) {
+            int cur = q.poll();
             count++;
-            for (int nei : graph[course]) {
-                if (--degree[nei] == 0) queue.offer(nei);
+            if (map.get(cur) == null) continue;
+            for (int next : map.get(cur)) {
+                if (--degree[next] == 0) q.offer(next);
             }
         }
         return count == numCourses;

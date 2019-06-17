@@ -1,41 +1,45 @@
 package practice.leetcode.medium;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 /**
  * @tree
- * @stack
  *
- * in-order: left-root-right
- * recursive:
- * left -> add -> right
+ * order of traversal:
+ *   left
+ *   root
+ *   right
  *
- * iterative:
- * keep traversing to leftmost node
- * when going down, put root to stack
- * if null, pop stack, put in result, go to right
- * when reaching the root, stack is empty and cur = root.right
- * so when checking stack, also check cur for each iteration
+ * recursive solution
+ *   dfs(node.left)
+ *   add to result
+ *   dfs(node.right)
  *
+ * iterative
+ * think about the order of traversal:
+ *   we go to left until reching the left most
+ *   then we need to go upper level to add the root node
+ *   then go to right sub tree and repeat the above process
+ * how do we know if it is the leftmost already
+ *   check if left child is null
+ *   OR if reached null, the peek of stack is out next node to be added
  */
 public class BinaryTreeInorderTraversal {
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> res = new LinkedList<>();
-        if (root == null) {
-            return res;
-        }
+        List<Integer> res = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode cur = root;
-        while (!stack.isEmpty() || cur != null) {
-            if (cur != null) {
-                stack.push(cur);
-                cur = cur.left;
+        TreeNode node = root;
+        while (!stack.isEmpty() || node != null) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
             } else {
-                cur = stack.pop();
-                res.add(cur.val);
-                cur = cur.right;
+                node = stack.pop();
+                res.add(node.val);
+                node = node.right;
             }
         }
         return res;
