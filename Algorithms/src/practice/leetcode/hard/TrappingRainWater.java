@@ -21,16 +21,14 @@ package practice.leetcode.hard;
  */
 public class TrappingRainWater {
     public int trap(int[] height) {
-        int l = 0, r = height.length - 1, res = 0, lmax = 0, rmax = 0;
+        int res = 0, lmax = 0, rmax = 0, l = 0, r = height.length - 1;
         while (l < r) {
             lmax = Math.max(lmax, height[l]);
             rmax = Math.max(rmax, height[r]);
             if (lmax < rmax) {
-                res += (lmax - height[l]);
-                l++;
+                res += lmax - height[l++];
             } else {
-                res += (rmax - height[r]);
-                r--;
+                res += rmax - height[r--];
             }
         }
         return res;

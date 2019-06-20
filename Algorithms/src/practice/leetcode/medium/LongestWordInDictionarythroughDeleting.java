@@ -1,5 +1,6 @@
 package practice.leetcode.medium;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,25 +26,38 @@ public class LongestWordInDictionarythroughDeleting {
     public String findLongestWord(String s, List<String> d) {
         Collections.sort(d, (a, b) -> a.length() == b.length() ? a.compareTo(b) : b.length() - a.length());
         for (String w : d) {
-            int i = 0;
-            for (char c : s.toCharArray()) {
-                if (i < w.length() && w.charAt(i) == c) i++;
+            int j = 0;
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == w.charAt(j)) j++;
+                if (j == w.length()) return w;
             }
-            if (i == w.length()) return w;
         }
         return "";
     }
 
     public String findLongestWord1(String s, List<String> d) {
-        String longest = "";
-        for (String dictWord : d) {
-            int i = 0;
-            for (char c : s.toCharArray()) {
-                if (i < dictWord.length() && c == dictWord.charAt(i)) i++;
+        String res = "";
+        for (String word : d) {
+            int j = 0;
+            for (int i = 0; i < s.length(); i++) {
+                if (j < word.length() && s.charAt(i) == word.charAt(j)) j++;
+                if (j == word.length()) break;
             }
-            if (i == dictWord.length() && dictWord.length() >= longest.length())
-                if (dictWord.length() > longest.length() || dictWord.compareTo(longest) < 0) longest = dictWord;
+            if (j == word.length()) {
+                if (word.length() > res.length()) {
+                    res = word;
+                } else if (word.length() == res.length()) {
+                    res = res.compareTo(word) < 0 ? res : word;
+                }
+            }
         }
-        return longest;
+        return res;
+    }
+
+    public static void main(String[] args) {
+        LongestWordInDictionarythroughDeleting l = new LongestWordInDictionarythroughDeleting();
+        String s = "abpcplea";
+        List<String> list = Arrays.asList("a", "b", "c");
+        System.out.println(l.findLongestWord1(s, list));
     }
 }

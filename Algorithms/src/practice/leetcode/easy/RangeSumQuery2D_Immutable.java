@@ -18,21 +18,23 @@ public class RangeSumQuery2D_Immutable {
  * the sum in the rectangle (r1,c1) (r2,c2) = sum[r2][c2] - sum[r1-1][c2] - sum[r2][c1-1] + sum[r1-1][c1-1]
  */
 class NumMatrix {
-    int[][] sum;
-    int[][] matrix;
+    int m, n;
+    int[][] preSum;
     public NumMatrix(int[][] matrix) {
-        if (matrix.length == 0) return;
-        this.matrix = matrix;
-        int m = matrix.length, n = matrix[0].length;
-        sum = new int[m + 1][n + 1];
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return;
+        m = matrix.length;
+        n = matrix[0].length;
+        preSum = new int[m + 1][n + 1];
         for (int i = 1; i <= m; i++) {
+            int col = 0;
             for (int j = 1; j <= n; j++) {
-                sum[i][j] = sum[i - 1][j] + sum[i][j - 1] - sum[i - 1][j - 1] + matrix[i - 1][j - 1];
+                col += matrix[i - 1][j - 1];
+                preSum[i][j] += preSum[i - 1][j] + col;
             }
         }
     }
 
     public int sumRegion(int row1, int col1, int row2, int col2) {
-        return sum[row2 + 1][col2 + 1] - sum[row1][col2 + 1] - sum[row2 + 1][col1] + sum[row1][col1];
+        return preSum[row2 + 1][col2 + 1] - preSum[row1][col2 + 1] - preSum[row2 + 1][col1] + preSum[row1][col1];
     }
 }

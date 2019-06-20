@@ -32,20 +32,20 @@ import java.util.TreeMap;
  */
 public class MyCalendar_III {
     class MyCalendarThree {
-        TreeMap<Integer, Integer> time;
+        TreeMap<Integer, Integer> map;
         public MyCalendarThree() {
-            time = new TreeMap<>();
+            map = new TreeMap<>();
         }
 
         public int book(int start, int end) {
-            time.put(start, time.getOrDefault(start, 0) + 1);
-            time.put(end, time.getOrDefault(end, 0) - 1);
-            int k = 0, cur = 0;
-            for (int v : time.values()) {
-                cur += v;
-                k = Math.max(k, cur);
+            map.put(start, map.getOrDefault(start, 0) + 1);
+            map.put(end, map.getOrDefault(end, 0) - 1);
+            int max = 0, cur = 0;
+            for (Integer k : map.values()) {
+                cur += k;
+                max = Math.max(max, cur);
             }
-            return k;
+            return max;
         }
     }
 }

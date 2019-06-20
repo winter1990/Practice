@@ -40,7 +40,8 @@ import java.util.Stack;
  *   find the shortest cost to visit all the nodes in graph
  *
  * travel the nodes
- *   greedy? find the most overlapped chars? ab bcd cde def -> bcdefab
+ *   greedy? find the most overlapped chars?
+ *   example: ab bcd cde def -> bcdefab
  *   use dp to find minimum hamiltonian cycle - traveling salesman problem
  *
  * as length of A is [1,10], so we can use a single integer to represents nodes we want to travel

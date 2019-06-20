@@ -12,14 +12,23 @@ package practice.leetcode.medium;
  * checker[1]++
  * checker[7]--
  *
- * scan through the two strings
- * if s(i) == t(i) bulls++
- * for cows:
- *   numbers are range in [0,9] -> use map/int[10] to track occurrences
- *   for string s, checker[s[i]] < 0 cow++
- *   for string t, checker[t[i]] > 0 cow++
- *   checker[s[i]]++
- *   checker[t[i]]--
+ * intuitive solution:
+ *   define a counter for secret string
+ *   scan from left to right and get the frequency for each digit in secret
+ *   scan the guess string
+ *     if a[i]=b[i], a bull is found
+ *     else check if counter > 0
+ * it is wrong because, we are matching bulls first and use the leftover chars to match the char in different location
+ *
+ * for different strings - secret and guess
+ * i = [0, n-1]
+ *   if s(i) == t(i) bulls++
+ *   else
+ *     use int[10] to track occurrences
+ *     if checker[s[i]] < 0, it means there was s[i] in t before i, cow++
+ *     if checker[t[i]] > 0, it means there was t[i] in s before i, cow++
+ *     checker[s[i]]++
+ *     checker[t[i]]--
  */
 public class BullsAndCows {
     public String getHint(String secret, String guess) {
@@ -39,12 +48,5 @@ public class BullsAndCows {
             }
         }
         return bulls + "A" + cows + "B";
-    }
-
-    public static void main(String[] args) {
-        BullsAndCows bc = new BullsAndCows();
-        String a = "1123";
-        String b = "0111";
-        System.out.println(bc.getHint(a, b));
     }
 }

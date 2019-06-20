@@ -12,13 +12,17 @@ import java.util.Queue;
  * level are as far left as possible.
  * It can have between 1 and 2^h nodes inclusive at the last level h.
  *
- * brute force
+ * method 1 - brute force
  * level order traversal - use queue to store nodes
  * each time we poll() a node from the queue, count++
  *
+ * method 2 - get height of left and right sub tree
+ * get height - nlogn
+ *
+ * method 3 - optimization
  * the properties of the tree
- * only last level not full
- * all the leaf nodes are as far left as possible
+ *   only last level not full
+ *   all the leaf nodes are as far left as possible
  *            1
  *      2          3
  *   4     5    6     7
@@ -26,26 +30,25 @@ import java.util.Queue;
  *
  * we want to skip traversing down the tree if a sub tree is full already
  * getting height of left and right sub tree is not enough to check if the tree is full
- * need to get the depth of left most and right most
+ * we can check the depth of left most and right most
  *
  * define two methods to get the depth of leftmost and rightmost
- * if left == right, then it means the tree is full, (1<<left)-1
+ * if left == right, then it means the tree is full, (1 << left) - 1
  * otherwise
  *   return 1 + getCount(left child) + getCount(right child)
- *
  * time O(logN * logN)
  */
 public class CountCompleteTreeNodes {
     public int countNodes(TreeNode root) {
-        int left = getLeftMostHeight(root);
-        int right = getRightMostHeight(root);
-        if (left == right) {
-            return (1 << left) - 1;
+        int l = getLeft(root);
+        int r = getRight(root);
+        if (l == r) {
+            return (1 << l) - 1;
         }
         return 1 + countNodes(root.left) + countNodes(root.right);
     }
 
-    private int getLeftMostHeight(TreeNode node) {
+    private int getLeft(TreeNode node) {
         int level = 0;
         while (node != null) {
             node = node.left;
@@ -54,7 +57,7 @@ public class CountCompleteTreeNodes {
         return level;
     }
 
-    private int getRightMostHeight(TreeNode node) {
+    private int getRight(TreeNode node) {
         int level = 0;
         while (node != null) {
             node = node.right;

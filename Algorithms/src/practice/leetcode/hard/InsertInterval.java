@@ -28,41 +28,27 @@ import java.util.List;
  *   because we may break at some point, need add the rest of intervals into result set
  */
 public class InsertInterval {
-    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-        List<Interval> res = new ArrayList<>();
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> list = new ArrayList<>();
         int i = 0;
-        for (; i < intervals.size(); i++) {
-            Interval cur = intervals.get(i);
-            if (newInterval.end < cur.start) {
+        for (; i < intervals.length; i++) {
+            int[] cur = intervals[i];
+            if (cur[1] < newInterval[0]) {
+                list.add(cur);
+            } else if (cur[0] > newInterval[1]) {
                 break;
-            } else if (newInterval.start > cur.end) {
-                res.add(cur);
             } else {
-                newInterval.start = Math.min(newInterval.start, cur.start);
-                newInterval.end = Math.max(newInterval.end, cur.end);
+                newInterval[0] = Math.min(newInterval[0], cur[0]);
+                newInterval[1] = Math.max(newInterval[1], cur[1]);
             }
         }
-        res.add(newInterval);
-        while (i < intervals.size()) {
-            res.add(intervals.get(i));
-            i++;
+        list.add(newInterval);
+        while (i < intervals.length) list.add(intervals[i++]);
+        int[][] res = new int[list.size()][2];
+        for (int j = 0; j < list.size(); j++) {
+            res[j] = list.get(j);
         }
         return res;
-    }
-
-    class Interval {
-        int start;
-        int end;
-
-        Interval() {
-            start = 0;
-            end = 0;
-        }
-
-        Interval(int s, int e) {
-            start = s;
-            end = e;
-        }
     }
 }
 

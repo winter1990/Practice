@@ -14,6 +14,22 @@ import java.util.Stack;
  */
 public class MinimumAddToMakeParenthesesValid {
     public int minAddToMakeValid(String S) {
+        int count = 0, left = 0;
+        for (char c : S.toCharArray()) {
+            if (c == '(') {
+                left++;
+            } else if (c == ')') {
+                left--;
+                if (left < 0) {
+                    count++;
+                    left = 0;
+                }
+            }
+        }
+        return count + left;
+    }
+
+    public int minAddToMakeValid1(String S) {
         if (S == null || S.length() == 0) {
             return 0;
         }

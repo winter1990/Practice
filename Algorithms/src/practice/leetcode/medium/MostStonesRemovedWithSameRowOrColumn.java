@@ -1,8 +1,5 @@
 package practice.leetcode.medium;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @array
  * @unionfind
@@ -30,22 +27,22 @@ import java.util.Map;
  */
 public class MostStonesRemovedWithSameRowOrColumn {
     public int removeStones(int[][] stones) {
-        int n = stones.length;
+        int n = stones.length, count = 0;
         int[] parent = new int[n];
-        for (int i = 0; i < n; i++) parent[i] = i;
-        int count = n;
+        for (int i = 1; i < n; i++) parent[i] = i;
         for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
-                if (stones[i][0] != stones[j][0] && stones[i][1] != stones[j][1]) continue;
-                int p1 = find(parent, i);
-                int p2 = find(parent, j);
-                if (p1 != p2) {
-                    parent[p2] = p1;
-                    count--;
+                if (stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
+                    int pi = find(parent, i);
+                    int pj = find(parent, j);
+                    if (pi != pj) {
+                        parent[pj] = pi;
+                        count++;
+                    }
                 }
             }
         }
-        return n - count;
+        return count;
     }
 
     private int find(int[] parent, int i) {
@@ -55,36 +52,10 @@ public class MostStonesRemovedWithSameRowOrColumn {
         return i;
     }
 
-    Map<Integer, Integer> f = new HashMap<>();
-    int islands = 0;
-    public int removeStones1(int[][] stones) {
-        for (int i = 0; i < stones.length; i++) union(stones[i][0], ~stones[i][1]);
-        return stones.length - islands;
-    }
-
-    public int find(int x) {
-        if (f.putIfAbsent(x, x) == null)
-            islands++;
-        if (x != f.get(x))
-            f.put(x, find(f.get(x)));
-        return f.get(x);
-    }
-
-    public void union(int x, int y) {
-        x = find(x);
-        y = find(y);
-        if (x != y) {
-            f.put(x, y);
-            islands--;
-        }
-    }
-
     public static void main(String[] args) {
         MostStonesRemovedWithSameRowOrColumn m = new MostStonesRemovedWithSameRowOrColumn();
         int[][] in = {{0,0},{0,2},{1,1},{2,0},{2,2}};
         m.removeStones(in);
-//        System.out.println(2);
-//        System.out.println(~2);
     }
 
     /**

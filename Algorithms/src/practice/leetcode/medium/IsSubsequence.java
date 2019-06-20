@@ -12,32 +12,36 @@ package practice.leetcode.medium;
  * c f f f f f f t
  */
 public class IsSubsequence {
-    public boolean isSubsequence1(String s, String t) {
-        if (s.length() == 0) {
-            return true;
-        } else if (t.length() < s.length()) {
-            return false;
+    public boolean isSubsequence0(String s, String t) {
+        int index = -1;
+        for (char c : s.toCharArray()) {
+            index = t.indexOf(c, index + 1);
+            if (index == -1) return false;
         }
-        int is = 0;
-        int it = 0;
+        return true;
+    }
+
+    public boolean isSubsequence(String s, String t) {
+        int m = s.length(), n = t.length();
+        for (int i = 0, j = 0; i < m; i++, j++) {
+            char cs = s.charAt(i);
+            while (j < n && t.charAt(j) != cs) j++;
+            if (j == n) return false;
+        }
+        return true;
+    }
+
+    public boolean isSubsequence1(String s, String t) {
+        int is = 0, it = 0;
         while (it < t.length()) {
-            if (s.charAt(is) == t.charAt(it)) {
-                is++;
-            }
-            if (is == s.length()) {
-                return true;
-            }
+            if (s.charAt(is) == t.charAt(it)) is++;
+            if (is == s.length()) return true;
             it++;
         }
         return false;
     }
 
-    public boolean isSubsequence(String s, String t) {
-        if (s.length() == 0) {
-            return true;
-        } else if (t.length() < s.length()) {
-            return false;
-        }
+    public boolean isSubsequence2(String s, String t) {
         int m = s.length();
         int n = t.length();
         boolean[][] dp = new boolean[m][n];

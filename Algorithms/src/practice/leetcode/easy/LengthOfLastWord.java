@@ -17,18 +17,13 @@ package practice.leetcode.easy;
  */
 public class LengthOfLastWord {
     public static int lengthOfLastWord(String s) {
-        if (s == null || s.length() == 0) {
-            return 0;
-        }
+        if (s == null || s.length() == 0) return 0;
         int count = 0;
-        int index = s.length() - 1;
-        while (index >= 0) {
-            if (s.charAt(index) == ' ' && count != 0) {
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char c = s.charAt(i);
+            if (c == ' ' && count != 0) {
                 break;
-            } else if (s.charAt(index) == ' ' && count == 0) {
-                index--;
-            } else {
-                index--;
+            } else if (c != ' ') {
                 count++;
             }
         }
