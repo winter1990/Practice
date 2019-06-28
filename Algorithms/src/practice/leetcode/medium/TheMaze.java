@@ -23,7 +23,10 @@ import java.util.Queue;
  * left-down-left-down-right-down-right
  *
  * bfs
- * begin with start point, track all the points that it can reach
+ * begin with start point
+ * for each direction, move until wall
+ * store the visited points - 2d boolean array
+ * poll() from the queue and check if it is destination
  */
 public class TheMaze {
     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
@@ -36,21 +39,21 @@ public class TheMaze {
         isVisited[start[0]][start[1]] = true;
         while (!q.isEmpty()) {
             Point cur = q.poll();
-            int x = cur.row;
-            int y = cur.col;
+            int row = cur.row;
+            int col = cur.col;
             for (int[] dir : dirs) {
-                int row = x;
-                int col = y;
-                while (row >= 0 && row < m && col >= 0 && col < n && maze[row][col] == 0) {
-                    row += dir[0];
-                    col += dir[1];
+                int x = row;
+                int y = col;
+                while (x >= 0 && x < m && y >= 0 && y < n && maze[x][y] == 0) {
+                    x += dir[0];
+                    y += dir[1];
                 }
-                row -= dir[0];
-                col -= dir[1];
-                if (isVisited[row][col]) continue;
-                isVisited[row][col] = true;
-                if (row == destination[0] && col == destination[1]) return true;
-                q.offer(new Point(row, col));
+                x -= dir[0];
+                y -= dir[1];
+                if (isVisited[x][y]) continue;
+                isVisited[x][y] = true;
+                if (x == destination[0] && y == destination[1]) return true;
+                q.offer(new Point(x, y));
             }
         }
         return false;

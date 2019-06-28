@@ -36,36 +36,41 @@ import java.util.*;
  */
 public class WordLadder {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Set<String> beginSet = new HashSet<>();
-        Set<String> endSet = new HashSet<>();
-        beginSet.add(beginWord);
-        endSet.add(endWord);
-        Set<String> dict = new HashSet<>(wordList);
+        Set<String> dict = new HashSet<>();
+        for (String s : wordList) {
+            dict.add(s);
+        }
         if (!dict.contains(endWord)) return 0;
-        int step = 1;
-        while (!beginSet.isEmpty()) {
-            if (beginSet.size() > endSet.size()) {
-                Set<String> tmp = beginSet;
-                beginSet = endSet;
-                endSet = tmp;
+        Set<String> start = new HashSet<>();
+        Set<String> end = new HashSet<>();
+        start.add(beginWord);
+        end.add(endWord);
+        int step = 0;
+        while (start.size() > 0) {
+            step++;
+            if (start.size() > end.size()) {
+                Set<String> tmp = start;
+                start = end;
+                end = tmp;
             }
             Set<String> set = new HashSet<>();
-            for (String w : beginSet) {
+            for (String w : start) {
                 char[] cs = w.toCharArray();
                 for (int i = 0; i < cs.length; i++) {
-                    char oldChar = cs[i];
                     for (char c = 'a'; c <= 'z'; c++) {
-                        if (c == oldChar) continue;
+                        if (c == w.charAt(i)) continue;
                         cs[i] = c;
                         String s = new String(cs);
-                        if (endSet.contains(s)) return step + 1;
-                        if (dict.contains(s)) set.add(s);
+                        if (end.contains(s)) return step + 1;
+                        if (dict.contains(s)) {
+                            set.add(s);
+                        }
+                        cs[i] = w.charAt(i);
                     }
-                    cs[i] = oldChar;
                 }
             }
-            beginSet = set;
-            step++;
+            start = set;
+
         }
         return 0;
     }

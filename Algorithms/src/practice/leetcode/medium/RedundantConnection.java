@@ -17,23 +17,26 @@ package practice.leetcode.medium;
  */
 public class RedundantConnection {
     public int[] findRedundantConnection(int[][] edges) {
-        int[] parent = new int[edges.length + 1];
-        for (int i = 1; i < parent.length; i++) parent[i] = i;
-        for (int[] edge : edges) {
-            int from = edge[0], to = edge[1];
-            if (find(parent, from) == find(parent, to)) {
-                return edge;
+        int n = edges.length;
+        int[] parent = new int[n + 1];
+        for (int i = 1; i <= n; i++) parent[i] = i;
+        for (int[] e : edges) {
+            int p1 = find(parent, e[0]);
+            int p2 = find(parent, e[1]);
+            if (p1 != p2) {
+                parent[p2] = p1;
+            } else {
+                return e;
             }
-            parent[find(parent, from)] = find(parent, to);
         }
         return new int[2];
     }
 
-    private int find(int[] parent, int n) {
-        if (parent[n] != n) {
-            parent[n] = find(parent, parent[parent[n]]);
+    private int find(int[] parent, int i) {
+        while (parent[i] != i) {
+            i = parent[i];
         }
-        return parent[n];
+        return i;
     }
 
     public static void main(String[] args) {

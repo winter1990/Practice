@@ -85,20 +85,22 @@ public class GraphValidTree {
     public boolean validTree(int n, int[][] edges) {
         int[] parent = new int[n];
         for (int i = 1; i < n; i++) parent[i] = i;
-        for (int i = 0; i < edges.length; i++) {
-            int x = find(parent, edges[i][0]);
-            int y = find(parent, edges[i][1]);
-            if (x == y) return false;
-            parent[y] = x;
+        for (int[] e : edges) {
+            int p0 = find(parent, e[0]);
+            int p1 = find(parent, e[1]);
+            if (p0 == p1) {
+                return false;
+            }
+            parent[p1] = p0;
         }
         return edges.length == n - 1;
     }
 
-    private int find(int[] p, int i) {
-        while (p[i] != i) {
-            p[i] = find(p, p[i]);
+    private int find(int[] parent, int i) {
+        while (parent[i] != i) {
+            i = parent[i];
         }
-        return p[i];
+        return i;
     }
 
 }

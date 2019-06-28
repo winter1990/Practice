@@ -8,7 +8,6 @@ package practice.leetcode.hard;
  * Note: You may not engage in multiple transactions at the same time
  * (i.e., you must sell the stock before you buy again).
  *
- * AT MOST two transactions: 0 1 2
  * divide array into two parts and perform at most 1 transaction in each part
  * use two arrays to store the maximum profit
  *   left to right - max profit by day i
@@ -43,6 +42,11 @@ public class BestTimeToBuyAndSellStock_III {
 
     /**
      * optimization:
+     * two transaction allowed
+     *   if we buy first time, the first buy = -prices[i]
+     *   if we sell first time, the gain = prices[i] + fist buy
+     *   if we by second time, the second buy = second sell - prices[i]
+     *   if we sell second time, the gain = prices[i] + second buy
      * use variables to keep track of:
      *   buy once
      *   buy once sell once

@@ -21,19 +21,18 @@ package practice.leetcode.medium;
  */
 public class ReorganizeString {
     public String reorganizeString(String S) {
-        int max = 0;
         int[] freq = new int[26];
-        for (char c : S.toCharArray()) freq[c - 'a'] += 1;
-        for (int i = 0; i < freq.length; i++) {
-            if (freq[i] > freq[max]) max = i;
+        int n = S.length(), max = 0;
+        for (char c : S.toCharArray()) {
+            ++freq[c - 'a'];
+            if (freq[c - 'a'] > freq[max]) {
+                max = c - 'a';
+            }
         }
-
-        int n = S.length();
         if (freq[max] > (n + 1) / 2) return "";
-
-        char[] res = new char[n];
         int index = 0;
-        for (int i = 0; i < n; i += 2) {
+        char[] res = new char[n];
+        for (int i = 0 ; i < n; i+= 2) {
             if (freq[max] > 0) {
                 res[i] = (char) ('a' + max);
                 freq[max]--;
@@ -43,7 +42,7 @@ public class ReorganizeString {
                 freq[index]--;
             }
         }
-        for (int i = 1; i < n; i += 2) {
+        for (int i = 1; i < n; i+= 2) {
             while (freq[index] == 0) index++;
             res[i] = (char) ('a' + index);
             freq[index]--;

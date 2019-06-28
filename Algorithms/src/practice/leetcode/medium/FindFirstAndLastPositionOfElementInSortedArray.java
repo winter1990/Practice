@@ -102,4 +102,37 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         }
         return -1;
     }
+
+    // recursion solution
+    public int[] searchRange2(int[] nums, int target) {
+        int[] res = {nums.length, -1};
+        search(nums, 0, nums.length - 1, target, res);
+        if (res[0] > res[1]) res[0] = -1;
+        return res;
+    }
+
+    private void search(int[] nums, int start, int end, int target, int[] res) {
+        if (start > end) return;
+        int mid = start + (end - start) / 2;
+        if (nums[mid] < target) {
+            search(nums, mid + 1, end, target, res);
+        } else if (nums[mid] > target) {
+            search(nums, start, mid - 1, target, res);
+        } else {
+            if (mid < res[0]) {
+                res[0] = mid;
+                search(nums, start, mid - 1, target, res);
+            }
+            if (mid > res[1]) {
+                res[1] = mid;
+                search(nums, mid + 1, end, target, res);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] in = {5,7,7,8,8,10};
+        FindFirstAndLastPositionOfElementInSortedArray f = new FindFirstAndLastPositionOfElementInSortedArray();
+        System.out.println(f.searchRange2(in, 8));
+    }
 }

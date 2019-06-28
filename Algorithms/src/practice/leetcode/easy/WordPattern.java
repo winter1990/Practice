@@ -1,6 +1,8 @@
 package practice.leetcode.easy;
 
 /**
+ * @string
+ *
  * pattern = "abba", str = "dog cat cat dog" should return true.
  * pattern = "abba", str = "dog cat cat fish" should return false.
  * pattern = "aaaa", str = "dog cat cat dog" should return false.
@@ -29,21 +31,6 @@ public class WordPattern {
                 map.put(pattern.charAt(i), strs[i]);
             }
         }
-        return true;
-    }
-
-
-    /**
-     *
-     */
-    public boolean wordPattern1(String pattern, String str) {
-        String[] words = str.split(" ");
-        if (words.length != pattern.length())
-            return false;
-        Map index = new HashMap();
-        for (Integer i=0; i<words.length; ++i)
-            if (index.put(pattern.charAt(i), i) != index.put(words[i], i))
-                return false;
         return true;
     }
 

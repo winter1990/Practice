@@ -2,9 +2,11 @@ package practice.leetcode.medium;
 
 import java.util.Arrays;
 
+/**
+ * @array
+ * @quickselect
+ */
 public class MinimumMovesToEqualArrayElements_II {
-    // sort O(nlogn)
-    // linear search O(n)
     public int minMoves2(int[] nums) {
         if (nums == null || nums.length <= 1) {
             return 0;
@@ -20,8 +22,6 @@ public class MinimumMovesToEqualArrayElements_II {
         return res;
     }
 
-    // quick select O(n)
-    // linear search O(n)
     // if we increase or decrease the numbers to median, we can get the optimal solution/moves
     // the median can be found using quick select
     public int minMoves21(int[] A) {

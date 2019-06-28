@@ -40,4 +40,43 @@ public class MinimumWindowSubstring {
         }
         return res;
     }
+
+    public String minWindow1(String s, String t) {
+        int[] ct = new int[256];
+        int[] cs = new int[256];
+        for (char c : t.toCharArray()) ct[c]++;
+        int l = 0, r = 0, count = 0, min = Integer.MAX_VALUE;
+        String res = "";
+        for (;r < s.length(); r++) {
+            char c = s.charAt(r);
+            if (ct[c] != 0) {
+                cs[c]++;
+                if (cs[c] <= ct[c]) count++;
+            }
+            if (count == t.length()) {
+                while (l < r) {
+                    if (cs[s.charAt(l)] != 0) {
+                        if (--cs[s.charAt(l)] < ct[s.charAt(l)]) {
+                            count--;
+                            break;
+                        }
+                    }
+                    l++;
+                }
+                if (r - l + 1 < min) {
+                    res = s.substring(l, r + 1);
+                    min = r - l + 1;
+                }
+                l++;
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        String s = "ADOBECODEBANC";
+        String t = "ABC";
+        MinimumWindowSubstring m = new MinimumWindowSubstring();
+        System.out.println(m.minWindow1(s, t));
+    }
 }

@@ -6,21 +6,29 @@ import java.util.PriorityQueue;
 /**
  * @search
  * @sort
+ * @quickselect
  *
- * method 1
+ * method 1 - sort and select
  * Arrays.sort(arr) and find the value arr[n - k] - O(nlogn) and O(1)
  *
- * method 2
- * PriorityQueue
+ * method 2 - heap
  * maintain a K size queue -> min heap
- * for each element, put in queue, if the size is larger than K, then poll from the pq (smallest)
- * provides O(log(n)) time for the enqueing and dequeing methods (offer, poll, remove() and add)
+ * for each element
+ *   put in queue
+ *   if the size is larger than K, then poll from the pq (smallest)
+ * priority queue provides O(log(n)) for enqueing and dequeing methods (offer, poll, remove() and add)
  * linear time for the remove(Object) and contains(Object) methods;
  * and constant time for the retrieval methods (peek, element, and size).
- * O(logn + (n-k)logn) and O(k)
+ * O(logn + (n-k)logn) - O(nlogn)
+ * O(k) space
+ *
+ * method 3 - quick select
+ * select a pivot
+ * move all the larger elements to the right
+ * move all the smaller or equal elements to the left
+ *
  */
 public class KthLargestElementInAnArray {
-
     // sort and select N(nlogn)
     public int findKthLargest1(int[] nums, int k) {
         Arrays.sort(nums);
@@ -28,30 +36,20 @@ public class KthLargestElementInAnArray {
     }
 
     // priority queue
-    // https://stackoverflow.com/questions/5695017/priorityqueue-not-sorting-on-add
     public int findKthLargest2(int[] nums, int k) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        PriorityQueue<Integer> q = new PriorityQueue<>();
         for (int n : nums) {
-            pq.offer(n);
-            if (pq.size() > k) {
-                pq.poll();
-            }
+            q.offer(n);
+            if (q.size() > k) q.poll();
         }
-        return pq.peek();
+        return q.peek();
     }
 
-    /**
-     * @quickselect
-     *
-     * https://en.wikipedia.org/wiki/Quickselect
-     * the quick select idea is to select a pivot, and move all the values larger than pivot to right and smaller to left
-     * worst case: O(N^2), O(n) time
-     */
+    // quick select
     public int findKthLargest3(int[] nums, int k) {
         return quickSelect(nums, 0, nums.length - 1, nums.length - k);
     }
 
-    // k is the index we are looking for
     private int quickSelect(int[] a, int start, int end, int k) {
         int left = start, pivot = a[end];
         for (int i = left; i < end; i++) {

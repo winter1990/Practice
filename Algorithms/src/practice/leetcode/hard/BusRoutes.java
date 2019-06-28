@@ -65,4 +65,38 @@ public class BusRoutes {
         int[][] in = {{1, 2, 7}, {3, 6, 7}};
         System.out.println(b.numBusesToDestination(in,1,6));
     }
+
+    public int numBusesToDestination1(int[][] routes, int S, int T) {
+        if (S == T) return 0;
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < routes.length; i++) {
+            for (int j = 0; j < routes[i].length; j++) {
+                if (!map.containsKey(routes[i][j])) {
+                    map.put(routes[i][j], new ArrayList<>());
+                }
+                map.get(routes[i][j]).add(i);
+            }
+        }
+        Queue<Integer> q = new LinkedList<>();
+        Set<Integer> visited = new HashSet<>();
+        int res = 0;
+        q.offer(S);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            ++res;
+            for (int i = 0; i < size; i++) {
+                int cur = q.poll();
+                List<Integer> buses = map.get(cur);
+                for (int bus : buses) {
+                    if (visited.contains(bus)) continue;
+                    visited.add(bus);
+                    for (int j : routes[bus]) {
+                        if (j == T) return res;
+                        q.offer(j);
+                    }
+                }
+            }
+        }
+        return -1;
+    }
 }

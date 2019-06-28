@@ -1,5 +1,8 @@
 package practice.leetcode.easy;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @string
  *
@@ -33,6 +36,19 @@ public class IsomorphicStrings {
             }
             cs[s.charAt(i)] = i + 1;
             ct[t.charAt(i)] = i + 1;
+        }
+        return true;
+    }
+
+    public boolean isIsomorphic1(String s, String t) {
+        Map<Character, Character> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(s.charAt(i))) {
+                if (t.charAt(i) != map.get(s.charAt(i))) return false;
+            } else {
+                if (map.values().contains(t.charAt(i))) return false;
+                map.put(s.charAt(i), t.charAt(i));
+            }
         }
         return true;
     }

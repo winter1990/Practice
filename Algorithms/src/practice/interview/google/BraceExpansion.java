@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @string
+ *
  * Given an input string in the format String s = "" return
  * Expected output: [abcdfgh, abcdfij, abcefgh, abcefij]
  * This is exact output of echo abc{d,e}f{gh,ij} on a bash terminal

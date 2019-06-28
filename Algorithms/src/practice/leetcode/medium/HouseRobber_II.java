@@ -12,10 +12,10 @@ package practice.leetcode.medium;
  */
 public class HouseRobber_II {
     public int rob(int[] nums) {
-        if (nums.length == 1) {
-            return nums[0];
-        }
-        return Math.max(rob(nums, 0, nums.length - 2), rob(nums, 1, nums.length - 1));
+        if (nums == null || nums.length == 0) return 0;
+        int robFirst = nums[0] + rob(nums, 2, nums.length - 2);
+        int notRobFirst = rob(nums, 1, nums.length - 1);
+        return Math.max(robFirst, notRobFirst);
     }
 
     private int rob(int[] nums, int s, int e) {

@@ -11,7 +11,7 @@ package practice.leetcode.medium;
  * Explanation: the subarray [4,3] has the minimal length under the problem constraint.
  *
  * translation:
- * find the minimum window size that the sum within the window is >= target value
+ * find the minimum window size that the sum within the window >= target value
  *
  * two pointers: i = 0, j = 0
  * keep track of the current sum
@@ -21,16 +21,14 @@ package practice.leetcode.medium;
  */
 public class MinimumSizeSubarraySum {
     public int minSubArrayLen(int s, int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
-        int i = 0, j = 0, sum = 0, window = Integer.MAX_VALUE;
-        while (j < nums.length) {
-            sum += nums[j];
-            while (sum >= s) {
-                window = Math.min(window, j - i + 1);
-                sum -= nums[i++];
+        int n = nums.length, res = n + 1, cur = 0;
+        for (int i = 0, j = 0; j < n; j++) {
+            cur += nums[j];
+            while (cur >= s) {
+                res = Math.min(res, j - i + 1);
+                cur -= nums[i++];
             }
-            j++;
         }
-        return window == Integer.MAX_VALUE ? 0 : window;
+        return res == n + 1 ? 0 : res;
     }
 }

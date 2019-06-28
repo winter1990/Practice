@@ -5,26 +5,22 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @string
+ *
+ * aabcdecfghjk
+ * one index to track the last index
+ * need to track the chars visited -> set
+ * traverse the string, if
+ * - set contains char, move the last index until ch(i)=char(j)
+ * - set not contains char, put and continue
+ */
 public class LongestSubstringWithoutRepeatingCharacters {
-    /**
-     * @string
-     *
-     * aabcdecfghjk
-     * one index to track the last index
-     * need to track the chars visited -> set
-     * traverse the string, if
-     * - set contains char, move the last index until ch(i)=char(j)
-     * - set not contains char, put and continue
-     */
     public int lengthOfLongestSubstring(String s) {
-        if (s == null || s.length() == 0) {
-            return 0;
-        }
+        int max = 0;
         Set<Character> set = new HashSet<>();
-        int i = 0, j = 0, max = 0;
-        while (j < s.length()) {
-            if (!set.contains(s.charAt(j))) {
-                set.add(s.charAt(j));
+        for (int i = 0, j = 0; j < s.length(); j++) {
+            if (set.add(s.charAt(j))) {
                 max = Math.max(max, j - i + 1);
             } else {
                 while (s.charAt(i) != s.charAt(j)) {
@@ -33,7 +29,6 @@ public class LongestSubstringWithoutRepeatingCharacters {
                 }
                 i++;
             }
-            j++;
         }
         return max;
     }
@@ -43,24 +38,17 @@ public class LongestSubstringWithoutRepeatingCharacters {
     // if not contain,put<>
     // if contains, update start pos, abcbdce, max(index,map.get(char)+1)
     // update max
-    public static int lengthOfLongestSubstring1(String s) {
-        if (s == null || s.length() == 0) {
-            return 0;
-        }
+    public int lengthOfLongestSubstring1(String s) {
         Map<Character, Integer> map = new HashMap<>();
         int max = 0;
-        for (int i = 0, j = 0; i < s.length(); i++) {
-            if (map.containsKey(s.charAt(i))) {
-                j = Math.max(j, map.get(s.charAt(i)) + 1); // j = map.get(s.charAt(i)) + 1; incorrect, j might be beyond get(i)
+        for (int i = 0, j = 0; j < s.length(); j++) {
+            char c = s.charAt(j);
+            if (map.containsKey(c)) {
+                i = Math.max(i, map.get(c) + 1);
             }
-            map.put(s.charAt(i), i);
-            max = Math.max(max, i - j + 1);
+            map.put(c, j);
+            max = Math.max(max, j - i + 1);
         }
         return max;
-    }
-
-    public static void main(String[] args) {
-//        LongestSubstringWithoutRepeatingCharacters a = new LongestSubstringWithoutRepeatingCharacters();
-        System.out.println(lengthOfLongestSubstring1("abba"));
     }
 }

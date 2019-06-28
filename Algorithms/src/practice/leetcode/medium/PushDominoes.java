@@ -3,6 +3,10 @@ package practice.leetcode.medium;
 /**
  * @string
  *
+ * There are N dominoes in a line, and we place each domino vertically upright.
+ * In the beginning, we simultaneously push some of the dominoes either to the left or to the right.
+ * Return a string representing the final state.
+ *
  * Input: ".L.R...LR..L..", Output: "LL.RR.LLRRLL.."
  * Input: "RR.L", Output: "RR.L"
  *
@@ -11,36 +15,51 @@ package practice.leetcode.medium;
  *
  * all cases:
  * R...R -> RRRRR
- * R...L -> RR.LL
- * R....L -> RRRLLL
  * L...R -> L...R
+ * R...L
+ *   odd dominoes between  R...L -> RR.LL
+ *   even dominoes between R....L -> RRRLLL
  * L...L -> LLLLL
  *
+ * keep track the position of l and r
+ * i = [0, n-1]
+ *   if L
+ *     if R = -1 and L= -1, push all to left
+ *     if R != -1, while(L<R) R++ L-- update L and R
+ *   else if R
+ *     if L<R, from R to i, all R
+ *     else leave it
+ * at last deal with tail
+ *   let i = [0, n]
+ *   the condition for checking 'R is changed to (i == n || cs[i] == 'R')
  */
 public class PushDominoes {
     public String pushDominoes(String dominoes) {
-        char[] cs = dominoes.toCharArray();
-        int l = -1, r = -1, n = cs.length;
+        int l = -1, r = -1, n = dominoes.length();
+        char[] res = dominoes.toCharArray();
         for (int i = 0; i <= n; i++) {
-            if (i == n || cs[i] == 'R') {
+            if (i == n || res[i] == 'R') {
                 if (r > l) {
-                    while (r < i) cs[r++] = 'R';
+                    while (++r < i) res[r] = 'R';
                 }
                 r = i;
-            } else if (cs[i] == 'L') {
-                if (l > r || (l == -1 && r == -1)) {
-                    while (++l < i) cs[l] = 'L';
-                } else {
-                    l = i;
-                    int lo = r + 1, hi = l - 1;
-                    while (lo < hi) {
-                        cs[lo++] = 'R';
-                        cs[hi--] = 'L';
+            } else if (res[i] == 'L') {
+                if (l > r || (r == -1 && l == -1)) {
+                    while (++l < i) {
+                        res[l] = 'L';
                     }
+                } else {
+                    int lo = r + 1;
+                    int hi = i - 1;
+                    while (lo < hi) {
+                        res[lo++] = 'R';
+                        res[hi--] = 'L';
+                    }
+                    l = i;
                 }
             }
         }
-        return new String(cs);
+        return new String(res);
     }
 
     public static void main(String[] args) {

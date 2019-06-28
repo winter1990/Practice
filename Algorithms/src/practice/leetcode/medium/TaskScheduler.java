@@ -66,9 +66,9 @@ public class TaskScheduler {
                 maxCount = 1;
             }
         }
-        int intervalCount = maxFreq - 1;
-        int intervalLength = n - maxCount + 1;
-        int emptySlots = intervalCount * intervalLength;
+        int blockCount = maxFreq - 1;
+        int blockLength = n - maxCount + 1;
+        int emptySlots = blockCount * blockLength;
         int remainingTasks = tasks.length - maxFreq * maxCount;
         int idleCount = Math.max(0, emptySlots - remainingTasks);
         return idleCount + tasks.length;

@@ -7,34 +7,34 @@ import java.util.List;
  * @string
  * @recursion
  *
- * n=3, ()()() (()()) (())() ((()))
- * valid format of parentheses: number of left >= number of right parentheses
- * recursively build the string:
- * - base case: right > left, no more left can be added
- * - helper(left, right, string, result set), (n,0,"",res)
- * - if left>0, (n-1,right+1,s+(,res)
- * - if right>0, (n,right-1,s+), res)
+ * Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+ *
+ * we totally have n pairs, which means n left ( and n right )
+ * for a valid parentheses string, if we scan from left to right, # of right must <= left
+ * each time we add a ( in the string, it means we have one more ) to be added in the next call
+ *
+ * recursion solution
+ * base case
+ *   if we have used all credits for ( and ), add to result
+ * recursive call
+ * (left, right, current, result set)
+ * two options to be added to current string
+ *   ( if we have credit for it - we add ( which means we can have 1 more credit for )
+ *   ) if we have credit for it
  */
 public class GenerateParentheses {
     public List<String> generateParenthesis(int n) {
         List<String> res = new LinkedList<>();
-        if (n <= 0) {
-            return res;
-        }
-        helper(n, 0, new String(), res);
+        generate(n, 0, "", res);
         return res;
     }
 
-    private void helper(int open, int close, String s, List<String> res) {
-        if (open == 0 && close == 0) {
-            res.add(s);
+    private void generate(int left, int right, String cur, List<String> res) {
+        if (left == 0 && right == 0) {
+            res.add(cur);
             return;
         }
-        if (open > 0) {
-            helper(open - 1, close + 1, s + "(", res);
-        }
-        if (close > 0) {
-            helper(open, close - 1, s + ")", res);
-        }
+        if (left > 0) generate(left - 1, right + 1, cur + "(", res);
+        if (right > 0) generate(left, right - 1, cur + ")", res);
     }
 }

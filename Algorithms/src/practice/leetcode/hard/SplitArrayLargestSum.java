@@ -24,11 +24,12 @@ package practice.leetcode.hard;
  * need to define a method to check how many can be divided
  */
 public class SplitArrayLargestSum {
-    public int splitArray(int[] nums, int m) {
-        int lo = 0, hi = 0;
-        for (int n : nums) {
-            lo = Math.max(lo, n);
-            hi += n;
+    public static int splitArray(int[] nums, int m) {
+        int lo = 0;
+        int hi = 0;
+        for (int i : nums) {
+            lo = Math.max(lo, i);
+            hi += i;
         }
         if (m == 1) return hi;
         while (lo <= hi) {
@@ -42,22 +43,70 @@ public class SplitArrayLargestSum {
         return lo;
     }
 
-    private boolean isValidSplit(int[] nums, int target, int m) {
-        int count = 1, sum = 0;
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
+    private static boolean isValidSplit(int[] arr, int target, int m) {
+        int sum = 0;
+        int count = 1;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
             if (sum > target) {
-                sum = nums[i];
-                ++count;
-                if (count > m) return false;
+                count++;
+                sum = arr[i];
             }
+            if (count > m) return false;
+        }
+        return true;
+    }
+
+    /**
+     * follow up - maximize the smallest piece
+     * 5 1 2 6, m = 3 -> 5 | 1 2 | 6
+     * lo = 1, hi = 14
+     * mid = 7
+     * 5 1 | 2 | 6
+     * valid - [1 6]
+     * mid = 3
+     */
+    public static int maxSmallestSpli(int[] arr, int m) {
+        int lo = Integer.MAX_VALUE;
+        int hi = 0;
+        for (int a : arr) {
+            hi += a;
+            lo = Math.min(a, lo);
+        }
+        if (m == 1) return hi;
+        if (m == arr.length) return lo;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (isValid(arr, mid, m)) {
+                hi = mid - 1;
+            } else {
+                lo = mid + 1;
+            }
+        }
+        return lo;
+    }
+
+    private static boolean isValid(int[] arr, int target, int m) {
+        int count = 1;
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            if (sum > target) {
+                count++;
+                sum = 0;
+            }
+            if (count > m) return false;
         }
         return true;
     }
 
     public static void main(String[] args) {
-        SplitArrayLargestSum sa = new SplitArrayLargestSum();
-        int[] in = {7,2,5,10,8};
-        sa.splitArray(in, 2);
+        int[] arr = {5,1,2,2,12,6};
+        int m = 3;
+        System.out.println(maxSmallestSpli(arr,3));
+//        System.out.println(splitArray(arr,3));
+//        SplitArrayLargestSum sa = new SplitArrayLargestSum();
+//        int[] in = {7,2,5,10,8};
+//        sa.splitArray(in, 2);
     }
 }

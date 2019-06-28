@@ -1,8 +1,5 @@
 package practice.leetcode.medium;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -13,57 +10,39 @@ import java.util.TreeMap;
  * target along the road.
  * A car can never pass another car ahead of it, but it can catch up to it, and drive bumper to bumper at the same speed.
  *
- * based on the description, whether two cars can be combined depends on the slowest car on the rightmost
- * sorting the car based on arrival time not applicable as when blocked, it will change the speed to slower one on right
- * start from right car
- * we need to position to be sorted -> sort or tree map -> key is in ascending order by default
- * key: -position[i] can make sure when scanning the map, we start with right car
- * value: how much time needed to arrive target
- * keep track of the slowest speed
- * if current cars's time > slowest, count++ and update slowest value
- *
- * The collection's iterator returns the values in ascending order of the corresponding keys.
+ * start with two cars
+ * ---------------------------d--->
+ *       p1->s1      p2->s2
+ * for car 2 - time to dest - t1 =(d-p2)/s2,
+ * for car 2 - t2 = (d-p1)/s1
+ * if t1 >= t2, one fleet. when they meet each other, s = min(s1,s2) - s 2
+ * if a new car comes in and slower than previous two, then it becomes the new bottle neck for the cars behind
+ * track the slowest car so far
+ * start with rightmost car, get max time to reach dest
+ * if smaller time, combined
+ * if larger time, update new time to dest and count++
+ * tree map
+ *   key is position - we want to start from the rightmost car - so -position[i]
+ *   value is time - for each v in values() we are getting the rightmost car
+ * for each car
+ *   put -position and (t-position)/speed
+ * define count and slowest time as 0
+ * for each value in value set
+ *   if v > slowest count++, slowest = v
+ * return count
  */
 public class CarFleet {
     public int carFleet(int target, int[] position, int[] speed) {
         TreeMap<Integer, Double> map = new TreeMap<>();
-        for (int i = 0; i < position.length; i++) map.put(-position[i], (double)(target - position[i]) / speed[i]);
-        double slowest = 0;
-        int count = 0;
-        for (double time : map.values()) {
-            if (time > slowest) {
-                slowest = time;
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * wrong solution
-     * if we re-order the cars, the resultmay be changed incorrectly because whne two cars meet, the speed changes
-     * immediately
-     *
-     * first thought, find some way to sort
-     * because the rightmost car is the 'blocker'
-     * position & speed -> a list of cars with position and speed -> int[], [0] position and [1] speed
-     * sort by position
-     * start from the last one -> right most car
-     * calculate the meeting point and compare with destination/target if > target, fleet++, otherwise combined
-     */
-    public int carFleet1(int target, int[] position, int[] speed) {
-        List<int[]> list = new LinkedList<>();
         for (int i = 0; i < position.length; i++) {
-            list.add(new int[]{position[i], speed[i]});
+            map.put(-position[i], (double) (target - position[i]) / speed[i]);
         }
-        Collections.sort(list, (a, b) -> (a[0] - b[0]));
-        int count = position.length;
-        for (int i = list.size() - 2; i >= 0; i--) {
-            int[] left = list.get(i);
-            int[] right = list.get(i + 1);
-            if (left[1] > right[1] && left[0] + right[1] * (double)(right[0] - left[0]) / (double)(left[1] - right[1]) <= target) {
-                left[1] = right[1];
-                count--;
+        int count = 0;
+        double maxTime = 0;
+        for (double time : map.values()) {
+            if (time > maxTime) {
+                maxTime = time;
+                count++;
             }
         }
         return count;

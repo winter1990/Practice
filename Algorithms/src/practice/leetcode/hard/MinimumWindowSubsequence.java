@@ -47,4 +47,42 @@ public class MinimumWindowSubsequence {
         }
         return res;
     }
+
+    public String getMinWindow(String s, String t) {
+        int m = s.length(), n = t.length();
+        char[] cs = s.toCharArray();
+        char[] ct = t.toCharArray();
+        int len = Integer.MAX_VALUE, i = 0, j = 0;
+        String res = "";
+        while (i < m) {
+            if (cs[i] == ct[j]) {
+                j++;
+                if (j == n) {
+                    int last = i;
+                    --j;
+                    while (j >= 0) {
+                        if (cs[i] == ct[j]) j--;
+                        i--;
+                    }
+                    i++;
+                    j++;
+                    if (last - i + 1 < len) {
+                        res = s.substring(i, last + 1);
+                        len = res.length();
+                    }
+                }
+            }
+            i++;
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        String s = "abadcbedcdc";
+        String t = "bcd";
+        MinimumWindowSubsequence m = new MinimumWindowSubsequence();
+        System.out.println(m.minWindow(s, t));
+        System.out.println(m.getMinWindow(s, t));
+    }
+
 }

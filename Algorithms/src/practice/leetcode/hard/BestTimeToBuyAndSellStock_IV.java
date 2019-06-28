@@ -13,8 +13,17 @@ package practice.leetcode.hard;
  * 2. at most k transactions
  * 3. maximize the total profit
  *
- * use a dp array to track the max profit
- * dp[k+1][len], dp[i][j] represents at most i transaction(s), before j in prices[] array
+ * define an array to track the maximum profit with k transactions at day i
+ * dp[k+1][n]
+ *   dp[i][j] represents maximum profit at day i, with i transactions
+ * for each transaction
+ *   we need one buy + one sell
+ *   sell after buy
+ * on day j, two cases
+ *   case 1 - do not buy or sell, dp the dp[i][j] = dp[i][j-1]
+ *   case 2 - sell at day j
+ *     before day j, we have bought at day k, k =[0,j-1]
+ *     and the profit we get by day k is dp[i-1][k]
  *
  * initial status:
  *   dp[i][0], only one data point, so can not make any profit
@@ -36,7 +45,7 @@ public class BestTimeToBuyAndSellStock_IV {
         }
         int[][] dp = new int[k + 1][n];
         for (int i = 1; i <= k; i++) {
-            int pre = dp[i - 1][0] - prices[0]; // assume we buy at first day
+            int pre = -prices[0]; // assume we buy at first day
             for (int j = 1; j < n; j++) {
                 // 1. not use the current price to sell
                 // 2. use the current new price, and execute one transaction

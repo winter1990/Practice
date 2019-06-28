@@ -15,51 +15,65 @@ import java.util.Set;
  *
  * for each number in the given array, to form a consecutive sequence:
  *   the target values in rest of array: a[i]+1 or a[i]-1
- * for quick look up the values in the array, use set to store
+ * for quick look up the values in the array, use set to store all values in array
  * for each value
- *   keep searching left
- *   keep searching right
+ *   keep searching left, update count and remove element
+ *   keep searching right, update count and remove element
+ *   compare and update the max length
  */
 public class LongestConsecutiveSequence {
     public int longestConsecutive(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
         Set<Integer> set = new HashSet<>();
-        for (int n : nums) set.add(n);
-        int res = 1;
-        for (int n : nums) {
-            if (!set.contains(n)) continue;
-            int count = 1, l = n - 1, r = n + 1;
-            while (set.contains(l)) {
-                set.remove(l);
-                count++;
-                l--;
+        for (int i : nums) set.add(i);
+        int max = 1;
+        for (int i : nums) {
+            if (set.contains(i)) {
+                int count = 1;
+                int left = i - 1;
+                int right = i + 1;
+                while (set.contains(left)) {
+                    count++;
+                    set.remove(left);
+                    left--;
+                }
+                while (set.contains(right)) {
+                    count++;
+                    set.remove(right);
+                    right++;
+                }
+                set.remove(i);
+                max = Math.max(count, max);
             }
-            while (set.contains(r)) {
-                set.remove(r);
-                count++;
-                r++;
-            }
-            res = Math.max(res, count);
         }
-        return res;
+        return max;
     }
 
     /**
      * optimization
      */
-    public int longestConsecutive1(int[] nums) {
+    public static int longestConsecutive1(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
         Map<Integer, Integer> map = new HashMap<>();
-        int max = 0;
-        for (int n : nums) {
-            if (!map.containsKey(n)) {
-                int left = map.get(n - 1) == null ? 0 : map.get(n - 1);
-                int right = map.get(n + 1) == null ? 0 : map.get(n + 1);
-                int len = left + right + 1;
-                max = Math.max(max, len);
-                map.put(n - left, len);
-                map.put(n + right, len);
+        int max = 1;
+        for (int i : nums) {
+            if (!map.containsKey(i)) {
+                int l = map.containsKey(i - 1) ? map.get(i - 1) : 0;
+                int r = map.containsKey(i + 1) ? map.get(i + 1) : 0;
+                int cur = l + 1 + r;
+                map.put(i, cur);
+                max = Math.max(max, cur);
+                map.put(i - l, cur);
+                map.put(i + r, cur);
             }
         }
         return max;
+    }
+
+    public static void main(String[] args) {
+        int[] in = {3,1,2,2,2};
+        System.out.println(longestConsecutive1(in));
     }
 }
