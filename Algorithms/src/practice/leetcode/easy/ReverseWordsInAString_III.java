@@ -1,22 +1,25 @@
 package practice.leetcode.easy;
 
+/**
+ * @string
+ *
+ * Given a string, you need to reverse the order of characters in each word within a sentence while still preserving
+ * whitespace and initial word order.
+ *
+ * Input:  "Let's take LeetCode contest"
+ * Output: "s'teL ekat edoCteeL tsetnoc"
+ */
 public class ReverseWordsInAString_III {
     public String reverseWords(String s) {
-        if (s == null || s.length() == 0) {
-            return "";
-        }
+        int i = 0, j = 0, n = s.length();
         char[] cs = s.toCharArray();
-        int i = 0, j = i;
-        while (i < cs.length) {
-            while (i < cs.length && cs[i] == ' ') {
-                i++;
-            }
-            j = i;
-            while (j < cs.length - 1 && cs[j + 1] != ' ') {
+        while (j < n) {
+            while (j < n && cs[j] != ' ') {
                 j++;
             }
-            reverse(cs, i, j);
+            reverse(cs, i, j - 1);
             i = j + 1;
+            j = i;
         }
         return new String(cs);
     }

@@ -1,43 +1,35 @@
 package practice.leetcode.easy;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @string
  */
 public class SubdomainVisitCount {
-    public List<String> subdomainVisits(String[] cpdomains) {
-        List<String> res = new ArrayList<>();
-        if (cpdomains == null || cpdomains.length == 0) {
-            res.add("");
-            return res;
-        }
+    public List<String> subdomainVisits1(String[] cpdomains) {
         Map<String, Integer> map = new HashMap<>();
-        for (String s : cpdomains) {
-            String[] strs = s.split(" ");
-            int cnt = Integer.valueOf(strs[0]);
-            String domain = strs[1];
-            map.put(domain, map.getOrDefault(domain, 0) + cnt);
-
-            while (domain.indexOf('.') != -1) {
-                int index = domain.indexOf('.');
-                String sub = domain.substring(index + 1);
-                map.put(sub, map.getOrDefault(sub, 0) + cnt);
-                domain = domain.substring(index + 1);
+        for (String cpdomain : cpdomains) {
+            String[] strs = cpdomain.split(" ");
+            int count = Integer.valueOf(strs[0]);
+            String[] domains = strs[1].split("\\.");
+            StringBuilder sb = new StringBuilder();
+            for (int i = domains.length - 1; i >= 0; i--) {
+                if (i == domains.length - 1) {
+                    sb.append(domains[i]);
+                } else {
+                    sb.insert(0, domains[i] + ".");
+                }
+                map.put(sb.toString(), map.getOrDefault(sb.toString(), 0) + count);
             }
         }
-        for (String domain : map.keySet()) {
-            res.add(map.get(domain) + " " + domain);
-        }
+        List<String> res = new LinkedList<>();
+        for (String k : map.keySet()) res.add(map.get(k) + " " + k);
         return res;
     }
 
     public static void main(String[] args) {
         String[] s = {"900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"};
         SubdomainVisitCount sv = new SubdomainVisitCount();
-        System.out.println(sv.subdomainVisits(s));
+        System.out.println(sv.subdomainVisits1(s));
     }
 }

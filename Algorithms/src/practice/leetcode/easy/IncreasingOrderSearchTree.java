@@ -31,6 +31,19 @@ public class IncreasingOrderSearchTree {
         inorder(node.right, list);
     }
 
+    // another recursive solution
+    public TreeNode increasingBST1(TreeNode root) {
+        return traverse(root, null);
+    }
+
+    private TreeNode traverse(TreeNode node, TreeNode tail) {
+        if (node == null) return tail;
+        TreeNode root = traverse(node.left, node);
+        node.left = null;
+        node.right = traverse(node.right, tail);
+        return root;
+    }
+
     public static void main(String[] args) {
         IncreasingOrderSearchTree in = new IncreasingOrderSearchTree();
         TreeNode n1 = new TreeNode(379);

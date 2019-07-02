@@ -22,4 +22,19 @@ public class SortArrayByParity_II {
         }
         return A;
     }
+
+    public int[] sortArrayByParityII1(int[] A) {
+        for (int i = 0; i < A.length - 1; i++) {
+            if ((i % 2) != (A[i] % 2)) {
+                for (int j = i + 1; j < A.length; j += 2) {
+                    if ((j % 2) != (A[j] % 2)) {
+                        int tmp = A[i];
+                        A[i] = A[j];
+                        A[j] = tmp;
+                    }
+                }
+            }
+        }
+        return A;
+    }
 }

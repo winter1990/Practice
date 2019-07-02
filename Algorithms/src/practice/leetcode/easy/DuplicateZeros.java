@@ -14,21 +14,17 @@ package practice.leetcode.easy;
  */
 public class DuplicateZeros {
     public void duplicateZeros(int[] arr) {
-        // 0 1 0 2 3 5 0 0
-        // 0 0 1 0 0 2 3 5 0 0 0 0
-        if (arr == null || arr.length <= 1) return;
-        int n = arr.length, count = 0;
-        for (int i = 0; i < n; i++) {
-            if (arr[i] == 0) count++;
+        int n = arr.length, countZero = 0;
+        for (int a : arr) {
+            if (a == 0) countZero++;
         }
-        int len = n + count;
-        for (int i = n - 1, j = len - 1; i >= 0 && j >= 0; i--, j--) {
-            if (arr[i] != 0) {
-                if (j < n) arr[j] = arr[i];
-            } else {
+        for (int i = n - 1, j = n + countZero - 1; i >= 0; i--, j--) {
+            if (arr[i] == 0) {
                 if (j < n) arr[j] = 0;
                 --j;
                 if (j < n) arr[j] = 0;
+            } else {
+                if (j < n) arr[j] = arr[i];
             }
         }
     }

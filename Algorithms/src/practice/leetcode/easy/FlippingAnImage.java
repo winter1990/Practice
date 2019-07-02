@@ -15,19 +15,18 @@ package practice.leetcode.easy;
  */
 public class FlippingAnImage {
     public int[][] flipAndInvertImage(int[][] A) {
-        for (int[] row : A) {
-            int l = 0, r = row.length - 1;
+        int m = A.length, n = A[0].length;
+        for (int i = 0; i < m; i++) {
+            int l = 0, r = n - 1;
             while (l < r) {
-                if (row[l] == row[r]) {
-                    row[l] = row[l] == 0 ? 1 : 0;
-                    row[r] = row[r] == 0 ? 1 : 0;
+                if (A[i][l] == A[i][r]) {
+                    A[i][l] ^= 1;
+                    A[i][r] ^= 1;
                 }
                 l++;
                 r--;
             }
-            if (l == r) {
-                row[l] = row[l] == 0 ? 1 : 0;
-            }
+            if (n % 2 == 1) A[i][l] ^= 1;
         }
         return A;
     }

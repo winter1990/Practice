@@ -12,20 +12,13 @@ public class SearchInABinarySearchTree {
     public TreeNode searchBST(TreeNode root, int val) {
         if (root == null) {
             return null;
+        } else if (root.val == val) {
+            return root;
+        } else if (val > root.val) {
+            return searchBST(root.right, val);
+        } else if (val < root.val) {
+            return searchBST(root.left, val);
         }
-        return findTheSubTree(root, val);
-    }
-
-    private TreeNode findTheSubTree(TreeNode node, int target) {
-        if (node == null) {
-            return null;
-        }
-        if (node.val == target) {
-            return node;
-        } else if (target > node.val) {
-            return findTheSubTree(node.right, target);
-        } else {
-            return findTheSubTree(node.left, target);
-        }
+        return null;
     }
 }

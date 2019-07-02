@@ -17,8 +17,7 @@ package practice.leetcode.easy;
 public class MoveZeroes {
     public void moveZeroes(int[] nums) {
         if (nums == null || nums.length <= 1) return;
-        int i = 0, j = 0;
-        for (; j < nums.length; j++) {
+        for (int i = 0, j = 0; j < nums.length; j++) {
             if (nums[j] != 0) {
                 int tmp = nums[i];
                 nums[i] = nums[j];

@@ -1,39 +1,34 @@
 package practice.leetcode.easy;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @math
+ *
+ * Each value v = grid[i][j] represents a tower of v cubes placed on top of grid cell (i, j).
+ * Now we view the projection of these cubes onto the xy, yz, and zx planes.
+ * Return the total area of all three projections.
  *
  *
  */
 public class ProjectionAreaOf3DShapes {
     public int projectionArea(int[][] grid) {
-        Map<Integer, Integer> map = new HashMap<>();
-        int total = 0;
-        for (int[] row : grid) {
-            int countNonZero = 0;
-            int rowMax = 0;
-            for (int i = 0; i < row.length; i++) {
-                if (row[i] != 0) {
-                    countNonZero++;
+        int m = grid.length, n = grid[0].length;
+        int[] row = new int[m];
+        int[] col = new int[n];
+        int count = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] != 0) {
+                    count++;
                 }
-                rowMax = Math.max(rowMax, row[i]);
-                if (!map.containsKey(i)) {
-                    map.put(i, row[i]);
-                } else {
-                    int cur = map.get(i);
-                    map.put(i, Math.max(row[i], cur));
-                }
+                row[i] = Math.max(row[i], grid[i][j]);
+                col[j] = Math.max(col[j], grid[i][j]);
             }
-            total += countNonZero;
-            total += rowMax;
         }
-        for (int col : map.keySet()) {
-            total += map.get(col);
-        }
-        return total;
+        int res = 0;
+        res += count;
+        for (int i = 0; i < m; i++) res += row[i];
+        for (int j = 0; j < n; j++) res += col[j];
+        return res;
     }
 
     public int projectionArea1(int[][] grid) {
@@ -43,7 +38,7 @@ public class ProjectionAreaOf3DShapes {
             for (int j = 0; j < n; ++j) {
                 x = Math.max(x, grid[i][j]);
                 y = Math.max(y, grid[j][i]);
-                if (grid[i][j] > 0) ++res;
+                if (grid[i][j] > 0) res++;
             }
             res += x + y;
         }

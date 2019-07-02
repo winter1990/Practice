@@ -25,8 +25,6 @@ package practice.leetcode.hard;
  *   case 3 - two scenarios
  *     multi parent detected first, then cycle - if remove the edge causes multi parent - cycle still exists
  *     cycle detected first, then multi parent - remove the one that causes the cycle
- *
- *
  */
 public class RedundantConnection_II {
     public int[] findRedundantDirectedConnection(int[][] edges) {

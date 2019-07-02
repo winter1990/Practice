@@ -27,7 +27,6 @@ public class MaximumDepthOfNaryTree {
         int depth = 0;
         Queue<Node> q = new LinkedList<>();
         q.offer(root);
-
         while (!q.isEmpty()) {
             int size = q.size();
             while (size-- > 0) {
@@ -42,18 +41,15 @@ public class MaximumDepthOfNaryTree {
     }
 
     public int maxDepth(Node root) {
-        if (root == null) {
-            return 0;
-        } else if (root.children.size() == 0) {
-            return 1;
-        }
+        if (root == null) return 0;
+        if (root.children.size() == 0) return 1;
         int max = 0;
         for (Node node : root.children) {
-            int curDepth = maxDepth(node) + 1;
-            max = Math.max(max, curDepth);
+            max = Math.max(max, 1 + maxDepth(node));
         }
         return max;
     }
+
     class Node {
         public int val;
         public List<Node> children;

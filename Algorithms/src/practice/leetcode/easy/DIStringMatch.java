@@ -24,12 +24,17 @@ package practice.leetcode.easy;
  */
 public class DIStringMatch {
     public int[] diStringMatch(String S) {
-        int[] res = new int[S.length() + 1];
-        int l = 0, r = S.length();
+        int lo = 0, hi = S.length();
+        int[] res = new int[hi + 1];
         for (int i = 0; i < S.length(); i++) {
-            res[i] = S.charAt(i) == 'I' ? l++ : r--;
+            char c = S.charAt(i);
+            if (c == 'I') {
+                res[i] = lo++;
+            } else {
+                res[i] = hi--;
+            }
         }
-        res[S.length()] = l;
+        res[S.length()] = lo;
         return res;
     }
 }

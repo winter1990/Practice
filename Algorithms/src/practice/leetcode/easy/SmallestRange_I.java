@@ -22,6 +22,6 @@ public class SmallestRange_I {
             max = Math.max(max, a);
             min = Math.min(min, a);
         }
-        return K * 2 > max - min ? 0 : max - min - 2 * K;
+        return Math.max(0, max - min - 2 * K);
     }
 }

@@ -26,6 +26,23 @@ public class RemoveOutermostParentheses {
         return res.toString();
     }
 
+    public String removeOuterParentheses1w(String S) {
+        StringBuilder sb = new StringBuilder();
+        for (int pre = 0, i = 0, count = 0; i < S.length(); i++) {
+            char c = S.charAt(i);
+            if (c == '(') {
+                count++;
+            } else {
+                count--;
+            }
+            if (count == 0) {
+                sb.append(S.substring(pre + 1, i));
+                pre = i + 1;
+            }
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
         RemoveOutermostParentheses r = new RemoveOutermostParentheses();
         String s = "(()())(())(()(()))";

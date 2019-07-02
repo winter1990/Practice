@@ -40,4 +40,34 @@ public class AvailableCapturesForRook {
         }
         return count;
     }
+
+    public int numRookCaptures1(char[][] board) {
+        int m = board.length, n = board[0].length, count = 0;
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int[] rook = new int[2];
+        a:
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == 'R') {
+                    rook[0] = i;
+                    rook[1] = j;
+                    break a;
+                }
+            }
+        }
+        for (int[] d : dirs) {
+            int x = rook[0];
+            int y = rook[1];
+            while (x >= 0 && x < m && y >= 0 && y < n && board[x][y] != 'B') {
+                if (board[x][y] == 'p') {
+                    count++;
+                    break;
+                }
+                x += d[0];
+                y += d[1];
+
+            }
+        }
+        return count;
+    }
 }

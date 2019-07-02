@@ -1,8 +1,6 @@
 package practice.leetcode.hard;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @tree
@@ -40,12 +38,35 @@ public class LeafSimilarTrees {
         getLeafList(node.right, list);
     }
 
+    public boolean leafSimilar1(TreeNode root1, TreeNode root2) {
+        Queue<TreeNode> q1 = new LinkedList<>();
+        Queue<TreeNode> q2 = new LinkedList<>();
+        getLeaves(root1, q1);
+        getLeaves(root2, q2);
+        while (!q1.isEmpty() && !q2.isEmpty()) {
+            if (q1.poll().val != q2.poll().val) {
+                return false;
+            }
+        }
+        if (q1.isEmpty() && q2.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    private void getLeaves(TreeNode node, Queue<TreeNode> q) {
+        if (node == null) return;
+        if (node.left == null && node.right == null) q.offer(node);
+        getLeaves(node.left, q);
+        getLeaves(node.right, q);
+    }
+
     /**
      * for time complexity, O(N) is the optimal
      * but for space, we do not need to store all the nodes
      * need to keep track of the parent, and go to left subtree, iteratively
      */
-    public boolean leafSimilar1(TreeNode root1, TreeNode root2) {
+    public boolean leafSimilar2(TreeNode root1, TreeNode root2) {
         Stack<TreeNode> s1 = new Stack<>();
         Stack<TreeNode> s2 = new Stack<>();
         s1.push(root1);

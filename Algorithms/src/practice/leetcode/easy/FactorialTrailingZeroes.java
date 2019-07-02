@@ -3,7 +3,7 @@ package practice.leetcode.easy;
 /**
  * @math
  *
- * Given an integer n, return the number of trailing zeroes in n!.
+ * Given an integer n, return the number of trailing zeroes in n!
  * Note: Your solution should be in logarithmic time complexity.
  *
  * there are always enough 2 and make 5 to become 0 in tail
@@ -18,7 +18,7 @@ public class FactorialTrailingZeroes {
     public int trailingZeroes(int n) {
         int res = 0;
         while (n > 0) {
-            res += n/5;
+            res += n / 5;
             n /= 5;
         }
         return res;

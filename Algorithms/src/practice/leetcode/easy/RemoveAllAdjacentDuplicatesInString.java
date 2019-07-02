@@ -4,32 +4,33 @@ import java.util.Stack;
 
 /**
  * @stack
+ * @string
  *
  */
 public class RemoveAllAdjacentDuplicatesInString {
     public String removeDuplicates(String S) {
-        if (S == null || S.length() < 2) return S;
+        if (S == null || S.length() == 0) return "";
         Stack<Character> stack = new Stack<>();
         for (char c : S.toCharArray()) {
-            if (!stack.isEmpty() && stack.peek() == c) {
-                stack.pop();
-            } else {
+            if (stack.isEmpty() || c != stack.peek()) {
                 stack.push(c);
+            } else {
+                while(!stack.isEmpty() && c == stack.peek()) stack.pop();
             }
         }
-        if (stack.isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
-        while (!stack.isEmpty()) sb.insert(0, stack.pop());
+        while (!stack.isEmpty()) {
+            sb.insert(0, stack.pop());
+        }
         return sb.toString();
     }
 
     public String removeDuplicates1(String S) {
-        if (S == null || S.length() < 2) return S;
+        if (S == null || S.length() == 0) return "";
         StringBuilder sb = new StringBuilder();
         for (char c : S.toCharArray()) {
-            int len = sb.length();
-            if (len > 0 && c == sb.charAt(len - 1)) {
-                sb.deleteCharAt(len - 1);
+            if (sb.length() > 0 && c == sb.charAt(sb.length() - 1)) {
+                sb.deleteCharAt(sb.length() - 1);
             } else {
                 sb.append(c);
             }

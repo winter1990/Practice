@@ -12,6 +12,17 @@ package practice.leetcode.easy;
  */
 public class SortArrayByParity {
     public int[] sortArrayByParity(int[] A) {
+        for (int i = -1, j = 0; j < A.length; j++) {
+            if (A[j] % 2 == 0) {
+                int tmp = A[j];
+                A[j] = A[++i];
+                A[i] = tmp;
+            }
+        }
+        return A;
+    }
+
+    public int[] sortArrayByParity1(int[] A) {
         int s = 0, e = A.length - 1;
         while (s < e) {
             while (s < A.length && A[s] % 2 == 0) {
@@ -33,11 +44,5 @@ public class SortArrayByParity {
         int tmp = arr[i];
         arr[i] = arr[j];
         arr[j] = tmp;
-    }
-
-    public static void main(String[] args) {
-        SortArrayByParity sa = new SortArrayByParity();
-        int[] in = new int[]{0,2};
-        sa.sortArrayByParity(in);
     }
 }
