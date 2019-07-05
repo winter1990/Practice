@@ -1,0 +1,18 @@
+conclusion of hashing function 
+
+* generally hashs take values and multiply it by a prime number
+    ```
+    int hash = 7;
+    for (int i = 0; i < strlen; i++) {
+        hash = hash*31 + charAt(i);
+    }
+    ```
+
+* reason to use prime number
+  * distribute data among hash buckets
+  
+* handling collisions
+  * if two or more objects point to same bucket, store them in a linked list
+  * the hash table is an array of linked lists
+  * java 8 HashMap implementation – if a bucket size goes beyond the threshold, the linked list gets replaced with a tree map. 
+  * This allows achieving O(logn) look up instead of O(n).
