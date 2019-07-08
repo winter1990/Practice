@@ -40,7 +40,7 @@ public class InsertIntoABinarySearchTree {
     /**
      * iterative solution
      */
-    public TreeNode insertIntoBST1(TreeNode root, int val) {
+    public TreeNode insertIntoBST2(TreeNode root, int val) {
         if (root == null) {
             return new TreeNode(val);
         }

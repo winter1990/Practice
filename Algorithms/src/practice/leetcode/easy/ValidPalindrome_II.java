@@ -6,35 +6,30 @@ package practice.leetcode.easy;
  * Given a non-empty string s, you may delete at most one character.
  * Judge whether you can make it a palindrome.
  *
+ * Input: "aba", Output: True
+ * Input: "abca", Output: True
  *
+ * abcbab
  */
 public class ValidPalindrome_II {
     public boolean validPalindrome(String s) {
-        int l = 0;
-        int r = s.length() - 1;
-        while (l < r) {
-            if (s.charAt(l) != s.charAt(r)) {
-                return isPalindrome(s, l + 1, r) || isPalindrome(s, l, r - 1);
+        int i = 0, j = s.length() - 1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return isPalindrome(s, i, j - 1) || isPalindrome(s, i + 1, j);
             }
-            l++;
-            r--;
+            i++;
+            j--;
         }
         return true;
     }
 
-    private boolean isPalindrome(String s, int l, int r) {
-        while (l < r) {
-            if (s.charAt(l) != s.charAt(r)) {
-                return false;
-            }
-            l++;
-            r--;
+    public boolean isPalindrome(String s, int i, int j) {
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) return false;
+            i++;
+            j--;
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        ValidPalindrome_II vp = new ValidPalindrome_II();
-        System.out.println(vp.validPalindrome("abcda"));
     }
 }

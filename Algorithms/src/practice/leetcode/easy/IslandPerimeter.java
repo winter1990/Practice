@@ -1,47 +1,53 @@
 package practice.leetcode.easy;
 
 /**
- * search:
- * start with 0,0 when find 1, start searching
- * use another array to determine if visited
+ * @dfs
+ *
+ * method 1 - dfs
+ * scan through the array, if see 1, dfs()
+ * if out of bound or grid[i][j]=0
+ *   count++
+ * else if grid[i][j]=2
+ *   return
+ * mark the cell as 2
+ * continue searching 4 directions
+ *
+ * method 2 - count 1s and adjacent edges
+ *
+ *  __
+ * |__|__
+ * |__|__|
+ * only count right and bottom edge for each cell
+ * i = [0, n-1]
+ *   j = [0, n-1]
+ *     check right
+ *     check bottom
+ * res = total 1s * 4 - adjacent edges * 2
  */
-
-
 public class IslandPerimeter {
+    int res = 0;
     public int islandPerimeter(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 1) {
-                    return searchHelper(grid, i, j);
-                }
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) dfs(grid, i, j);
             }
         }
-        return 0;
+        return res;
     }
 
-    public int searchHelper(int[][] grid, int i, int j) {
-        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length) {
-            return 1;
+    private void dfs(int[][] grid, int i, int j) {
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == 0) {
+            res++;
+            return;
+        } else if (grid[i][j] == 2) {
+            return;
         }
-        if (grid[i][j] == 0) {
-            return 1;
-        }
-        if (grid[i][j] == -1) {
-            return 0;
-        }
-
-        int c = 0;
-        grid[i][j] = -1;
-
-        c += searchHelper(grid, i - 1, j);
-        c += searchHelper(grid, i + 1, j);
-        c += searchHelper(grid, i, j - 1);
-        c += searchHelper(grid, i, j + 1);
-        return c;
+        grid[i][j] = 2;
+        dfs(grid, i + 1, j);
+        dfs(grid, i - 1, j);
+        dfs(grid, i, j + 1);
+        dfs(grid, i, j - 1);
     }
-
 
     /**
      * total number of boards:
@@ -49,21 +55,17 @@ public class IslandPerimeter {
      * number of sqares * 4 - neighbor * 2
      */
     public int islandPerimeter1(int[][] grid) {
-        int sq = 0;
-        int neighbor = 0;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
+        int m = grid.length, n = grid[0].length;
+        int res = 0, edge = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 1) {
-                    sq++;
-                    if (i < grid.length - 1 && grid[i + 1][j] == 1) {
-                        neighbor++;
-                    }
-                    if (j < grid[0].length - 1 && grid[i][j + 1] == 1) {
-                        neighbor++;
-                    }
+                    if (i < m - 1 && grid[i + 1][j] == 1) edge++;
+                    if (j < n - 1 && grid[i][j + 1] == 1) edge++;
+                    res += 4;
                 }
             }
         }
-        return sq * 4 - neighbor * 2;
+        return res - 2 * edge;
     }
 }

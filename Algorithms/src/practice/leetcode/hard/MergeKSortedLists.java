@@ -5,16 +5,25 @@ import java.util.PriorityQueue;
 /**
  * @heap
  * @daq
+ * @mergesort
  *
- * 1-5-7
- * 2-3-6
- * 4
- * (1 2 4) 1, (5 2 4) 1-2, (5 3 4) 1-2-3, (5 6 4) 1-2-3-4
- * start with a list of heads
- * find the smallest of ALL heads
- * maintain the new head
- * ds choose need to get smallest, remove, add
- * priority queue
+ * Merge k sorted linked lists and return it as one sorted list.
+ * 1->4->5,
+ * 1->3->4,
+ * 2->6
+ * Output: 1->1->2->3->4->4->5->6
+ *
+ * method 1 - heap
+ * put all the lists in a min heap, sort in ascending order
+ * each time we:
+ *   poll() from the queue
+ *   add to new list
+ *   update node
+ *   if not null, then add back to the heap
+ *   repeat the process until queue is empty
+ *
+ * method 2 - divide and conquer
+ * merge sort
  */
 public class MergeKSortedLists {
     public ListNode mergeKLists(ListNode[] lists) {
@@ -41,22 +50,23 @@ public class MergeKSortedLists {
      */
     public ListNode mergeKLists1(ListNode[] lists) {
         if (lists == null || lists.length == 0) return null;
-        return mergeLists(lists, 0, lists.length - 1);
+        return mergeSort(lists, 0, lists.length - 1);
     }
 
-    private ListNode mergeLists(ListNode[] lists, int lo, int hi) {
-        if (lo == hi) {
-            return lists[lo];
-        }
+    private ListNode mergeSort(ListNode[] lists, int lo, int hi) {
+        if (lo == hi) return lists[lo];
         int mid = lo + (hi - lo) / 2;
-        ListNode l1 = mergeLists(lists, lo, mid);
-        ListNode l2 = mergeLists(lists, mid + 1, hi);
+        ListNode l1 = mergeSort(lists, lo, mid);
+        ListNode l2 = mergeSort(lists, mid + 1, hi);
         return merge(l1, l2);
     }
 
     private ListNode merge(ListNode l1, ListNode l2) {
-        if (l1 == null) return l2;
-        if (l2 == null) return l1;
+        if (l1 == null) {
+            return l2;
+        } else if (l2 == null) {
+            return l1;
+        }
         if (l1.val < l2.val) {
             l1.next = merge(l1.next, l2);
             return l1;

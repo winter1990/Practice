@@ -24,10 +24,9 @@ import java.util.*;
  */
 public class PartitionLabels {
     public List<Integer> partitionLabels(String S) {
-        List<Integer> res = new ArrayList<>();
-        if (S == null || S.length() == 0) return res;
         int[] lastIndex = new int[26];
         for (int i = 0; i < S.length(); i++) lastIndex[S.charAt(i) - 'a'] = i;
+        List<Integer> res = new ArrayList<>();
         int pre = 0, last = 0;
         for (int i = 0; i < S.length(); i++) {
             last = Math.max(last, lastIndex[S.charAt(i) - 'a']);

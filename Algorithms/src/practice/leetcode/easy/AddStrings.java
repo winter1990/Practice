@@ -12,23 +12,16 @@ package practice.leetcode.easy;
  */
 public class AddStrings {
     public String addStrings(String num1, String num2) {
-        if (num1 == null || num1.length() == 0) {
-            return num2;
-        } else if (num2 == null || num2.length() == 0) {
-            return num1;
-        }
+        int carry = 0, m = num1.length(), n = num2.length();
         StringBuilder sb = new StringBuilder();
-        int carry = 0;
-        for (int i = 0; i < Math.max(num1.length(), num2.length()); i++) {
-            int n1 = i < num1.length() ? num1.charAt(num1.length() - 1 - i) - '0' : 0;
-            int n2 = i < num2.length() ? num2.charAt(num2.length() - 1 - i) - '0' : 0;
-            int val = n1 + n2 + carry;
-            sb.insert(0, val % 10);
-            carry = (n1 + n2 + carry) / 10;
+        for (int i = 0; i < Math.max(m, n); i++) {
+            int v1 = i >= m ? 0 : num1.charAt(m - i - 1) - '0';
+            int v2 = i >= n ? 0 : num2.charAt(n - i - 1) - '0';
+            int sum = v1 + v2 + carry;
+            sb.insert(0, sum % 10);
+            carry = sum / 10;
         }
-        if (carry != 0) {
-            sb.insert(0, carry);
-        }
+        if (carry == 1) sb.insert(0, 1);
         return sb.toString();
     }
 }

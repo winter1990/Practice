@@ -10,6 +10,17 @@ package practice.leetcode.easy;
  * A=abcde  B=de abcde abcde abcde ab
  */
 public class RepeatedStringMatch {
+    public int repeatedStringMatch1(String A, String B) {
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        while (sb.length() < B.length()) {
+            sb.append(A);
+            count++;
+        }
+        if (sb.toString().contains(B)) return count;
+        return sb.append(A).toString().contains(B) ? count + 1 : -1;
+    }
+
     public int repeatedStringMatch(String A, String B) {
         StringBuilder sb = new StringBuilder();
         sb.append(A);

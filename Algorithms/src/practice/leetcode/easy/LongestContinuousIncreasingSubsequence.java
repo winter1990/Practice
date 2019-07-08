@@ -11,17 +11,16 @@ package practice.leetcode.easy;
  */
 public class LongestContinuousIncreasingSubsequence {
     public int findLengthOfLCIS(int[] nums) {
-        if (nums == null) return 0;
-        int n = nums.length, max = 0, count = 1;
-        if (n <= 1) return n;
+        if (nums == null || nums.length == 0) return 0;
+        int n = nums.length, res = 1, cur = 1;
         for (int i = 0; i < n - 1; i++) {
             if (nums[i] < nums[i + 1]) {
-                count++;
+                ++cur;
+                res = Math.max(res, cur);
             } else {
-                count = 1;
+                cur = 1;
             }
-            max = Math.max(max, count);
         }
-        return max;
+        return res;
     }
 }

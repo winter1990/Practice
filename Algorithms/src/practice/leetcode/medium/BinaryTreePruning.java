@@ -23,24 +23,22 @@ public class BinaryTreePruning {
     }
 
     public TreeNode pruneTree1(TreeNode root) {
-        if (root == null) {
-            return null;
-        }
-        if (dfs(root) == 0) {
-            return null;
-        }
+        traverse(root);
         return root;
     }
 
-    private int dfs(TreeNode node) {
-        if (node == null) {
-            return 0;
+    public int traverse(TreeNode node) {
+        if (node == null) return 0;
+        int left = traverse(node.left);
+        int right = traverse(node.right);
+        if (left == 0 && right == 0 && node.val == 0) return 0;
+        if (left == 0) {
+            node.left = null;
         }
-        int l = dfs(node.left);
-        int r = dfs(node.right);
-        node.left = l == 0 ? null : node.left;
-        node.right = r == 0 ? null : node.right;
-        return l + r + node.val;
+        if (right == 0) {
+            node.right = null;
+        }
+        return left + right + node.val;
     }
 
     public static void main(String[] args) {

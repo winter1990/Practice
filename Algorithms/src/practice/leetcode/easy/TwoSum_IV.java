@@ -3,6 +3,7 @@ package practice.leetcode.easy;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @tree
@@ -10,18 +11,17 @@ import java.util.List;
 public class TwoSum_IV {
     // dfs O(n) time and O(n) space
     public boolean findTarget(TreeNode root, int k) {
-        return dfs(root, k, new HashSet<Integer>());
+        return dfs(root, k, new HashSet<>());
     }
 
-    private boolean dfs(TreeNode root, int k, HashSet<Integer> set) {
-        if (root == null) {
+    private boolean dfs(TreeNode node, int k, Set<Integer> set) {
+        if (node == null) {
             return false;
-        }
-        if (set.contains(root.val)) {
+        } else if (set.contains(node.val)) {
             return true;
         }
-        set.add(k - root.val);
-        return dfs(root.left, k, set) || dfs(root.right, k, set);
+        set.add(k - node.val);
+        return dfs(node.left, k, set) || dfs(node.right, k, set);
     }
 
     // inorder traversal

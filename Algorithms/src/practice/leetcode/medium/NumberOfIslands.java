@@ -1,5 +1,8 @@
 package practice.leetcode.medium;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @search
  * @dfs
@@ -46,5 +49,40 @@ public class NumberOfIslands {
         dfs(grid, i - 1, j, m, n);
         dfs(grid, i, j + 1, m, n);
         dfs(grid, i, j - 1, m, n);
+    }
+
+    // bfs
+    public int numIslands1(char[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) return 0;
+        int count = 0;
+        int m = grid.length, n = grid[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    fill(grid, i, j, m, n);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private void fill(char[][] grid, int i, int j, int m, int n) {
+        int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(new int[]{i, j});
+        grid[i][j] = '0';
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            grid[cur[0]][cur[1]] = 0;
+            for (int[] d : dirs) {
+                int x = cur[0] + d[0];
+                int y = cur[1] + d[1];
+                if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == '1') {
+                    grid[x][y] = '0';
+                    q.offer(new int[]{x, y});
+                }
+            }
+        }
     }
 }

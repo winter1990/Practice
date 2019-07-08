@@ -1,7 +1,9 @@
 package practice.leetcode.easy;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @array
@@ -55,21 +57,19 @@ public class KdiffPairsInAnArray {
     }
 
     public int findPairs1(int[] nums, int k) {
-        if (nums == null || nums.length < 2 || k < 0) {
-            return 0;
-        }
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], i);
-        }
-        int cnt = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (map.containsKey(nums[i] + k) && map.get(nums[i] + k) != i) {
-                cnt++;
-                map.remove(nums[i] + k);
+        if (k < 0) return 0;
+        Set<Integer> seen = new HashSet<>();
+        Set<String> pair = new HashSet<>();
+        for (int i : nums) {
+            if (seen.contains(i + k)) {
+                pair.add(i + " " + (i + k));
             }
+            if (seen.contains(i - k)) {
+                pair.add(i - k + " " + i);
+            }
+            seen.add(i);
         }
-        return cnt;
+        return pair.size();
     }
 
     public static void main(String[] args) {

@@ -10,49 +10,36 @@ import java.util.Set;
  *
  * Given two strings A and B of lowercase letters, return true if and only if we can swap two letters
  * in A so that the result equals B.
+ *
  * Input: A = "ab", B = "ba", Output: true
  * Input: A = "ab", B = "ab", Output: false
  * Input: A = "aa", B = "aa", Output: true
  * Input: A = "aaaaaaabc", B = "aaaaaaacb", Output: true
  *
- * if two strings are the same, there must be some char appears twice
- * if two strings are not same, exactly two chars different and swap
+ * two string must have same length, and larger than 1
+ * two string must be the permutation with each other, which means the chars in each should have the same frequency
+ * if two strings are the same
+ *   there must be some char appears at least twice
+ * if two strings are not same
+ *   exactly two chars different
  */
 public class BuddyStrings {
     public boolean buddyStrings(String A, String B) {
-        if (A.length() != B.length()) {
-            return false;
-        } else if (A.length() < 2) {
-            return false;
-        }
-        Set<Character> set = new HashSet<>();
+        if (A.length() != B.length()) return false;
+        if (A.length() < 2) return false;
+        int[] checker = new int[26];
         boolean hasDuplicate = false;
-        Integer diff1 = null;
-        Integer diff2 = null;
+        for (char c : A.toCharArray()) {
+            checker[c - 'a']++;
+            if (checker[c - 'a'] > 1) hasDuplicate = true;
+        }
+        int diff = 0;
         for (int i = 0; i < A.length(); i++) {
-            if (A.charAt(i) != B.charAt(i)) {
-                if (diff1 == null) {
-                    diff1 = i;
-                } else if (diff2 == null) {
-                    diff2 = i;
-                    break;
-                }
-            }
-            if (!set.add(A.charAt(i))) {
-                hasDuplicate = true;
-            }
+            if (A.charAt(i) != B.charAt(i)) diff++;
+            checker[B.charAt(i) - 'a']--;
+            if (checker[B.charAt(i) - 'a'] < 0) return false;
         }
-        if (A.equals(B) && hasDuplicate) {
-            return true;
-        }
-        if (diff1 != null && diff2 != null && A.charAt(diff1) == B.charAt(diff2) && A.charAt(diff2) == B.charAt(diff1)) {
-            char[] swappedString = B.toCharArray();
-            char tmp = swappedString[diff1];
-            swappedString[diff1] = swappedString[diff2];
-            swappedString[diff2] = tmp;
-            return A.equals(new String(swappedString));
-        }
-        return false;
+        return hasDuplicate ? (diff == 0 || diff == 2) : diff == 2;
     }
 
     public boolean buddyStrings1(String A, String B) {

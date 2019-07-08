@@ -11,29 +11,25 @@ package practice.leetcode.medium;
  */
 public class SwapNodesInPairs {
     public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode n = head.next;
+        head.next = swapPairs(head.next.next);
+        n.next = head;
+        return n;
+    }
+
+    public ListNode swapPairs1(ListNode head) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        if (head == null) {
-            return null;
-        }
         ListNode cur = dummy;
         while (cur.next != null && cur.next.next != null) {
-            ListNode n = cur.next;
-            cur.next = cur.next.next;
-            n.next = n.next.next;
-            cur.next.next = n;
+            ListNode tmp = cur.next.next;
+            cur.next.next = cur.next.next.next;
+            tmp.next = cur.next;
+            cur.next = tmp;
             cur = cur.next.next;
         }
         return dummy.next;
     }
 
-    public ListNode swapPairs1(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-        ListNode n = head.next;
-        head.next = swapPairs1(head.next.next);
-        n.next = head;
-        return n;
-    }
 }

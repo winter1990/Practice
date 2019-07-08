@@ -1,0 +1,98 @@
+Problem solving
+* data structure
+* topic/type of question
+* problem solving techniques
+
+graph
+* union find: 261 684 685 737 785 839 886 924 947
+    * build the graph, cluster/group the nodes with same root
+    * based on the 2D matrix, build the graph/tree using 1D array [0, N + 1] -> parent[i] = i
+    * if two nodes are connected, iterative go to parent node until reaching the root
+* find shortest path/cost:
+    * bfs: 847 787 
+* cyclic swapping: 765 41 286
+* scheduling with dependencies: 207 
+* traveling salesman problem: 943
+
+array
+* schedule and intervals
+    * schedule and complete tasks: 56 57 163 228 252 253 603 621 646 729 731 732 759 855 986
+* find the minimum/maximum: 
+    * sliding window: 3 30 76 159 904 
+        * define two pointers
+        * define what we need to maintain in the window
+        * when and how we update the left bound
+    * find a range in the array: 632
+    * greedy: 45 
+    * dynamic programming: 62 63 64 120 121 122 123 188 375 562 689 714 871 975 920 935 1027 1039
+* subarray and sub sequence: 53 128 152 209 270 (300 354) 485 487 532 560 581 643 644 667 674 697 713 718
+    * partition: 410 416 548 698 724 805 813 842 
+        * merge sort / binary search tree: 315 327
+        * dp: 494 1049
+* combinations, subsets and permutation: 31 39 40 78 90 216 670 1053
+    * sum and product: 15 16 259 611 628 
+    * count number of arrays with some conditions: 526 
+* search element in array
+    * count: 169 229 
+    * binary search
+        * search based on target value: 74 153 154
+        * search based on index: 33 34 35 81 162
+        * partition the arrays: 4
+    * other: 277 287 442 457
+* area and volume: 11 42 84 85 407 939 963
+    * two pointers
+    * bfs
+    * dp
+* build tree: 307 315 327 493 
+    * segment tree: 
+* k-th closest/smallest/largest: 215 295 378 414 644 658 668 774 786 973
+    * divide and conquer
+    * find top k frequency elements, bucket sort: 346 451 692 719
+* search the (shortest) path
+    * bfs: 864 675
+    * math and sort: 296
+* remove element in array
+    * two pointers: what conditions to move which pointer: 26 27 80 
+* rearrange elements: 1054 (similar with 358)
+* construct tree from array (inorder preorder postorder): 105 106 889
+* sort: 280 665
+* design: 380 381
+
+string
+* rearrange string: 358 621 767 838
+    * remove chars in string: 316
+* valid string/parentheses: 20 22 32 241 301 678 856 921
+* build graph: 399
+* break the word
+    * dp: 139 471
+* match strings: 925 854 839
+* split partition a string 
+    * two pointers / greedy: 763
+* encode and decode: 820
+* remove characters: 301
+* search words: 79 212 642
+    * dfs or bfs to search adjacent characters
+    * build trie and save the words to find in trie
+* transform string to another string: 126 127
+    * build the relationship between words -> define how to transform -> dfs/bfs
+* longest/shortest substring/subsequence: 340
+
+keys
+* extract the statement in the question, and translate it into a formula related to the given data
+* start from simple and small data collection, expand it to more and general formula
+
+tree
+* encoding / decoding: 297
+    * for normal tree, preorder and use separator and special character to represent null node for base case
+* traverse tree: 545
+* build new tree: 1038
+
+linked list
+* merge lists: 23
+math
+* recursion: 241 248
+* dynamic programming: 935
+
+stack: 155 636
+recursion
+* parsing: 1106

@@ -17,6 +17,21 @@ package practice.leetcode.easy;
  */
 public class CanPlaceFlowers {
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        if (n == 0) return true;
+        for (int i = 0; i < flowerbed.length; i++) {
+            if (flowerbed[i] == 1) continue;
+            int left = i == 0 ? 0 : flowerbed[i - 1];
+            int right = i == flowerbed.length - 1 ? 0 : flowerbed[i + 1];
+            if (left + right == 0) {
+                flowerbed[i] = 1;
+                n--;
+                if (n == 0) return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean canPlaceFlowers1(int[] flowerbed, int n) {
         int m = flowerbed.length, count = 0;
         for (int i = 0; i < m && count < n; i++) {
             if (flowerbed[i] == 1) continue;

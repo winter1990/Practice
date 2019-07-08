@@ -1,6 +1,5 @@
 package practice.leetcode.easy;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,63 +14,31 @@ import java.util.Map;
  * 1. find the maximum frequency number(s) in the array
  * 2. find the minimum window that contains at least on maximum frequency number
  *
- * method 1
- * use a map to track the leftmost index of all elements
- * use a map to track the rightmost index of all elements
- * use a map to track the occurrence of the numbers and get the max frequency
- * for each number
- *   if it has the maximum frequency, get from left and right map to calculate length
- *
- * method 2
- * update the maximum and rightmost element at the same time
- * use a map to track the leftmost element and index
- * keep track of the occurrence for each number
+ * use a map to track the leftmost element and its index
+ * use a map to track the frequency for each element
  * keep track of the max frequency
- * if larger update freq and max
- * if same, compare and get smaller
+ * scan through the array
+ *   put the element and its leftmost index
+ *   update frequency
+ *   if frequency is larger than max frequency, update the max frequency and length of array
+ *   if same frequency as max, then get the shorter length of sub array
  */
 
 public class DegreeOfAnArray {
     public int findShortestSubArray(int[] nums) {
-        Map<Integer, Integer> leftmost = new HashMap<>(), counter = new HashMap<>();
-        int degree = 0, res = 0;
-        for (int i = 0; i < nums.length; i++) {
-            leftmost.putIfAbsent(nums[i], i);
-            counter.put(nums[i], counter.getOrDefault(nums[i], 0) + 1);
-            if (counter.get(nums[i]) > degree) {
-                res = i - leftmost.get(nums[i]) + 1;
-                degree = counter.get(nums[i]);
-            } else if (counter.get(nums[i]) == degree) {
-                res = Math.min(res, i - leftmost.get(nums[i]) + 1);
+        int n = nums.length, res = n, maxFreq = 0;
+        Map<Integer, Integer> left = new HashMap<>();
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            if (!left.containsKey(nums[i])) left.put(nums[i], i);
+            freq.put(nums[i], freq.getOrDefault(nums[i], 0) + 1);
+            if (freq.get(nums[i]) > maxFreq) {
+                maxFreq = freq.get(nums[i]);
+                res = i + 1 - left.get(nums[i]);
+            } else if (maxFreq == freq.get(nums[i])) {
+                res = Math.min(res, i - left.get(nums[i]) + 1);
             }
         }
         return res;
-    }
-
-    public int findShortestSubArray1(int[] nums) {
-        Map<Integer, Integer> l = new HashMap<>();
-        Map<Integer, Integer> r = new HashMap<>();
-        Map<Integer, Integer> count = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (!l.containsKey(nums[i])) l.put(nums[i], i);
-            r.put(nums[i], i);
-            count.put(nums[i], count.getOrDefault(nums[i], 0) + 1);
-        }
-        int res = Integer.MAX_VALUE;
-        int max = Collections.max(count.values());
-        for (int n : count.keySet()) {
-            if (count.get(n) == max) res = Math.min(res, r.get(n) - l.get(n) + 1);
-        }
-        return res;
-    }
-
-    public static void main(String[] args) {
-        DegreeOfAnArray degreeOfAnArray = new DegreeOfAnArray();
-        int[] a1 = new int[]{1};
-        int[] a2 = new int[]{1, 2, 2, 3, 1};
-        int[] a3 = new int[]{3, 3, 4};
-        System.out.println(degreeOfAnArray.findShortestSubArray(a1));
-        System.out.println(degreeOfAnArray.findShortestSubArray(a2));
-        System.out.println(degreeOfAnArray.findShortestSubArray(a3));
     }
 }

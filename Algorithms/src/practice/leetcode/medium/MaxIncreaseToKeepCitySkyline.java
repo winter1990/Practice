@@ -27,23 +27,30 @@ package practice.leetcode.medium;
  *             [7, 4, 7, 7],
  *             [9, 4, 8, 7],
  *             [3, 3, 3, 3] ]
+ *
+ *   9 4 8 7
+ * 8 8 4 8 7
+ * 7 7 8 7 7
+ * 9 9 4 8 7
+ * 3 3 3 3 3
+ * get the maximum for row and column
+ * for each element in the matrix, get the minimum between row and col
  */
 public class MaxIncreaseToKeepCitySkyline {
     public int maxIncreaseKeepingSkyline(int[][] grid) {
+        if (grid == null) return 0;
         int m = grid.length, n = grid[0].length;
-        if (m == 0 || n == 0 || (m == 1 && n == 1)) return 0;
-        int[] row = new int[m];
-        int[] col = new int[n];
+        int[] row = new int[m], col = new int[n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (grid[i][j] > row[i]) row[i] = grid[i][j];
-                if (grid[i][j] > col[j]) col[j] = grid[i][j];
+                row[i] = Math.max(row[i], grid[i][j]);
+                col[j] = Math.max(col[j], grid[i][j]);
             }
         }
         int res = 0;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                res += Math.max(Math.min(row[i], col[j]) - grid[i][j], 0);
+                res += Math.min(row[i], col[j]) - grid[i][j];
             }
         }
         return res;

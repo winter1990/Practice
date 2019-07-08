@@ -43,7 +43,7 @@ public class SubarraySumEqualsK {
 
     public static void main(String[] args) {
         SubarraySumEqualsK s = new SubarraySumEqualsK();
-        int[] in = {0,0,0,0};
+        int[] in = {1};
         int k = 0;
         System.out.println(s.subarraySum(in, k));
     }

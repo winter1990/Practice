@@ -13,19 +13,18 @@ package practice.leetcode.easy;
  */
 public class FloodFill {
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        if (image[sr][sc] == newColor) return image;
-        int m = image.length, n = image[0].length;
-        fillColor(image, sr, sc, m, n, newColor, image[sr][sc]);
+        dfs(image, sr, sc, image[sr][sc], newColor);
         return image;
     }
 
-    public void fillColor(int[][] image, int i, int j, int m, int n, int newColor, int oldColor) {
-        if (image[i][j] == oldColor) {
-            image[i][j] = newColor;
-            if (i > 0) fillColor(image, i - 1, j, m, n, newColor, oldColor);
-            if (i < m - 1) fillColor(image, i + 1, j, m, n, newColor, oldColor);
-            if (j > 0) fillColor(image, i, j - 1, m, n, newColor, oldColor);
-            if (j < n - 1) fillColor(image, i, j + 1, m, n, newColor, oldColor);
+    private void dfs(int[][] a, int r, int c, int old, int newColor) {
+        if (r < 0 || r >= a.length || c < 0 || c >= a[0].length || a[r][c] != old || a[r][c] == newColor) {
+            return;
         }
+        a[r][c] = newColor;
+        dfs(a, r - 1, c, old, newColor);
+        dfs(a, r + 1, c, old, newColor);
+        dfs(a, r, c - 1, old, newColor);
+        dfs(a, r, c + 1, old, newColor);
     }
 }

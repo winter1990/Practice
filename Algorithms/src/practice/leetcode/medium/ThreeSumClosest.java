@@ -44,4 +44,29 @@ public class ThreeSumClosest {
         }
         return res;
     }
+
+    public int threeSumClosest1(int[] nums, int target) {
+        Arrays.sort(nums);
+        int n = nums.length, diff = Integer.MAX_VALUE, res = 0;
+        for (int i = 0; i < n - 2; i++) {
+            int j = i + 1, k = n - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == target) {
+                    return target;
+                } else {
+                    if (Math.abs(sum - target) < diff) {
+                        diff = Math.abs(sum - target);
+                        res = sum;
+                    }
+                    if (sum > target) {
+                        k--;
+                    } else {
+                        j++;
+                    }
+                }
+            }
+        }
+        return res;
+    }
 }

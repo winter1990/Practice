@@ -21,61 +21,43 @@ package practice.leetcode.medium;
  */
 public class ScoreAfterFlippingMatrix {
     public int matrixScore1(int[][] A) {
-        int M = A.length, N = A[0].length, res = (1 << (N - 1)) * M;
-        for (int j = 1; j < N; j++) {
+        int m = A.length, n = A[0].length;
+        int res = m * (1 << (n - 1));
+        for (int j = 1; j < n; j++) {
             int cur = 0;
-            for (int i = 0; i < M; i++) cur += A[i][j] == A[i][0] ? 1 : 0;
-            res += Math.max(cur, M - cur) * (1 << (N - j - 1));
+            for (int i = 0; i < m; i++) {
+                cur += A[i][j] == A[i][0] ? 1 : 0;
+            }
+            res += Math.max(cur, m - cur) * (1 << (n - j - 1));
         }
         return res;
     }
 
+    /**
+     * initial solution
+     * flip the columns to make all the elements in first column 1 for maximum
+     * then deal with the column [1, n)
+     * count 0s and 1s for each column
+     */
     public int matrixScore(int[][] A) {
-        if (A == null || A.length == 0 || A[0].length == 0) {
-            return 0;
-        }
-        int m = A.length;
-        int n = A[0].length;
+        if (A == null || A.length == 0 || A[0].length == 0) return 0;
+        int m = A.length, n = A[0].length;
         for (int i = 0; i < m; i++) {
-            if (A[i][0] == 0) {
-                for (int j = 0; j < n; j++) {
-                    A[i][j] ^= 1;
-                }
-            }
+            if (A[i][0] == 0) flipRow(A[i]);
         }
+        int res = m * (1 << (n - 1));
         for (int j = 1; j < n; j++) {
-            if (countDiff(A, j) > 0) {
-                flipWholeColumn(A, j);
-            }
-        }
-
-        int sum = 0;
-        int factor = 0;
-        for (int j = n - 1; j >= 0; j--) {
             int count = 0;
             for (int i = 0; i < m; i++) {
-                if (A[i][j] == 1) count++;
+                if (A[i][j] == 0) count++;
             }
-            sum += count * Math.pow(2, factor);
-            factor++;
+            res += Math.max(m - count, count) * (1 << (n - j - 1));
         }
-        return sum;
+        return res;
     }
 
-    private void flipWholeColumn(int[][] a, int j) {
-        for (int i = 0; i < a.length; i++) {
-            a[i][j] ^= 1;
-        }
-    }
-
-    private int countDiff(int[][] a, int j) {
-        int count0 = 0;
-        int count1 = 0;
-        for (int i = 0; i < a.length; i++) {
-            if (a[i][j] == 0) count0++;
-            else count1++;
-        }
-        return count0 - count1;
+    private void flipRow(int[] a) {
+        for (int j = 0; j < a.length; j++) a[j] ^= 1;
     }
 
     public static void main(String[] args) {

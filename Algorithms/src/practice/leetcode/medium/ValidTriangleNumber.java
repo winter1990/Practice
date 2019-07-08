@@ -61,11 +61,16 @@ public class ValidTriangleNumber {
      *   r-- and reset l to i + 1
      *
      * wrong solution:
-     * biggest problem of the solution is if i + l < r
-     * we can move both left and right pointers
-     * [3 22 19 24 35 82 84]
+     * for the three pointers i, j, k
+     * if i + j > k, then no need to move j as all the values between j and k-1 will satisfy
+     * else i + j <= k, which is a[i] <= a[k] - a[j], a[i] is fixed value
+     *   there are two options should be considered:
+     *   1) j++
+     *   2) k--
+     *   the problems becomes O(N^3) again as we do not know which pointer to move
+     *
      */
-    public int triangleNumber1(int[] nums) {
+    public static int triangleNumber1(int[] nums) {
         Arrays.sort(nums);
         int count = 0;
         int n = nums.length;
@@ -87,7 +92,8 @@ public class ValidTriangleNumber {
 
     public static void main(String[] args) {
         ValidTriangleNumber v = new ValidTriangleNumber();
-        int[] in = {24,3,82,22,35,84,19};
+//        int[] in = {24,3,82,22,35,84,19};
+        int[] in = {2,2,3,4,9,26,28,35};
         System.out.println(v.triangleNumber1(in));
     }
 }

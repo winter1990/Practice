@@ -1,9 +1,7 @@
 package practice.leetcode.medium;
 
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @graph
@@ -11,37 +9,46 @@ import java.util.Set;
  * Given a directed, acyclic graph of N nodes.  Find all possible paths from node 0 to node N-1,
  * and return them in any order.
  *
- * start from 0, and target n-1
- * we start from 0 -> graph[0], for each number in the adj nodes
- * cycle in the graph -> use a boolean array to keep track of the visited nodes, or set
+ * The graph is given as follows:  the nodes are 0, 1, ..., graph.length - 1.  graph[i] is a list of all nodes j for
+ * which the edge (i, j) exists.
+ *
+ * based on description:
+ *   there is no cycle in the graph
+ *   directed
+ *   start from 0, and destination is n-1
+ *   all paths
+ *
  * for each neighbors/adj nodes, add to path, we go to next recursive call
  * we do not want any circle, if we see current node exists in the path, stop searching
  *
  * base case:
- * reach the target -> the target exists in path
- * recursion - graph, index/node, target, path, res
+ *   start = end, reach the destination
+ *
+ * recursive call
+ *   (graph start end current path result)
+ *   for each neighbor
+ *     add to path
+ *     next call
+ *     remove from the path
  */
 public class AllPathsFromSourceToTarget {
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-        List<List<Integer>> res = new LinkedList<>();
-        Set<Integer> path = new HashSet<>();
-        path.add(0);
-        int target = graph.length - 1;
-        helper(graph, 0, target, path, res);
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        list.add(0);
+        dfs(graph, list, 0, graph.length - 1, res);
         return res;
     }
 
-    private void helper(int[][] graph, int index, int target, Set<Integer> path, List<List<Integer>> res) {
-        if (path.contains(target)) {
-            res.add(new LinkedList<>(path));
+    private void dfs(int[][] graph, List<Integer> path, int start, int end, List<List<Integer>> res) {
+        if (start == end) {
+            res.add(new ArrayList<>(path));
+            return;
         }
-        for (int i : graph[index]) {
-            if (path.contains(i)) {
-                continue;
-            }
-            path.add(i);
-            helper(graph, i, target, path, res);
-            path.remove(i);
+        for (int next : graph[start]) {
+            path.add(next);
+            dfs(graph, path, next, end, res);
+            path.remove(path.size() - 1);
         }
     }
 }

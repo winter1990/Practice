@@ -74,6 +74,6 @@ public class FindElementMoreThan25Percent {
         return l;
     }
     private int searchElement(int[] a, int start, int end) {
-        return a [(start + end) / 2];
+        return a[(start + end) / 2];
     }
 }

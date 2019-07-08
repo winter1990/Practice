@@ -1,8 +1,6 @@
 package practice.leetcode.easy;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -28,13 +26,15 @@ import java.util.Set;
  */
 public class ContainsDuplicate_II {
     public boolean containsNearbyDuplicate(int[] nums, int k) {
-        if (nums == null || nums.length < 2) return false;
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (map.containsKey(nums[i])) {
-                if (i - map.get(nums[i]) <= k) return true;
-            }
-            map.put(nums[i], i);
+        Set<Integer> set = new HashSet<>();
+        int i = 0, j = 0;
+        while (j <= Math.min(k, nums.length - 1)) {
+            if (!set.add(nums[j++])) return true;
+        }
+        while (j < nums.length) {
+            set.remove(nums[i]);
+            i++;
+            if (!set.add(nums[j++])) return true;
         }
         return false;
     }

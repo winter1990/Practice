@@ -6,7 +6,11 @@ package practice.leetcode.easy;
  * Given a non-empty array of integers, return the third maximum number in this array.
  * If it does not exist, return the maximum number. The time complexity must be in O(n).
  *
+ * Input: [3, 2, 1], Output: 1
+ * Input: [1, 2], Output: 2
+ * Input: [2, 2, 3, 1], Output: 1
  * the third maximum here means the third maximum distinct number
+ *
  * define three Integer as null, m1 > m2 > m3
  *   if m1 null || n > m1, m3 = m2 m2 = m1 m1 = n
  *   else if m2 null || n > m2
